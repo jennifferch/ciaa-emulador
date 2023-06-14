@@ -1,0 +1,41 @@
+{
+  "name": "ciaa-emulador",
+  "version": "1.0",
+  "description": "Emulador de la placa EDU-CIAA-NXP",
+  "preferGlobal": true,
+  "scripts": {
+    "test": "mocha",
+    "test:browser": "live-server --port=9000 --mount=/:ciaa-emulador"
+  },
+  "bin": {
+    "ciaa-emulador": "./cli.js"
+  },
+  "keywords": [
+    "sapi",
+    "emulador"
+  ],
+  "homepage": "https://github.com/jennifferch/emuladorEDU-CIAA#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "command-exists": "^1.2.2",
+    "commander": "^2.15.1",
+    "compression": "^1.7.3",
+    "es6-promisify": "^6.0.0",
+    "express": "^4.16.2",
+    "hbs": "^4.0.1",
+    "jquery": "^3.6.3",
+    "opn": "^5.3.0",
+    "puppeteer": "^1.11.0",
+    "socket.io": "^2.1.0",
+    "timesync": "^1.0.2",
+    "xterm": "^3.3.0"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.1",
+    "mocha": "^9.2.2",
+    "request": "^2.88.2",
+    "should": "^13.2.3"
+  }
+}

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>{{script}} - Ciaa Emulador</title>
+  <link rel="stylesheet" href="/style/ciaa.css">
+  <link rel="stylesheet" href="/xterm/xterm.css" />
+
+</head>
+<body class="viewer">
+  <div class="js-tpl-target__menu_sub"><div class="sitemenu sitemenu--editor sitemenu--editor_submenu breadboard" style="z-index: 2;">
+    <div class="sitemenu__left">
+      <div class="editor_tools">
+        <div class="editor_tools__tool">
+          <a id="DELETE_ID" class="destroy disabled">
+            <div class="sitemenu__svg_block_btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" title="icon trash"><path d="M66,102c-1.1,0-2-0.9-2-2V60c0-1.1,0.9-2,2-2s2,0.9,2,2v40C68,101.1,67.1,102,66,102z"></path><path d="M80,102c-1.1,0-2-0.9-2-2V60c0-1.1,0.9-2,2-2s2,0.9,2,2v40C82,101.1,81.1,102,80,102z"></path><path d="M94,102c-1.1,0-2-0.9-2-2V60c0-1.1,0.9-2,2-2s2,0.9,2,2v40C96,101.1,95.1,102,94,102z"></path><path d="M112,44H94v-2c0-5.52-4.48-10-10-10h-4h-4c-5.52,0-10,4.48-10,10v2H48c-2.21,0-4,1.79-4,4s1.79,4,4,4h64 c2.21,0,4-1.79,4-4S114.21,44,112,44z M70,44v-2c0-3.31,2.69-6,6-6h4h4c3.31,0,6,2.69,6,6v2H70z"></path><path d="M91,116H61c-3.31,0-6-2.69-6-6V60c0-2.21-1.79-4-4-4s-4,1.79-4,4v50c0,7.72,6.28,14,14,14h30c2.21,0,4-1.79,4-4 S93.21,116,91,116z"></path><path d="M68,116h30c3.31,0,6-2.69,6-6V60c0-2.21,1.79-4,4-4s4,1.79,4,4v50c0,7.72-6.28,14-14,14H68c-2.21,0-4-1.79-4-4 S65.79,116,68,116z"></path></svg>
+            </div>
+          </a>
+        </div>
+
+        <div class="editor_tools__tool sitemenu__svg_dropdown js-wire-color-container">
+          <a class="editor__dropdown__button js-analytics" data-event="wire-color" data-value="wire-color" communication="34" style="height: 26px; box-shadow: none;"><div style="display:flex"><div class="editor__dropdown__button__icon"><div style="background-color:#40B942;width:18px;height:18px;min-width:18px;min-height:18px;border-radius:5px;border:1px solid #40B942;"></div></div><div class="editor__dropdown__button__text"><span class="editor__dropdown__button__text--category"></span><span class="editor__dropdown__button__text--item" style="display: none;">green</span></div></div><span class="editor__dropdown__button__downarrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" role="img"><path d="M7.5,5a.5.5,0,0,0-.5.5v5a.5.5,0,0,0,.85.35l2.5-2.5a.5.5,0,0,0,0-.71l-2.5-2.5A.5.5,0,0,0,7.5,5Z"></path></svg></span></a><div class="editor__dropdown__container" style="display: none; padding-top: 0px; padding-bottom: 0px; position: relative; width: 120px; height: 0px;"><ul class="editor__dropdown__list"><li class="editor__dropdown__list__group"><div class="editor__dropdown__list__group__category">WIRE COLOR</div><ul class="editor__dropdown__list__options__list"><li class="editor__dropdown__list__option js-analytics"><a class="editor__dropdown__list__option__value" data-value="black" data-category="WIRE COLOR" data-item="black"><div style="display:flex"><div style="background-color:#3C4042;width:22px;height:22px;min-width:22px;min-height:22px;border-radius:6px;border:1px solid #3C4042;"></div><span style="margin-top: 5px; margin-left: 5px;">black</span></div></a></li><li class="editor__dropdown__list__option js-analytics"><a class="editor__dropdown__list__option__value" data-value="red" data-category="WIRE COLOR" data-item="red"><div style="display:flex"><div style="background-color:#EC2222;width:22px;height:22px;min-width:22px;min-height:22px;border-radius:6px;border:1px solid #EC2222;"></div><span style="margin-top: 5px; margin-left: 5px;">red</span></div></a></li><li class="editor__dropdown__list__option js-analytics"><a class="editor__dropdown__list__option__value" data-value="orange" data-category="WIRE COLOR" data-item="orange"><div style="display:flex"><div style="background-color:#F78300;width:22px;height:22px;min-width:22px;min-height:22px;border-radius:6px;border:1px solid #F78300;"></div><span style="margin-top: 5px; margin-left: 5px;">orange</span></div></a></li><li class="editor__dropdown__list__option js-analytics"><a class="editor__dropdown__list__option__value" data-value="yellow" data-category="WIRE COLOR" data-item="yellow"><div style="display:flex"><div style="background-color:#FFDF01;width:22px;height:22px;min-width:22px;min-height:22px;border-radius:6px;border:1px solid #FFDF01;"></div><span style="margin-top: 5px; margin-left: 5px;">yellow</span></div></a></li><li class="editor__dropdown__list__option js-analytics" data-selected="true"><a class="editor__dropdown__list__option__value" data-value="green" data-category="WIRE COLOR" data-item="green"><div style="display:flex"><div style="background-color:#40B942;width:22px;height:22px;min-width:22px;min-height:22px;border-radius:6px;border:1px solid #40B942;"></div><span style="margin-top: 5px; margin-left: 5px;">green</span></div></a></li><li class="editor__dropdown__list__option js-analytics"><a class="editor__dropdown__list__option__value" data-value="turquoise" data-category="WIRE COLOR" data-item="turquoise"><div style="display:flex"><div style="background-color:#71cedc;width:22px;height:22px;min-width:22px;min-height:22px;border-radius:6px;border:1px solid #71cedc;"></div><span style="margin-top: 5px; margin-left: 5px;">turquoise</span></div></a></li><li class="editor__dropdown__list__option js-analytics"><a class="editor__dropdown__list__option__value" data-value="blue" data-category="WIRE COLOR" data-item="blue"><div style="display:flex"><div style="background-color:#009ed9;width:22px;height:22px;min-width:22px;min-height:22px;border-radius:6px;border:1px solid #009ed9;"></div><span style="margin-top: 5px; margin-left: 5px;">blue</span></div></a></li><li class="editor__dropdown__list__option js-analytics"><a class="editor__dropdown__list__option__value" data-value="purple" data-category="WIRE COLOR" data-item="purple"><div style="display:flex"><div style="background-color:#7f3b9a;width:22px;height:22px;min-width:22px;min-height:22px;border-radius:6px;border:1px solid #7f3b9a;"></div><span style="margin-top: 5px; margin-left: 5px;">purple</span></div></a></li><li class="editor__dropdown__list__option js-analytics"><a class="editor__dropdown__list__option__value" data-value="pink" data-category="WIRE COLOR" data-item="pink"><div style="display:flex"><div style="background-color:#d9288c;width:22px;height:22px;min-width:22px;min-height:22px;border-radius:6px;border:1px solid #d9288c;"></div><span style="margin-top: 5px; margin-left: 5px;">pink</span></div></a></li><li class="editor__dropdown__list__option js-analytics"><a class="editor__dropdown__list__option__value" data-value="brown" data-category="WIRE COLOR" data-item="brown"><div style="display:flex"><div style="background-color:#aa7b4c;width:22px;height:22px;min-width:22px;min-height:22px;border-radius:6px;border:1px solid #aa7b4c;"></div><span style="margin-top: 5px; margin-left: 5px;">brown</span></div></a></li><li class="editor__dropdown__list__option js-analytics"><a class="editor__dropdown__list__option__value" data-value="grey" data-category="WIRE COLOR" data-item="grey"><div style="display:flex"><div style="background-color:#999ea1;width:22px;height:22px;min-width:22px;min-height:22px;border-radius:6px;border:1px solid #999ea1;"></div><span style="margin-top: 5px; margin-left: 5px;">grey</span></div></a></li><li class="editor__dropdown__list__option js-analytics"><a class="editor__dropdown__list__option__value" data-value="white" data-category="WIRE COLOR" data-item="white"><div style="display:flex"><div style="background-color:#ffffff;width:22px;height:22px;min-width:22px;min-height:22px;border-radius:6px;border:1px solid #dfe3e8;"></div><span style="margin-top: 5px; margin-left: 5px;">white</span></div></a></li></ul></li></ul></div></div>
+          <div class="editor_tools__tool sitemenu__svg_dropdown sitemenu__borderright js-wire-type-container">
+          <a class="editor__dropdown__button js-analytics" data-event="wire-type" data-value="wire-type" communication="33" style="height: 26px; box-shadow: none; margin-left: 0px;"><div style="display:flex"><div class="editor__dropdown__button__icon" style="position: relative; top: -6px; left: -2px; fill: rgb(64, 185, 66);"><div style="width:30px;height:30px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><g class="border" style="display:none;stroke:#dfe3e8;stroke-width:3px"><path d="M26,15.5H22.5v-3H26a1,1,0,0,1,1,1v1A1,1,0,0,1,26,15.5Z"></path><rect x="3" y="12" width="18" height="4"></rect></g><path d="M26,15.5H22.5v-3H26a1,1,0,0,1,1,1v1A1,1,0,0,1,26,15.5Z"></path><rect x="3" y="12" width="18" height="4"></rect></svg></div></div><div class="editor__dropdown__button__text"><span class="editor__dropdown__button__text--category"></span><span class="editor__dropdown__button__text--item" style="display: none;">normal</span></div></div><span class="editor__dropdown__button__downarrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" role="img"><path d="M7.5,5a.5.5,0,0,0-.5.5v5a.5.5,0,0,0,.85.35l2.5-2.5a.5.5,0,0,0,0-.71l-2.5-2.5A.5.5,0,0,0,7.5,5Z"></path></svg></span></a><div class="editor__dropdown__container" style="display: none; padding-top: 0px; padding-bottom: 0px; position: relative; width: 120px; height: 0px;"><ul class="editor__dropdown__list"><li class="editor__dropdown__list__group"><div class="editor__dropdown__list__group__category">WIRE TYPE</div><ul class="editor__dropdown__list__options__list"><li class="editor__dropdown__list__option js-analytics" data-selected="true"><a class="editor__dropdown__list__option__value" data-value="0" data-category="WIRE TYPE" data-item="normal"><div style="display:flex"><div style="width:30px;height:30px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><g class="border" style="display:none;stroke:#dfe3e8;stroke-width:3px"><path d="M26,15.5H22.5v-3H26a1,1,0,0,1,1,1v1A1,1,0,0,1,26,15.5Z"></path><rect x="3" y="12" width="18" height="4"></rect></g><path d="M26,15.5H22.5v-3H26a1,1,0,0,1,1,1v1A1,1,0,0,1,26,15.5Z"></path><rect x="3" y="12" width="18" height="4"></rect></svg></div><span style="margin-top: 9px; margin-left: 5px;">normal</span></div></a></li><li class="editor__dropdown__list__option js-analytics"><a class="editor__dropdown__list__option__value" data-value="3" data-category="WIRE TYPE" data-item="hookup"><div style="display:flex"><div style="width:30px;height:30px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><g class="border" style="display:none;stroke:#dfe3e8;stroke-width:3px"><path d="M3,9H14a1,1,0,0,1,1,1V20a1,1,0,0,1-1,1H3a0,0,0,0,1,0,0V9A0,0,0,0,1,3,9Z"></path><path d="M16.5,13.5H26a1,1,0,0,1,1,1v1a1,1,0,0,1-1,1H16.5a0,0,0,0,1,0,0v-3A0,0,0,0,1,16.5,13.5Z"></path></g><path d="M3,9H14a1,1,0,0,1,1,1V20a1,1,0,0,1-1,1H3a0,0,0,0,1,0,0V9A0,0,0,0,1,3,9Z"></path><path d="M16.5,13.5H26a1,1,0,0,1,1,1v1a1,1,0,0,1-1,1H16.5a0,0,0,0,1,0,0v-3A0,0,0,0,1,16.5,13.5Z"></path></svg></div><span style="margin-top: 9px; margin-left: 5px;">hookup</span></div></a></li><li class="editor__dropdown__list__option js-analytics"><a class="editor__dropdown__list__option__value" data-value="2" data-category="WIRE TYPE" data-item="alligator"><div style="display:flex"><div style="width:30px;height:30px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><g class="border" style="display:none;stroke:#dfe3e8;stroke-width:3px"><path d="M3.5,24.5l5.13-1.4A.5.5,0,0,0,9,22.62V7.88a.5.5,0,0,0-.37-.48L3.5,6Z"></path><path d="M24.14,11.56,10.5,8.5v6.86l3.64-2a.76.76,0,0,1,.76,0l3.62,2.27,4.12-2.29a.76.76,0,0,1,.76,0L27,15.58A3.68,3.68,0,0,0,27,15,3.51,3.51,0,0,0,24.14,11.56Z"></path><path d="M18.86,17.16a.76.76,0,0,1-.76,0l-3.62-2.27-4,2.21V21.5l13.64-3.06A3.47,3.47,0,0,0,26.36,17L23,14.87Z"></path></g><path d="M3.5,24.5l5.13-1.4A.5.5,0,0,0,9,22.62V7.88a.5.5,0,0,0-.37-.48L3.5,6Z"></path><path d="M24.14,11.56,10.5,8.5v6.86l3.64-2a.76.76,0,0,1,.76,0l3.62,2.27,4.12-2.29a.76.76,0,0,1,.76,0L27,15.58A3.68,3.68,0,0,0,27,15,3.51,3.51,0,0,0,24.14,11.56Z"></path><path d="M18.86,17.16a.76.76,0,0,1-.76,0l-3.62-2.27-4,2.21V21.5l13.64-3.06A3.47,3.47,0,0,0,26.36,17L23,14.87Z"></path></svg></div><span style="margin-top: 9px; margin-left: 5px;">alligator</span></div></a></li><li class="editor__dropdown__list__option js-analytics"><a class="editor__dropdown__list__option__value" data-value="1" data-category="WIRE TYPE" data-item="automatic"><div style="display:flex"><div style="width:30px;height:30px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><g class="border" style="display:none;stroke:#dfe3e8;stroke-width:3px"><polygon points="8 25 10 11.5 13.5 13.5 15.5 4.5 22.5 8.5 15.5 19.5 13 18 8 25"></polygon></g><polygon points="8 25 10 11.5 13.5 13.5 15.5 4.5 22.5 8.5 15.5 19.5 13 18 8 25"></polygon></svg></div><span style="margin-top: 9px; margin-left: 5px;">automatic</span></div></a></li></ul></li></ul></div></div>
+     
+          <div class="editor_tools__tool">
+            <a id="refresh" href="">&#x21bb;</a>
+            <div id="status"></div>
+          </div>
+     
+        </div>
+        
+    </div>
+  </div>
+
+
+  <section id="board">
+      <section id="components">
+          <object id="board-svg" data="/img/EDU-CIAA-NXP.svg" type="image/svg+xml"></object>
+
+          <div id="sidebar" class="editor__sidebar">
+            <div  class="editor__component_content">
+                <div class="editor__component_items grid grid--full grid--middle grid_view">
+                   <div id="ledRed" class="editor__component_item grid__item">
+                       <div class="editor__component_item__img">
+                          <img src="/img/led_red.png"></div>
+                       <div class="editor__component_item__grid">
+                           <div class="editor__component_item__grid__title">LED ROJO</div>
+                           <div class="editor__component_item__tags">Diodo de luz roja</div>
+                       </div>
+                   </div>
+                   <div id="ledBlue" class="editor__component_item grid__item">
+                         <div class="editor__component_item__img">
+                            <img src="/img/led_blue.png"></div>
+                         <div class="editor__component_item__grid">
+                           <div class="editor__component_item__grid__title">LED AZUL</div>
+                           <div class="editor__component_item__tags">Diodo de luz azul</div>
+                         </div>
+                   </div>
+                   <div id="ledWhite" class="editor__component_item grid__item">
+                        <div class="editor__component_item__img">
+                          <img src="/img/led_white.png"></div>
+                        <div class="editor__component_item__grid">
+                          <div class="editor__component_item__grid__title">LED BLANCO</div>
+                          <div class="editor__component_item__tags">Diodo de luz blanca</div>
+                        </div>
+                   </div>
+                   <div id="ledYellow" class="editor__component_item grid__item">
+                        <div class="editor__component_item__img">
+                          <img src="/img/led_yellow.png"></div>
+                        <div class="editor__component_item__grid">
+                          <div class="editor__component_item__grid__title">LED AMARILLO</div>
+                          <div class="editor__component_item__tags">Diodo de luz amarilla</div>
+                        </div>
+                   </div>
+                   <div id="dht11" class="editor__component_item grid__item">
+                        <div class="editor__component_item__img">
+                          <img src="/img/Dht11.png"></div>
+                        <div class="editor__component_item__grid">
+                          <div class="editor__component_item__grid__title">DHT11</div>
+                          <div class="editor__component_item__tags">Sensor de temperatura y humedad</div>
+                        </div>
+                   </div>
+                   <div id="motorServo" class="editor__component_item grid__item">
+                        <div class="editor__component_item__img">
+                          <img src="/img/motorServo.png"></div>
+                        <div class="editor__component_item__grid">
+                          <div class="editor__component_item__grid__title">SERVO MOTOR</div>
+                          <div class="editor__component_item__tags">Servo Motor</div>
+                        </div>
+                   </div>
+                </div>
+            </div>
+            <div id="collapseButton" class="editor__sidebar__collapseButton"></div>
+         </div>
+          
+      </section>
+  </section>
+
+  <section id="serial">
+      <div id="output"></div>
+  </section>
+
+  <section id="overlay">
+    <div id="add-component-modal">
+      <h2 id="component"></h2>
+      <div>
+        <div id="pins"></div>
+      </div>
+      <button id="add-component-btn"  style="float:right; font-weight:bold;">Agregar</button>
+    </div>
+  </section>
+
+  <script>
+    window.peripheralsToLoad = {{{peripherals}}};
+  </script>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/timesync/timesync.js"></script>
+  <script src="/xterm/xterm.js"></script>
+
+  <!-- JS HAL -->
+  <script type="text/javascript" src="/js-ui/ga.js"></script>
+  <script type="text/javascript" src="/js-ui/init.js"></script>
+  <script type="text/javascript" src="/js-hal/EventEmitter.js"></script>
+  <script type="text/javascript" src="/js-hal/sapi_peripheral_map.js"></script>
+  <script type="text/javascript" src="/js-hal/sapi_gpio.js"></script>
+  <script type="text/javascript" src="/js-hal/sapi_timer.js"></script>
+  <script type="text/javascript" src="/js-hal/sapi_sleep.js"></script>
+  <script type="text/javascript" src="/js-hal/sapi_rtc.js"></script>
+  <script type="text/javascript" src="/js-hal/lcd.js"></script>
+  <script type="text/javascript" src="/js-hal/sapi_dht11.js"></script>
+
+   <!-- JS UI -->
+  <script type="text/javascript" src="/js-ui/board.js"></script>
+  <script type="text/javascript" src="/js-ui/components/base_component.js"></script>
+  <script type="text/javascript" src="/js-ui/components/led.js"></script>
+
+  <script type="text/javascript" src="/js-ui/components/lcd.js"></script>
+  <script type="text/javascript" src="/js-ui/components/dht11.js"></script>
+
+  <script type="text/javascript" src="/js-ui/viewer.js"></script>
+  <script type="text/javascript" src="/js-ui/sidebar.js"></script>
+  <script type="text/javascript" src="/js-ui/peripheral.js"></script>
+
+  <!-- Aplicacion de usuario -->
+  <script async type="text/javascript" src="/outUser/{{script}}.js"></script>
+</body>
+</html>
