@@ -36,9 +36,8 @@
 /*==================[inclusions]=============================================*/
 
 #include "sapi_delay.h"
-#include "sapi_tick.h"
-#include "delay_api.h"
 #include <math.h>
+#include "../test/wrapper/sapi_delay_wrapper.h"
 
 /*==================[macros and definitions]=================================*/
 
@@ -63,6 +62,7 @@ void delayInaccurateMs(tick_t delay_ms){
    volatile tick_t delay;
    delay = INACCURATE_TO_MS * delay_ms;
    for( i=delay; i>0; i-- );
+   retard_ms((int)delay_ms);
 }
 
 void delayInaccurateUs( tick_t delay_us ){
@@ -70,12 +70,14 @@ void delayInaccurateUs( tick_t delay_us ){
    volatile tick_t delay;
    delay = (INACCURATE_TO_US_x10 * delay_us) / 10;
    for( i=delay; i>0; i-- );
+   duration_us((int)delay_us);
 }
 
 void delayInaccurateNs( tick_t delay_ns ){
    volatile tick_t i;
    volatile float delayF = (float)delay_ns / INACCURATE_MIN_NS;
    for( i=(tick_t)round(delayF); i>0; i-- );
+   duration_ns((int)delay_ns);
 }
 
 /* ---- Blocking Delay ---- */
@@ -85,7 +87,7 @@ void delayInaccurateNs( tick_t delay_ns ){
 void delay( tick_t duration_ms ){
    /*tick_t startTime = tickRead();
    while ( (tick_t)(tickRead() - startTime) < duration_ms/tickRateMS );*/
-   delay_ms(duration_ms);
+   retard_ms((int)duration_ms);
 }
 
 

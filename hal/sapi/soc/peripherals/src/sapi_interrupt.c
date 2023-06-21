@@ -41,7 +41,7 @@
 
 #include "callback/CallbackInterface.h"
 /*==================[macros and definitions]=================================*/
-#define INTERRUP_IRQ_INST_NUM  50   
+#define INTERRUP_IRQ_INST_NUM  100000   
 /*==================[internal data declaration]==============================*/
 
 /*==================[internal functions declaration]=========================*/

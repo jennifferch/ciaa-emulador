@@ -38,9 +38,6 @@
 /*==================[inclusions]=============================================*/
 
 #include "base/sapi_datatypes.h"
-#include "delay_api.h"
-
-
 
 /*==================[c++]====================================================*/
 #ifdef __cplusplus
@@ -57,15 +54,6 @@ extern "C" {
 #define delayConfig delayInit
 
 /*==================[typedef]================================================*/
-
-typedef uint64_t tick_t;
-typedef uint8_t bool_t;
-
-typedef struct{
-   tick_t startTime;
-   tick_t duration;
-   bool_t running;
-} delay_t;
 
 
 /*==================[external functions declaration]=========================*/

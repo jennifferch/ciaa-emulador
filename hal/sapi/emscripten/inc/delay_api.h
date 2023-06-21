@@ -45,8 +45,9 @@ extern "C" {
 #endif
 
 void wait(float s);
-void delay_ms(int ms);
-void delay_us(int us);
+void retard_ms(int ms);
+void duration_us(int us);
+void duration_ns(int ns);
 /*==================[c++]====================================================*/
 #ifdef __cplusplus
 }

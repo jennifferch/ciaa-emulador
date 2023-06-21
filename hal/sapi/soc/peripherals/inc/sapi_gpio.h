@@ -35,8 +35,9 @@
 #define _SAPI_GPIO_H_
 
 /*==================[inclusions]=============================================*/
-#include "gpio_api.h"
 #include "sapi_datatypes.h"
+#include "sapi_peripheral_map.h"
+
 /*==================[c++]====================================================*/
 #ifdef __cplusplus
 extern "C" {
@@ -75,8 +76,6 @@ typedef struct {
     gpioMap_t pinAnt;
     int32_t index;
 } config_t;
-
-typedef uint8_t bool_t;
 
 /*==================[external functions declaration]=========================*/
 bool_t gpioInit( gpioMap_t pin, gpioInit_t config );

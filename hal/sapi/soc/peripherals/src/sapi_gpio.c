@@ -36,10 +36,10 @@
 /*==================[inclusions]=============================================*/
 
 #include "sapi_gpio.h"
-#include "gpio_interrupt_api.h"
-#include "sapi_interrupt.h"
+#include "../test/wrapper/sapi_gpio_wrapper.h"
+
 /*==================[macros and definitions]=================================*/
-#define GPIO_INST_NUM  50   
+#define GPIO_INST_NUM  100000  
 /*==================[internal data declaration]==============================*/
 
 /*==================[internal functions declaration]=========================*/

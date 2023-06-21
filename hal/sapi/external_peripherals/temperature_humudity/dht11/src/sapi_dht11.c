@@ -35,6 +35,7 @@
 /* Date: 2017-11-13 */
 
 #include "sapi_dht11.h"
+#include "../test/wrapper/sapi_dht11_wrapper.h"
 /*==================[c++]====================================================*/
 
 void dht11Init(int32_t gpio){

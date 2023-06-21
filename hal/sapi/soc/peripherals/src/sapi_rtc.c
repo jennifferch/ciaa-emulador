@@ -37,9 +37,9 @@
 /*==================[inclusions]=============================================*/
 
 #include "sapi_rtc.h"
-#include "sapi_delay.h"
-
 #include <time.h>
+#include "../test/wrapper/sapi_rtc_wrapper.h"
+
 /*==================[macros and definitions]=================================*/
 #define LPC_RTC        
 /*==================[internal data declaration]==============================*/

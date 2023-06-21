@@ -132,7 +132,7 @@ static struct equeue_event *equeue_mem_alloc(equeue_t *q, size_t size) {
     // no idea why, maybe something with blocks not actually allocated until we yield back
     // however... only after dispatch was called the first time, not before, otherwise it hangs.
     if (q->dispatch_called) {
-        delay_ms(10);
+        retard_ms(10);
     }
 
     // add event overhead
@@ -488,7 +488,7 @@ void equeue_dispatch(equeue_t *q, int ms) {
 
 
         // yield back to browser in between to process events
-        delay_ms(20);
+        retard_ms(20);
 
     }
 }

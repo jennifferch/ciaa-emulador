@@ -37,9 +37,8 @@
 
 /*==================[inclusions]=============================================*/
 
-#include "peripherals/inc/sapi_delay.h"
-#include "base/sapi_datatypes.h"
-#include "board/sapi_peripheral_map.h"
+#include "sapi_delay.h"
+#include "sapi_peripheral_map.h"
 
 /*==================[c++]====================================================*/
 #ifdef __cplusplus

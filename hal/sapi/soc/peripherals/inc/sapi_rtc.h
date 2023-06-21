@@ -40,7 +40,6 @@
 
 #include "base/sapi_datatypes.h"
 #include "board/sapi_peripheral_map.h"
-#include "rtc_api.h"
 
 /*==================[c++]====================================================*/
 #ifdef __cplusplus

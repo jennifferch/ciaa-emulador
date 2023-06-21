@@ -50,7 +50,7 @@ extern "C" {
 /*==================[macros and definitions]=================================*/
 
 #define pwmConfig pwmInit
-#define PWM_INST_NUM      50
+#define PWM_INST_NUM      100000
 
 /*==================[typedef]================================================*/
 typedef enum{

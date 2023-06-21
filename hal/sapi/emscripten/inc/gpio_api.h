@@ -35,33 +35,12 @@
 #ifndef _SAPI_GPIO_API_H
 #define _SAPI_GPIO_API_H
 
-#include "gpio_api.h"
 #include "sapi_peripheral_map.h"
-
-#ifndef __IO
-#define __IO volatile
-#endif
-#ifndef __I
-#define __I  volatile const
-#endif
-#ifndef __O
-#define __O  volatile
-#endif
 
 /*==================[c]====================================================*/
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-typedef struct {
-    gpioMap_t  pin;
-    uint32_t mask;
-
-    __IO uint32_t *reg_dir;
-    __IO uint32_t *reg_set;
-    __IO uint32_t *reg_clr;
-    __I  uint32_t *reg_in;
-} gpio_t;
 
 uint32_t gpio_set(gpioMap_t pin);
 void gpio_init(gpio_t *obj, gpioMap_t pin);
@@ -77,23 +56,6 @@ void gpio_write(gpio_t *obj, int value);
 int gpio_read(gpio_t *obj);
 int gpio_is_connected(const gpio_t *obj);
 
-/*
-static inline void gpio_write(gpio_t *obj, int value) {
-    EM_ASM_({
-        JSHal.gpio.write($0, $1);
-    }, obj->pin, value);
-}
-
-static inline int gpio_read(gpio_t *obj) {
-    return EM_ASM_INT({
-        return JSHal.gpio.read($0);
-    }, obj->pin);
-}
-
-static inline int gpio_is_connected(const gpio_t *obj) {
-    return 1;
-}
-*/
 /*==================[c++]====================================================*/
 #ifdef __cplusplus
 }

@@ -293,6 +293,40 @@ typedef enum {
     PIN_OUTPUT
 } PinDirection;
 
+#ifndef __IO
+#define __IO volatile
+#endif
+#ifndef __I
+#define __I  volatile const
+#endif
+#ifndef __O
+#define __O  volatile
+#endif
 
+typedef struct {
+    gpioMap_t  pin;
+    uint32_t mask;
+
+    __IO uint32_t *reg_dir;
+    __IO uint32_t *reg_set;
+    __IO uint32_t *reg_clr;
+    __I  uint32_t *reg_in;
+} gpio_t;
+
+/** GPIO IRQ events
+ */
+typedef enum {
+    IRQ_NONE,
+    IRQ_RISE,
+    IRQ_FALL
+} gpio_irq_event;
+
+struct gpio_irq_s {
+    uint32_t port;
+    uint32_t pin;
+    uint32_t id;
+};
+
+typedef struct gpio_irq_s gpio_irq_t;
 /*==================[end of file]============================================*/
 #endif /* _SAPI_PERIPHERALMAP_H_ */

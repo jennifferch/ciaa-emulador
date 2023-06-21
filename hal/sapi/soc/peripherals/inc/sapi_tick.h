@@ -37,9 +37,7 @@
 
 /*==================[inclusions]=============================================*/
 
-#include "base/sapi_datatypes.h"
-#include "equeue/equeue.h"
-#include "board/sapi_peripheral_map.h"
+#include "sapi_peripheral_map.h"
 
 /*==================[c++]====================================================*/
 #ifdef __cplusplus

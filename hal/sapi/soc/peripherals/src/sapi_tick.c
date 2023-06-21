@@ -38,11 +38,7 @@
 /*==================[inclusions]=============================================*/
 
 #include "sapi_tick.h"
-#include "sapi_uart.h"
-
-#include "tick_api.h"
-
-#include "sapi_interrupt.h"
+#include "../test/wrapper/sapi_tick_wrapper.h"
 
 #ifdef TICK_OVER_RTOS
    #ifdef USE_FREERTOS
@@ -63,6 +59,7 @@
 
 /*==================[internal data declaration]==============================*/
 struct equeue _equeueTick;
+static bool_t FREERTOS  = FALSE;
 /*==================[internal functions declaration]=========================*/
 
 /*==================[internal data definition]===============================*/
@@ -116,8 +113,10 @@ bool_t tickInit( tick_t tickRateMSvalue )
           //  ret_val = 0;
        //  }
         if( tickRateMSvalue == 1 ) {
-           tickRateMS = 2;
-        } 
+           FREERTOS = TRUE;
+        } else{
+           FREERTOS = FALSE;
+        }
           
       }
       return ret_val;
@@ -180,7 +179,6 @@ tick_t tickRead( void ){
    #ifdef USE_FREERTOS
       return xTaskGetTickCount();
    #else
-      //return tickCounter;
       return tickCounter++;
    #endif
 }
@@ -216,12 +214,12 @@ bool_t tickCallbackSet( callBackFuncPtr_t tickCallback, void* tickCallbackParams
       int id =  equeue_call_every(&_equeueTick, EQUEUE_CALL_EVERY_TICK_UPDATE, tickCallback, &tickCallbackParams);
     
 
-      if( tickRateMS == 2 ) {
-       //  interruptin_fall(&tickCallback);
-       //  interruptin_rise(&tickCallback);
+      if(FREERTOS) {
+         //  interruptin_fall(&tickCallback);
+         //  interruptin_rise(&tickCallback);
          equeue_dispatch(&_equeueTick, -1);
       }else{
-           equeue_dispatch(&_equeueTick, EQUEUE_DISPATCH_TICK);
+         equeue_dispatch(&_equeueTick, EQUEUE_DISPATCH_TICK);
       }
       return retVal;
    #endif

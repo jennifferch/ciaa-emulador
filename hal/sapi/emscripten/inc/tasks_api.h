@@ -36,7 +36,9 @@ extern "C" {
 #endif
 
  void xStartTickCount();
+
  int getTickCount();
+ 
  void setTaskDelayUntil(int pxPreviousWakeTime, int xTimeIncrement);
 
 #ifdef __cplusplus

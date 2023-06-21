@@ -31,8 +31,8 @@
  */
 
 /* Date: 2015-09-23 */
-#ifndef MBED_GPIO_IRQ_API_H
-#define MBED_GPIO_IRQ_API_H
+#ifndef SAPI_GPIO_IRQ_API_H
+#define SAPI_GPIO_IRQ_API_H
 
 #include <stdint.h>
 #include <string.h>  
@@ -42,25 +42,7 @@
 extern "C" {
 #endif
 
-/** GPIO IRQ events
- */
-typedef enum {
-    IRQ_NONE,
-    IRQ_RISE,
-    IRQ_FALL
-} gpio_irq_event;
-
-struct gpio_irq_s {
-    uint32_t port;
-    uint32_t pin;
-    uint32_t id;
-};
-
-
-typedef struct gpio_irq_s gpio_irq_t;
-
 typedef void (*gpio_irq_handler)(uint32_t id, gpio_irq_event event);
-
 
 int gpio_interrupt_init(gpio_irq_t *obj, gpioMap_t pin, gpio_irq_handler handler, uint32_t id);
 

@@ -20,6 +20,7 @@
 // Useful C libraries
 #include <math.h>
 #include <time.h>
+#include <stdio.h> 
 
 // ciaa libraries
 #include "sapi_datatypes.h"

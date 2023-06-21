@@ -1233,7 +1233,7 @@ static void prvAddNewTaskToReadyList( TCB_t *pxNewTCB )
 	   // printf( "Blinky con jennnnyyyyyyyyyy.\r\n" );
 		//setTaskDelayUntil(500, 10);
 
-		delay_ms(pxPreviousWakeTime);
+		retard_ms(pxPreviousWakeTime);
 	}
 
 #endif /* INCLUDE_vTaskDelayUntil */
@@ -1280,7 +1280,7 @@ static void prvAddNewTaskToReadyList( TCB_t *pxNewTCB )
 			mtCOVERAGE_TEST_MARKER();
 		}
 
-		delay_ms(xTicksToDelay);
+		retard_ms(xTicksToDelay);
 	}
 
 #endif /* INCLUDE_vTaskDelay */

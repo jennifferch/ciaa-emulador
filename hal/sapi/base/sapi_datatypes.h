@@ -37,7 +37,7 @@
 
 #include <inttypes.h>
 
-
+#include <stddef.h>
 /*==================[macros]=================================================*/
 
 /* Functional states */
@@ -116,6 +116,12 @@ typedef void (*callBackFuncPtr_t)(void *);
  * return: bool_t - Return always true
  */
 bool_t sAPI_NullFuncPtr(void *);
+
+typedef struct{
+   tick_t startTime;
+   tick_t duration;
+   bool_t running;
+} delay_t;
 
 /*==================[end of file]============================================*/
 #endif /* _SAPI_DATATYPES_H_ */

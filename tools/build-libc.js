@@ -9,6 +9,8 @@ const promisify = require('es6-promisify').promisify;
 
 const outFolder = Path.join(__dirname, '..', 'hal');
 const outFile = Path.resolve(Path.join(outFolder, 'libc.bc')); 
+const ignoreFile = Path.join(outFolder, '.ignore');
+
 
 let libc = {
     getAllDirectories: async function() {
@@ -18,7 +20,9 @@ let libc = {
             return JSON.parse(await promisify(fs.readFile)(cacheFile), 'utf-8');
         }
 
-        let dirs = await getAllDirectories(outFolder);
+        let dirs = await ignoreAndFilter(await getAllDirectories(outFolder), ignoreFile);
+
+
         dirs = dirs.sort((a, b) => b.length - a.length);
 
         let dirsToRemove = []; 
@@ -44,7 +48,7 @@ let libc = {
             return JSON.parse(await promisify(fs.readFile)(cacheFile), 'utf-8');
         }
 
-        let dirs = await getAllCFiles(outFolder);
+        let dirs = await ignoreAndFilter(await getAllCFiles(outFolder), ignoreFile);
         await promisify(fs.writeFile)(cacheFile, JSON.stringify(dirs), 'utf-8');
         return dirs;
     },

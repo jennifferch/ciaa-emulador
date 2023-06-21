@@ -36,10 +36,9 @@
 #ifndef _SAPI_DHT11_H_
 #define _SAPI_DHT11_H_
 
-#include "dht11_api.h"
+#include "sapi_datatypes.h"
+#include "sapi_peripheral_map.h"
 
-#include "base/sapi_datatypes.h"
-#include "board/sapi_peripheral_map.h"
 /*==================[c]====================================================*/
 #ifdef __cplusplus
 extern "C" {
