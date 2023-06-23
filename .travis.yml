@@ -1,3 +1,13 @@
+before_install:
+  - git clone https://git.cryptomilk.org/projects/cmocka.git
+  - cd cmocka
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make
+  - sudo make install
+  - cd ../..
+
 script:
   - gcc -DTEST_BUILD -o hal/ciaa_tests_dht11 hal/test/check_sapi_dht11.c hal/sapi/external_peripherals/temperature_humudity/dht11/src/sapi_dht11.c hal/test/mock/dht11_api_mock.c -I. -I./hal/sapi -I./hal/test/mock -Ihal/sapi/base -Ihal/sapi/board  -Ihal/sapi/external_peripherals/temperature_humudity/dht11/inc -lcheck -lcmocka -lrt -pthread -lm -lsubunit
   - gcc -DTEST_BUILD  -o hal/ciaa_tests_gpio hal/test/check_sapi_gpio.c hal/sapi/soc/peripherals/src/sapi_gpio.c hal/test/mock/gpio_api_mock.c hal/test/mock/sapi_interrupt_mock.c -I. -I./hal/sapi -I./hal/test/mock -Ihal/sapi/base -Ihal/sapi/board  -Ihal/sapi/soc/peripherals/inc -lcheck -lcmocka -lrt -pthread -lm -lsubunit
@@ -5,3 +15,4 @@ script:
   - gcc -DTEST_BUILD  -o hal/ciaa_tests_delay hal/test/check_sapi_delay.c hal/sapi/soc/peripherals/src/sapi_delay.c hal/test/mock/delay_api_mock.c hal/test/mock/sapi_tick_mock.c -I. -I./hal/sapi -I./hal/test/mock -Ihal/sapi/base -Ihal/sapi/board  -Ihal/sapi/soc/peripherals/inc -lcheck -lcmocka -lrt -pthread -lm -lsubunit
   - gcc -DTEST_BUILD -include /dev/null -o hal/ciaa_tests_tick hal/test/check_sapi_tick.c hal/sapi/soc/peripherals/src/sapi_tick.c hal/test/mock/tick_api_mock.c hal/test/mock/sapi_uart_mock.c hal/test/mock/equeue_mock.c -I. -I./hal/sapi -I./hal/test/mock -Ihal/sapi/base -Ihal/sapi/board -Ihal/sapi/soc/peripherals/inc -lcheck -lcmocka -lrt -pthread -lm -lsubunit
   - gcc -DTEST_BUILD  -o hal/ciaa_tests_tasks hal/test/check_tasks_api.c hal/test/mock/tasks_api_mock.c -Ihal/sapi/base  -Ihal/sapi/board  -I./hal/test/mock -lcheck -lcmocka -lrt -pthread -lm -lsubunit
+
