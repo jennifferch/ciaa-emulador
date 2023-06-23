@@ -117,7 +117,7 @@ END_TEST
 static void test_delayRead() {
     // Variable de entrada para la funcion delayRead
     delay_t refreshButton;
-    uint64_t tick_set_result = 1000;
+    uint64_t tick_set_result = 500;
 
     // Configurar el comportamiento esperado del mock  delay_read
     tickRead_set_result(tick_set_result);  // Éxito en la lectura
@@ -126,7 +126,7 @@ static void test_delayRead() {
     bool_t result = delayRead(&refreshButton);
 
     // Verificar que la función delay_read devuelve verdadero
-    assert_false(result);
+    assert_true(result);
 
     // Restaurar el comportamiento original del mock delay_read
     tickRead_set_result(0);  // Error en la lectura
