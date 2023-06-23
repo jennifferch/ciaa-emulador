@@ -16,3 +16,6 @@ script:
   - gcc -DTEST_BUILD -include /dev/null -o hal/ciaa_tests_tick hal/test/check_sapi_tick.c hal/sapi/soc/peripherals/src/sapi_tick.c hal/test/mock/tick_api_mock.c hal/test/mock/sapi_uart_mock.c hal/test/mock/equeue_mock.c -I. -I./hal/sapi -I./hal/test/mock -Ihal/sapi/base -Ihal/sapi/board -Ihal/sapi/soc/peripherals/inc -lcheck -lcmocka -lrt -pthread -lm -lsubunit
   - gcc -DTEST_BUILD  -o hal/ciaa_tests_tasks hal/test/check_tasks_api.c hal/test/mock/tasks_api_mock.c -Ihal/sapi/base  -Ihal/sapi/board  -I./hal/test/mock -lcheck -lcmocka -lrt -pthread -lm -lsubunit
 
+before_script:
+  - sudo apt-get update
+  - sudo apt-get install -y check
