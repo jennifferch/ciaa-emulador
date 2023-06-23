@@ -10,6 +10,7 @@ before_install:
 
 script:
   - gcc -DTEST_BUILD -o hal/ciaa_tests_dht11 hal/test/check_sapi_dht11.c hal/sapi/external_peripherals/temperature_humudity/dht11/src/sapi_dht11.c hal/test/mock/dht11_api_mock.c -I. -I./hal/sapi -I./hal/test/mock -Ihal/sapi/base -Ihal/sapi/board  -Ihal/sapi/external_peripherals/temperature_humudity/dht11/inc -lcheck -lcmocka -lrt -pthread -lm -lsubunit
+  - ./hal/ciaa_tests_dht11
   - gcc -DTEST_BUILD -o hal/ciaa_tests_gpio hal/test/check_sapi_gpio.c hal/sapi/soc/peripherals/src/sapi_gpio.c hal/test/mock/gpio_api_mock.c hal/test/mock/sapi_interrupt_mock.c -I. -I./hal/sapi -I./hal/test/mock -Ihal/sapi/base -Ihal/sapi/board  -Ihal/sapi/soc/peripherals/inc -lcheck -lcmocka -lrt -pthread -lm -lsubunit
   - gcc -DTEST_BUILD -o hal/ciaa_tests_rtc hal/test/check_sapi_rtc.c hal/sapi/soc/peripherals/src/sapi_rtc.c hal/test/mock/rtc_api_mock.c hal/test/mock/sapi_delay_mock.c -I. -I./hal/sapi -I./hal/test/mock -Ihal/sapi/base -Ihal/sapi/board  -Ihal/sapi/soc/peripherals/inc -lcheck -lcmocka -lrt -pthread -lm -lsubunit
   - gcc -DTEST_BUILD -o hal/ciaa_tests_delay hal/test/check_sapi_delay.c hal/sapi/soc/peripherals/src/sapi_delay.c hal/test/mock/delay_api_mock.c hal/test/mock/sapi_tick_mock.c -I. -I./hal/sapi -I./hal/test/mock -Ihal/sapi/base -Ihal/sapi/board  -Ihal/sapi/soc/peripherals/inc -lcheck -lcmocka -lrt -pthread -lm -lsubunit
