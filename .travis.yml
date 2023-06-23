@@ -19,3 +19,17 @@ script:
 before_script:
   - sudo apt-get update
   - sudo apt-get install -y check
+
+  after_script:
+  - chmod +x ./hal/ciaa_tests_dht11
+  - ./hal/ciaa_tests_dht11
+  - chmod +x ./hal/ciaa_tests_gpio
+  - ./hal/ciaa_tests_gpio
+  - chmod +x ./hal/ciaa_tests_rtc
+  - ./hal/ciaa_tests_rtc
+  - chmod +x ./hal/ciaa_tests_delay
+  - ./hal/ciaa_tests_delay
+  - chmod +x ./hal/ciaa_tests_tick
+  - ./hal/ciaa_tests_tick
+  - chmod +x ./hal/ciaa_tests_tasks
+  - ./hal/ciaa_tests_tasks
