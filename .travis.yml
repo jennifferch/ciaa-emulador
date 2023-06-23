@@ -20,7 +20,7 @@ before_script:
   - sudo apt-get update
   - sudo apt-get install -y check
 
-  after_script:
+after_script:
   - chmod +x ./hal/ciaa_tests_dht11
   - ./hal/ciaa_tests_dht11
   - chmod +x ./hal/ciaa_tests_gpio
