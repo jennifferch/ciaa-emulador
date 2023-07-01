@@ -123,7 +123,7 @@ fn(program.inputDir || program.inputFile, program.outputFile, extraArgs, program
                 let name = Path.basename(program.outputFile, '.js');
 
                 if (program.launch) {
-                    opn(`http://localhost:${port}`);
+                   // opn(`http://localhost:${port}`);
                 }
                 else if (program.launchHeadless) {
                     browser = await puppeteer.launch();
