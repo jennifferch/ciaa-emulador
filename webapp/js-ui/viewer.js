@@ -21,7 +21,7 @@
             name: 'Dht11 temperature / humidity sensor',
             pins: [ { name: 'SDA/SDI', value: [ 'GND'] }, 
             { name: 'SIGNAL', value: [ 'GPIO1']  } ,
-             { name: 'VCC', value: [ '3V3', '5V3']  } ]
+             { name: 'VCC', value: [ '3V3']  } ]
         },
         {
             component: 'Lcd',
@@ -30,18 +30,15 @@
             pins: [
                 { name: 'MOSI', value: [ 'p5', 'p11' ] },
                 { name: 'MISO', value: [ 'p6', 'p12' ] },
-                { name: 'SCK',  value: [ 'p7', 'p13' ] }
-            ]
+                { name: 'SCK',  value: [ 'p7', 'p13' ] }]
         },
         {
             component: 'Servo',
             id: 'motorServo',
             name: 'Motor Servo',
-            pins: [
-                { name: 'MOSI', value: [ 'p5', 'p11' ] },
-                { name: 'MISO', value: [ 'p6', 'p12' ] },
-                { name: 'SCK',  value: [ 'p7', 'p13' ] }
-            ]
+            pins: [ { name: 'SDA/T_FIL1(SERVO0)', value: [ 'PWM'] }, 
+             { name: 'VCC', value: ['5V']  } ,
+             { name: 'GND', value: [ 'Ground']  }]
         }
 
     ];

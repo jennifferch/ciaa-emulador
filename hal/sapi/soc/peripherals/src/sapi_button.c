@@ -9,11 +9,12 @@
 /*=====[Inclusions of function dependencies]=================================*/
 
 #include "sapi_button.h"
+#include "sapi_interrupt.h"
 
 /*=====[Private functions declarations]======================================*/
 
 static buttonFsmState_t buttonInitState( button_t* button );
-
+gpioMap_t getGpioMap(int value);
 /*=====[Public functions definitions]========================================*/
 
 // Button initialization
@@ -220,12 +221,29 @@ void buttonFsmUpdate( button_t* button )
 // Return true if button is up
 bool_t buttonIsUp( button_t* button )
 {
-   bool_t gpioStatus = gpioRead( button->gpio );
+   int32_t value = button->gpio;
+   gpioMap_t gpio = getGpioMap(value);
+   bool_t gpioStatus = gpioRead( gpio );
    if( button->logic == BUTTON_ONE_IS_UP ){
       return gpioStatus;
    } else{
       return !gpioStatus;
    }
+}
+
+gpioMap_t getGpioMap(int32_t value) {
+    switch (value) {
+        case 36:
+            return TEC1;
+        case 37:
+            return TEC2;
+        case 38:
+            return TEC3;
+        case 39:
+            return TEC4;
+        default:
+            return RESET;
+    }
 }
 
 // Return true if button is down

@@ -14,12 +14,7 @@
 
 #define BUTTON_LOGIC BUTTON_ONE_IS_UP
 
-#if BOARD==ciaa_nxp
-   #define BUTTON0 DI0
-   #define BUTTON1 DI1
-   #define BUTTON2 DI2
-   #define BUTTON3 DI3
-#elif BOARD==edu_ciaa_nxp
+#if BOARD==edu_ciaa_nxp
    #define BUTTON0 TEC1
    #define BUTTON1 TEC2
    #define BUTTON2 TEC3

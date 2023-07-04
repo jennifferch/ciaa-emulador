@@ -20,3 +20,4 @@
 ### Atribuciones
 
 * Biblioteca sAPI (http://www.proyecto-ciaa.com.ar/devwiki/doku.php?id=desarrollo:firmware:v3).
+* EDU-CIAA-NXP.svg (https://github.com/epernia/board-simulator/blob/gh-pages/img/edu_ciaa_board.svg).

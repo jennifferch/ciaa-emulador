@@ -48,8 +48,7 @@
 
 /*==================[internal data definition]===============================*/
 typedef struct {
-    gpio_irq_event event_rise;
-    gpio_irq_event event_fall;
+    gpio_irq_event event;
     gpioMap_t pin;
     uint32_t id;
     gpio_t gpio;
@@ -99,6 +98,7 @@ void interruptInit(gpioMap_t pin){
    _irq_instances[index_irq_instance].gpio = gpio;
    _irq_instances[index_irq_instance].gpio_irq = gpio_irq;
    _irq_instances[index_irq_instance].state = ON;
+   _irq_instances[index_irq_instance].event = IRQ_NONE;
 
    interrupt = (InterruptInC*)malloc(sizeof(InterruptInC));
    interrupt->rise = NULL;
@@ -124,8 +124,9 @@ void _irq_handler(uint32_t id, gpio_irq_event event){
     if ((index != 0)) {
         switch (event) {
             case IRQ_RISE:
+                _irq_instances[index].event = IRQ_RISE;
 
-                 if(_irq_instances[index].state == OFF){
+                if(_irq_instances[index].state == OFF){
                    _irq_instances[index].state = ON;
                 }else{
                    _irq_instances[index].state = ON;
@@ -135,10 +136,10 @@ void _irq_handler(uint32_t id, gpio_irq_event event){
                 }
                 break;
             case IRQ_FALL:
+                _irq_instances[index].event = IRQ_FALL;
 
                 if(_irq_instances[index].state == ON){
                    _irq_instances[index].state = OFF;
-
                 }else{
                    _irq_instances[index].state = OFF;
                 }
@@ -146,8 +147,6 @@ void _irq_handler(uint32_t id, gpio_irq_event event){
                 if (interrupt->fall) {                
                      callback_call(interrupt->fall);
                 }
-
-
                 break;
             case IRQ_NONE:
                 break;
@@ -177,6 +176,26 @@ bool_t  read_event_state(gpioMap_t pin){
     return ret_val;
 }
 
+gpio_irq_event get_interrupt_event(gpioMap_t pin){
+   	/* Find index for GPIO instance. */
+	for (int32_t i = 0; i < INTERRUP_IRQ_INST_NUM; i++) {
+		if (pin == _irq_instances[i].pin)
+			return _irq_instances[i].event;
+	}
+    /* Invalid data given. */
+	return IRQ_NONE;
+}
+
+gpio_irq_event read_event(gpioMap_t pin){
+    gpio_irq_event ret_val = IRQ_NONE;
+
+    // wait until supply switched off
+    delay(1);
+
+    ret_val = get_interrupt_event(pin);
+
+    return ret_val;
+}
 
 void interruptin_fall(void (*func)())
 { 

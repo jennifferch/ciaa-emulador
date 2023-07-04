@@ -45,14 +45,18 @@ void delayCallback(void* arg) {
 }
 
 EMSCRIPTEN_KEEPALIVE
-void setTaskDelayUntil(int pxPreviousWakeTime, int xTimeIncrement) {
-
+void setTaskDelayUntil_async(int pxPreviousWakeTime, int xTimeIncrement) {
     printf("pxPreviousWakeTime: %i\n", pxPreviousWakeTime);
-     printf("xTimeIncrement: %i\n", xTimeIncrement);
+    printf("xTimeIncrement: %i\n", xTimeIncrement);
 
     DelayParams params;
     params.counter = 10;
     params.delay = 500;
 
     emscripten_async_call(delayCallback, &params, 0);
+}
+
+void setTaskDelayUntil(int pxPreviousWakeTime, int xTimeIncrement) {
+    int duration = pxPreviousWakeTime * 1000;
+    emscripten_sleep(duration / 1000);
 }

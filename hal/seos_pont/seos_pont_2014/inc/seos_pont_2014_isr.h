@@ -1,4 +1,5 @@
-/* Copyright 2015, Eric Pernia.
+/* Copyright 2013, Michael J. Pont.
+ * Copyright 2016, Eric Pernia.
  * All rights reserved.
  *
  * This file is part sAPI library for microcontrollers.
@@ -28,41 +29,47 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
+ *
  */
 
-/* Date: 2015-09-23 */
+/* Date: 2016-08-16 */
 
-#ifndef _SAPI_INTERRUPT_H_
-#define _SAPI_INTERRUPT_H_
+#ifndef _COOPERATIVE_OS_ISR_H_
+#define _COOPERATIVE_OS_ISR_H_
 
 /*==================[inclusions]=============================================*/
 
-#include "sapi_datatypes.h"
-#include "gpio_api.h"
-#include "sapi_peripheral_map.h"
-#include "gpio_interrupt_api.h"
-#include "CallbackInterface.h"
+#include "sapi.h"
 
-/*==================[c++]====================================================*/
+/*==================[cplusplus]==============================================*/
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /*==================[macros]=================================================*/
 
+/*==================[typedef]================================================*/
+
+/*==================[external data declaration]==============================*/
+
 /*==================[external functions declaration]=========================*/
 
-void interruptInit(gpioMap_t pin);
-static void _irq_handler(uint32_t id, gpio_irq_event event);
-bool_t read_event_state(gpioMap_t pin);
-gpio_irq_event read_event(gpioMap_t pin);
+// FUNCION que inicializa el planificador de tareas.
+void schedulerInit( void );
 
-void interruptin_fall(void (*func)());
-void interruptin_rise(void (*func)());
-/*==================[c++]====================================================*/
+// FUNCION que inicializa la interrupcion que ejecuta el planificador de
+// tareas.
+void schedulerStart( tick_t );
+
+// FUNCION que contiene el planificador de tareas.
+void schedulerUpdate( void *ptr );
+
+/*==================[cplusplus]==============================================*/
+
 #ifdef __cplusplus
 }
 #endif
 
 /*==================[end of file]============================================*/
-#endif /* _SAPI_BOARD_H_ */
+#endif /* #ifndef _COOPERATIVE_OS_ISR_H_ */

@@ -204,7 +204,8 @@ configIDLE_TASK_NAME in FreeRTOSConfig.h. */
 		portGET_HIGHEST_PRIORITY( uxTopPriority, uxTopReadyPriority );								\
 		//( listCURRENT_LIST_LENGTH( &( pxReadyTasksLists[ uxTopPriority ] ) ) > 0 );		\
 		listGET_OWNER_OF_NEXT_ENTRY( pxCurrentTCB, &( pxReadyTasksLists[ uxTopPriority ] ) );		\
-	} /* taskSELECT_HIGHEST_PRIORITY_TASK() */
+	    /* taskSELECT_HIGHEST_PRIORITY_TASK() */
+	}
 
 	/*-----------------------------------------------------------*/
 
@@ -679,6 +680,7 @@ static void prvAddNewTaskToReadyList( TCB_t *pxNewTCB ) PRIVILEGED_FUNCTION;
 			}
 			#endif /* configSUPPORT_DYNAMIC_ALLOCATION */
 
+            equeue_create(&_equeue, EVENTS_EVENT_TASK_SIZE);
 			prvInitialiseNewTask(	pxTaskDefinition->pvTaskCode,
 									pxTaskDefinition->pcName,
 									( uint32_t ) pxTaskDefinition->usStackDepth,
@@ -726,7 +728,8 @@ static void prvAddNewTaskToReadyList( TCB_t *pxNewTCB ) PRIVILEGED_FUNCTION;
 					pxNewTCB->ucStaticallyAllocated = tskSTATICALLY_ALLOCATED_STACK_ONLY;
 				}
 				#endif
-
+                
+				equeue_create(&_equeue, EVENTS_EVENT_TASK_SIZE);
 				prvInitialiseNewTask(	pxTaskDefinition->pvTaskCode,
 										pxTaskDefinition->pcName,
 										( uint32_t ) pxTaskDefinition->usStackDepth,
@@ -1220,6 +1223,8 @@ static void prvAddNewTaskToReadyList( TCB_t *pxNewTCB )
 				mtCOVERAGE_TEST_MARKER();
 			}
 		}
+
+		equeue_destroy(&_equeue);
 	}
 
 #endif /* INCLUDE_vTaskDelete */
@@ -1228,12 +1233,85 @@ static void prvAddNewTaskToReadyList( TCB_t *pxNewTCB )
 #if ( INCLUDE_vTaskDelayUntil == 1 )
 
 	void vTaskDelayUntil( TickType_t * const pxPreviousWakeTime, const TickType_t xTimeIncrement )
-	{
-	
-	   // printf( "Blinky con jennnnyyyyyyyyyy.\r\n" );
-		//setTaskDelayUntil(500, 10);
+		{
+	TickType_t xTimeToWake;
+	BaseType_t xAlreadyYielded, xShouldDelay = pdFALSE;
 
-		retard_ms(pxPreviousWakeTime);
+		//configASSERT( pxPreviousWakeTime );
+		//configASSERT( ( xTimeIncrement > 0U ) );
+		//configASSERT( uxSchedulerSuspended == 0 );
+
+		vTaskSuspendAll();
+		{
+			/* Minor optimisation.  The tick count cannot change in this
+			block. */
+			const TickType_t xConstTickCount = xTickCount;
+
+			/* Generate the tick time at which the task wants to wake. */
+			xTimeToWake = *pxPreviousWakeTime + xTimeIncrement;
+
+			if( xConstTickCount < *pxPreviousWakeTime )
+			{
+				/* The tick count has overflowed since this function was
+				lasted called.  In this case the only time we should ever
+				actually delay is if the wake time has also	overflowed,
+				and the wake time is greater than the tick time.  When this
+				is the case it is as if neither time had overflowed. */
+				if( ( xTimeToWake < *pxPreviousWakeTime ) && ( xTimeToWake > xConstTickCount ) )
+				{
+					xShouldDelay = pdTRUE;
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+			}
+			else
+			{
+				/* The tick time has not overflowed.  In this case we will
+				delay if either the wake time has overflowed, and/or the
+				tick time is less than the wake time. */
+				if( ( xTimeToWake < *pxPreviousWakeTime ) || ( xTimeToWake > xConstTickCount ) )
+				{
+					xShouldDelay = pdTRUE;
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+			}
+
+			/* Update the wake time ready for the next call. */
+			*pxPreviousWakeTime = xTimeToWake;
+
+			if( xShouldDelay != pdFALSE )
+			{
+				traceTASK_DELAY_UNTIL( xTimeToWake );
+
+				/* prvAddCurrentTaskToDelayedList() needs the block time, not
+				the time to wake, so subtract the current tick count. */
+				prvAddCurrentTaskToDelayedList( xTimeToWake - xConstTickCount, pdFALSE );
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+		}
+		xAlreadyYielded = xTaskResumeAll();
+
+		/* Force a reschedule if xTaskResumeAll has not already done so, we may
+		have put ourselves to sleep. */
+		if( xAlreadyYielded == pdFALSE )
+		{
+			//portYIELD_WITHIN_API();
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+        
+		setTaskDelayUntil(*pxPreviousWakeTime, xTimeIncrement);
+
 	}
 
 #endif /* INCLUDE_vTaskDelayUntil */

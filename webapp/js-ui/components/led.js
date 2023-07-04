@@ -13,9 +13,9 @@
     Led.prototype.init = function() {
         window.JSHal.gpio.on('gpio_write', this._on_gpio_write);
 
-        var el = this._el = document.createElement('div');
-        el.classList.add('component');
-        el.classList.add('led');
+        var divElement = this.element = document.createElement('div');
+        divElement.classList.add('component');
+        divElement.classList.add('led');
 
         var img = document.createElement('img');
         img.src = '/img/' + this.img;
@@ -28,26 +28,38 @@
            document.getElementById("DELETE_ID").classList.remove("disabled");
         }
 
-       // this.createDestroyEl();
-        el.appendChild(img);
-        this.componentsEl.appendChild(el);
+        divElement.appendChild(img);
+        divElement.addEventListener('click', this.handleClick.bind(this));
+        this.componentsEl.appendChild(divElement);
         this._on_gpio_write(this.dataPin, JSHal.gpio.read(this.dataPin), JSHal.gpio.get_type(this.dataPin));
     };
 
-    Led.prototype.destroy = function() {
-        window.JSHal.gpio.removeListener('gpio_write', this._on_gpio_write);
+    Led.prototype.handleClick = function(event) {
+        var destroy = document.getElementById("DELETE_ID");
+        while (destroy.classList.length > 0) {
+          destroy.classList.remove(destroy.classList.item(0));
+        }
+        destroy.classList.add('enabled');
+        destroy.addEventListener('click', () => this.destroy(this));
+    };
 
+    Led.prototype.destroy = function(param) {
         window.removeComponent(this);
-        this.componentsEl.removeChild(this._el);
+        param.element.remove();
+        var destroy = document.getElementById("DELETE_ID");
+        while (destroy.classList.length > 0) {
+            destroy.classList.remove(destroy.classList.item(0));
+          }
+        destroy.classList.add('disabled');
     };
 
     Led.prototype.on_gpio_write = function(pin, value, type) {
         if (pin !== this.dataPin) return;
 
         if (type === JSHal.gpio.TYPE.DIGITAL) {
-            this._el.querySelector('img').style.opacity = value === 1 ? '1' : '0.3';
+            this.element.querySelector('img').style.opacity = value === 1 ? '1' : '0.3';
         }else if (type === JSHal.gpio.TYPE.PWM) {
-            this._el.querySelector('img').style.opacity = (value / 1024 * 0.7) + 0.3;
+            this.element.querySelector('img').style.opacity = (value / 1024 * 0.7) + 0.3;
         }else {
             console.error('LED no soporta el tipo', type);
         }

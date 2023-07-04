@@ -39,8 +39,8 @@
 
 /*=====[Inclusions of public function dependencies]==========================*/
 
-#include "base/sapi_datatypes.h" 
-#include "peripherals/inc/sapi_gpio.h"
+#include "sapi_peripheral_map.h"
+#include "sapi_gpio.h"
 
 /*==================[c++]====================================================*/
 #ifdef __cplusplus

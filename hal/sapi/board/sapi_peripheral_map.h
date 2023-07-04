@@ -115,7 +115,7 @@ I2C_SCL = 11,
    #elif (BOARD == edu_ciaa_nxp)
       VCC = -2, GND = -1,
       // P1 headere
-      T_FIL1,    T_COL2,    T_COL0,    T_FIL2,      T_FIL3,  T_FIL0,     T_COL1,
+      T_FIL1 = 15,    T_COL2,    T_COL0,    T_FIL2,      T_FIL3,  T_FIL0,     T_COL1,
       CAN_TD,    CAN_RD,    RS232_TXD, RS232_RXD,
       // P2 header
      // GPIO8,     GPIO7,     GPIO5,     GPIO3,     GPIO1, 
