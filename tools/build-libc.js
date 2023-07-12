@@ -22,7 +22,6 @@ let libc = {
 
         let dirs = await ignoreAndFilter(await getAllDirectories(outFolder), ignoreFile);
 
-
         dirs = dirs.sort((a, b) => b.length - a.length);
 
         let dirsToRemove = []; 

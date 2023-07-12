@@ -51,9 +51,9 @@
 /*==================[macros and definitions]=================================*/
 
 /* ----------- PERIODICIDAD DE LAS TAREAS ----------- */
-#define TASK1_PERIODICITY   1
-#define TASK2_PERIODICITY  1
-#define TASK3_PERIODICITY 2
+#define TASK1_PERIODICITY   10
+#define TASK2_PERIODICITY  100
+#define TASK3_PERIODICITY 200
 
 /*==================[internal data declaration]==============================*/
 
