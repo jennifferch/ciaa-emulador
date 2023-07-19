@@ -19,7 +19,13 @@
 extern "C" {
 #endif
 
+typedef void (*sapi_tick_handler)(void);
+
 void tick_enable(uint32_t tickRateMSvalue);
+
+int tick_init(sapi_tick_handler handler, int id, int ms);
+
+int tick_detach(int id);
 
 #ifdef __cplusplus
 }
