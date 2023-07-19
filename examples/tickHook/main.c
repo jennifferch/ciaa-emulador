@@ -19,7 +19,7 @@ void myTickHook( void *ptr )
 {
    static bool_t ledState = OFF;
 
-   gpioMap_t led = (*(gpioMap_t*)ptr);
+   gpioMap_t led = (gpioMap_t)ptr;
 
    if( ledState ) {
       ledState = OFF;

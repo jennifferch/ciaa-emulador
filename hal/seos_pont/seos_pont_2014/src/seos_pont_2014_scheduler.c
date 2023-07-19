@@ -160,7 +160,7 @@ int32_t schedulerAddTask( callBackFuncPtr_t pFunction, //void (* pFunction)(void
 
    // If we're here, there is a space in the task array
    schedulerTasks[index].pTask  = pFunction;
-   schedulerTasks[index].delay  = DELAY;  
+   schedulerTasks[index].delay  = DELAY;
    schedulerTasks[index].period = PERIOD;
    schedulerTasks[index].taskParam = TASKPARAM;
    schedulerTasks[index].runMe  = 0;

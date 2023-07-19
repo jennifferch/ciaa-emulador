@@ -1,29 +1,28 @@
 window.JSHal.timers = (function() {
 
-    var tickers = {};
+    var timers = {};
 
-    function ticker_setup(id, interval) {
-        if (tickers[id]) {
-            clearInterval(tickers[id]);
+    function timer_setup(id, interval) {
+        if (timers[id]) {
+            clearInterval(timers[id]);
         }
 
-        tickers[id] = setInterval(() => {
-            ccall('invoke_ticker', null, [ 'number' ], [ id ], { async: true });
+        timers[id] = setInterval(() => {
+            ccall('handle_timer', null, [], [], { async: true });
         }, interval);
     }
 
 
-    function ticker_detach(id) {
-        if (!(id in tickers)) return;
+    function timer_detach(id) {
+        if (!(id in timers)) return;
 
-        clearInterval(tickers[id]);
-        delete tickers[id];
+        clearInterval(timers[id]);
+        delete timers[id];
     }
 
-
     return {
-        ticker_setup: ticker_setup,
-        ticker_detach: ticker_detach
+        timer_setup: timer_setup,
+        timer_detach: timer_detach
     };
 
 })();

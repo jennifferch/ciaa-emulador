@@ -35,7 +35,10 @@ int main(void)
 
    vTaskStartScheduler();
    
-   while(1);
+   while(1){
+      // Es necesario agregar un delay, sino, el navegador se bloquea.
+      delay(1);
+   }
 
    return 0;
 }

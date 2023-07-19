@@ -51,8 +51,8 @@ int main( void )
    // Temporization
    delay_t refreshButton;
    delay_t refreshButtonEvents;
-   delayInit( &refreshButton, 50 );
-   delayInit( &refreshButtonEvents, 10 );
+   delayInit( &refreshButton, 1 );
+   delayInit( &refreshButtonEvents, 1 );
 
    // Button objects
    button_t myButton0;
@@ -158,7 +158,8 @@ int main( void )
             buttonEventHandled( &myButton3 );
          }
       }
-
+      // Es necesario agregar un delay, sino, el navegador se bloquea.
+      delay(1);
    }
 
    // YOU NEVER REACH HERE, because this program runs directly or on a

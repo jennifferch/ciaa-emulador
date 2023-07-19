@@ -28,54 +28,34 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
+ *
  */
 
-/* Date: 2015-09-23 */
+#ifndef TIMER_API_H
+#define TIMER_API_H
 
-#ifndef _SAPI_TICK_H_
-#define _SAPI_TICK_H_
+#include "sapi_datatypes.h"
 
-/*==================[inclusions]=============================================*/
-
-#include "sapi_peripheral_map.h"
-
-/*==================[c++]====================================================*/
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /*==================[macros]=================================================*/
 
-#define tickConfig tickInit
-
 /*==================[external functions definition]==========================*/
 
-// Tick Initialization and rate configuration from 1 to 50 ms
-bool_t tickInit( tick_t tickRateMSvalue );
+typedef void (*sapi_timer_handler)(void);
 
-// Read Tick Counter
-tick_t tickRead( void );
+int timer_setup(sapi_timer_handler handler, int id, int ms);
 
-// Write Tick Counter
-void tickWrite( tick_t ticks );
-
-// Tick interrupt callback
-bool_t tickCallbackSet( callBackFuncPtr_t tickCallback, void* tickCallbackParams );
-
-// Enable or disable the peripheral energy and clock
-void tickPowerSet( bool_t power );
+int timer_detach(uint32_t id);
 
 /*==================[ISR external functions declaration]======================*/
 
-// SysTick Timer ISR Handler
-void SysTick_Handler(void);
-
-void tickerCallback(void);
-
-/*==================[c++]====================================================*/
 #ifdef __cplusplus
 }
 #endif
 
-/*==================[end of file]============================================*/
-#endif /* _SAPI_TICK_H_ */
+#endif
+
+/** @}*/

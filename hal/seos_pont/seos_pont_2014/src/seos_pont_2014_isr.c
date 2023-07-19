@@ -107,7 +107,6 @@ void schedulerUpdate( void *ptr ){ // Planificador (me lo llama la interrupcion 
             if( schedulerTasks[index].period ){
                // Schedule regular tasks to run again
                schedulerTasks[index].delay = schedulerTasks[index].period;
-               (*schedulerTasks[index].pTask)(schedulerTasks[index].taskParam);
             }
          }/*
          else{

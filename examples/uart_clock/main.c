@@ -98,6 +98,8 @@ int main( void ){
       // Al ocurrir la interrupcion de Tick se ejecutara el planificador
       // que revisa cuales son las tareas a marcar para su ejecucion.
       schedulerDispatchTasks();
+      // Es necesario agregar un delay, sino, el navegador se bloquea.
+      delay(1);
    }
 
    // NO DEBE LLEGAR NUNCA AQUI, debido a que a este programa se ejecuta

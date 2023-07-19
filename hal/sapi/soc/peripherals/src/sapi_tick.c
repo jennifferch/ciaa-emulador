@@ -47,21 +47,16 @@
    #endif
 #endif
 
-#define EVENTS_EVENT_TICK_SIZE 4096
-#define EQUEUE_CALL_EVERY_TICK_UPDATE 100
-#define EQUEUE_DISPATCH_TICK 5000
-#define EQUEUE_DISPATCH_TICK_FOREVER -1
 
 /*==================[macros and definitions]=================================*/
 
 #ifndef TICK_OVER_RTOS
    #define tickerCallback SysTick_Handler
 #endif
+#define TICK_ID 1
 
 /*==================[internal data declaration]==============================*/
-struct equeue _equeueTick;
-static bool_t dispatchTickForever = FALSE;
-static int tickRate;
+
 /*==================[internal functions declaration]=========================*/
 
 /*==================[internal data definition]===============================*/
@@ -96,8 +91,8 @@ bool_t tickInit( tick_t tickRateMSvalue )
          tickPowerSet( OFF );
          ret_val = 0;
       } else {
-        // if( (tickRateMSvalue >= 1) && (tickRateMSvalue <= 50) ) {
-        //    tickRateMS = EQUEUE_CALL_EVERY_TICK_UPDATE;
+         if( (tickRateMSvalue >= 1) && (tickRateMSvalue <= 50) ) {
+            tickRateMS = tickRateMSvalue;
             // tickRateHz = 1000 => 1000 ticks per second =>  1 ms tick
             // tickRateHz =  200 =>  200 ticks per second =>  5 ms tick
             // tickRateHz =  100 =>  100 ticks per second => 10 ms tick
@@ -108,19 +103,12 @@ bool_t tickInit( tick_t tickRateMSvalue )
             //    //DEBUG_BREAK;
             //    ret_val = 0;
             // }
-            //tick_enable(tickRateMSvalue);
-        //    tickPowerSet( ON );
-       //  } else {
+            tickPowerSet( ON );
+         } else {
             // Error, tickRateMS variable not in range (1 <= tickRateMS <= 50)
-        //    ret_val = 0;
-         //   tickRateMS = tickRateMSvalue; 
-       //  }
-         tickRateMS = tickRateMSvalue; 
-         if( tickRateMSvalue == 1 ) {
-            dispatchTickForever = TRUE;
-         } else{
-            dispatchTickForever = FALSE;
-         }         
+            ret_val = 0;
+            tickPowerSet( OFF );
+         }
       }
       return ret_val;
    #endif
@@ -178,16 +166,18 @@ bool_t tickInit( tick_t tickRateMSvalue )
 */
 
 // Read Tick Counter
-tick_t tickRead( void ){
+tick_t tickRead( void )
+{
    #ifdef USE_FREERTOS
       return xTaskGetTickCount();
    #else
-      return tickCounter++;
+      return tickCounter;
    #endif
 }
 
 // Write Tick Counter
-void tickWrite( tick_t ticks ){
+void tickWrite( tick_t ticks )
+{
    #ifdef USE_FREERTOS
       uartWriteString( UART_USB, "Use of tickWrite() in a program with freeRTOS has no effect\r\n" );
    #else
@@ -196,7 +186,8 @@ void tickWrite( tick_t ticks ){
 }
 
 // Tick interrupt callback
-bool_t tickCallbackSet( callBackFuncPtr_t tickCallback, void* tickCallbackParams ){
+bool_t tickCallbackSet( callBackFuncPtr_t tickCallback, void* tickCallbackParams )
+{
    #ifdef USE_FREERTOS
       uartWriteString( UART_USB, "Use of tickCallbackSet() in a program with freeRTOS has no effect\r\n" );
       return 0;
@@ -212,41 +203,26 @@ bool_t tickCallbackSet( callBackFuncPtr_t tickCallback, void* tickCallbackParams
       } else {
          retVal &= FALSE;
       }
-      
-      equeue_create(&_equeueTick, EVENTS_EVENT_TICK_SIZE);
-      int id =  equeue_call_every(&_equeueTick, tickRateMS, tickCallback, &tickCallbackParams);
-    
-
-      if(dispatchTickForever) {
-         //  interruptin_fall(&tickCallback);
-         //  interruptin_rise(&tickCallback);
-         equeue_dispatch(&_equeueTick, EQUEUE_DISPATCH_TICK_FOREVER);
-      }else{
-         equeue_dispatch(&_equeueTick, EQUEUE_DISPATCH_TICK);
-      }
       return retVal;
    #endif
-
 }
 
 // Enable or disable the peripheral energy and clock
-void tickPowerSet( bool_t power ){
+void tickPowerSet( bool_t power )
+{
    #ifdef USE_FREERTOS
       uartWriteString( UART_USB, "Use of tickPowerSet() in a program with freeRTOS has no effect\r\n" );
    #else
       if( power ) {
          // Enable SysTick IRQ and SysTick Timer
-        /* SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk |
+         /*SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk |
                          SysTick_CTRL_TICKINT_Msk   |
                          SysTick_CTRL_ENABLE_Msk;*/
-          //  tickerCallback();
-
-          //Enable Systick
-        // tick_init((&tickerCallback));
+         tick_init(&tickerCallback, TICK_ID, tickRateMS);
       } else {
          // Disable SysTick IRQ and SysTick Timer
-      //   SysTick->CTRL = 0x0000000;
-
+         //SysTick->CTRL = 0x0000000;
+         tick_detach(TICK_ID);
       }
    #endif
 }
@@ -256,13 +232,14 @@ void tickPowerSet( bool_t power ){
 //__attribute__ ((section(".after_vectors")))
 
 // SysTick Timer ISR Handler
-void tickerCallback( void ) {   // Before SysTick_Handler
+void tickerCallback( void )   // Before SysTick_Handler
+{
    // Increment Tick counters
    tickCounter++;
    // Execute Tick Hook function if pointer is not NULL
- //  if( (tickHookFunction != NULL) ) {
- //     (* tickHookFunction )( callBackFuncParams );
- //  }
+   if( (tickHookFunction != NULL) ) {
+      (* tickHookFunction )( callBackFuncParams );
+   }
 }
 
 /*==================[end of file]============================================*/

@@ -36,7 +36,7 @@ const getCFiles = async function(source) {
     console.log("source:::::", source);
     return (await promisify(fs.readdir)(source))
         .map(name => Path.join(source, name))
-        .filter(name => ['.c', '.cpp'].indexOf(Path.extname(name).toLowerCase()) > -1);
+        .filter(name => ['.c'].indexOf(Path.extname(name).toLowerCase()) > -1);
 };
 
 const getAllDirectories = async function(source) {

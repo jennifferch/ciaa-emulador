@@ -87,6 +87,8 @@ int main(void)
    // ---------- REPETIR POR SIEMPRE --------------------------
    while( TRUE ) {
       // Si cae en este while 1 significa que no pudo iniciar el scheduler
+      // Es necesario agregar un delay, sino, el navegador se bloquea.
+      delay(1);
    }
 
    // NO DEBE LLEGAR NUNCA AQUI, debido a que a este programa se ejecuta

@@ -20,7 +20,7 @@ if (document.location.hash) {
                 compilationFailed.style.display = 'none';
             }
         };
-        x.open('GET', '/outUser/' + script + '.cpp');
+        x.open('GET', '/outUser/' + script + '.c');
         x.send();
     }
     else {
@@ -65,7 +65,7 @@ function load_example(demo) {
             });
         }
     };
-    x.open('GET', '/examples/' + demo + '/main.cpp');
+    x.open('GET', '/examples/' + demo + '/main.c');
     x.send();
 }
 

@@ -5,7 +5,7 @@ const promisify = require('es6-promisify').promisify;
 
 module.exports = async function(content, outFolder) {
     let name = 'user_' + Date.now();
-    let inputFile = Path.join(outFolder, name + '.cpp');
+    let inputFile = Path.join(outFolder, name + '.c');
     let outputFile = Path.join(outFolder, name + '.js');
 
     await promisify(fs.writeFile)(inputFile, content, 'utf-8');

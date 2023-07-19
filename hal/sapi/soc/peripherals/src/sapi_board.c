@@ -67,7 +67,6 @@ void boardInit(void){
    // Inicializar el conteo de Ticks con resolucion de 1ms (si no se usa freeRTOS)
    #ifndef USE_FREERTOS
       tickInit( 1 );
-      xStartTickCount();
    #endif
 
    // Configure GPIO pins for each board

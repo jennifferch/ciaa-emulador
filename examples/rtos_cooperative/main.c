@@ -159,6 +159,8 @@ int main(void){
          la de Tick. Comente esta duncion y note el aumento de temperatura
          del microcontrolador */
       sleepUntilNextInterrupt();
+      // Es necesario agregar un delay, sino, el navegador se bloquea.
+      delay(1);
    }
 
    /* NO DEBE LLEGAR NUNCA AQUI, debido a que a este programa no es llamado
