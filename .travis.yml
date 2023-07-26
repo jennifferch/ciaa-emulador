@@ -21,6 +21,8 @@ script:
   - ./hal/ciaa_tests_tick
   - gcc -DTEST_BUILD -o hal/ciaa_tests_tasks hal/test/check_tasks_api.c hal/test/mock/tasks_api_mock.c -Ihal/sapi/base  -Ihal/sapi/board  -I./hal/test/mock -lcheck -lcmocka -lrt -pthread -lm -lsubunit
   - ./hal/ciaa_tests_tasks
+  - gcc -DTEST_BUILD  -o hal/ciaa_tests_integration hal/test/check_test_integration.c hal/sapi/soc/peripherals/src/sapi_gpio.c hal/test/mock/gpio_api_mock.c hal/test/mock/sapi_interrupt_mock.c hal/sapi/soc/peripherals/src/sapi_delay.c hal/test/mock/delay_api_mock.c hal/test/mock/sapi_tick_mock.c  -I. -I./hal/sapi -I./hal/test/mock -Ihal/sapi/base -Ihal/sapi/board  -Ihal/sapi/soc/peripherals/inc -lcheck -lcmocka -lrt -pthread -lm -lsubunit
+  - ./hal/ciaa_tests_integration
 
 before_script:
   - sudo apt-get update

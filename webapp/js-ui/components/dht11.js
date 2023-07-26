@@ -2,23 +2,48 @@
 
     function Dht11(pins) {
         const request = new XMLHttpRequest();
-        request.open('GET', 'https://api.openweathermap.org/data/2.5/weather?q=Lima&appid=16df248820826ba8bd599c2ce8648dd2&units=metric', true);
-                      
-        request.onload = function () {
-                const data = JSON.parse(this.response);
-                console.log( "data Temperatura" + data.main.temp);
-                console.log( "data Humedad" + data.main.humidity);
-                this.temp = data.main.temp *100;
-                this.humidity = data.main.humidity + "00" ;
-                this.pins = pins;
-            JSHal.dht11.update_temperature('10', '11', this.temp);
-            JSHal.dht11.update_humidity('10', '11', this.humidity);         
-                
-        }                         
-        request.send();
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const apiKey = "16df248820826ba8bd599c2ce8648dd2"; 
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;         
+                const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+                    request.onreadystatechange = function() {
+                        if (request.readyState === XMLHttpRequest.DONE) {
+                            if (request.status === 200) {
+                                const data = JSON.parse(request.responseText);
+                                const cityName = data.name;
+                                console.log( "cityName " + cityName);
+                                console.log( "data Temperatura " + data.main.temp);
+                                console.log( "data Humedad " + data.main.humidity);
+                                this.temp = data.main.temp *100;
+                                this.humidity = data.main.humidity + "00" ;
+                                this.pins = pins;
+                                JSHal.dht11.update_temperature('10', '11', this.temp);
+                                JSHal.dht11.update_humidity('10', '11', this.humidity);         
+                            }
+                        }  
+                    }   
+                    request.open('GET', apiUrl, true);
+                    request.send(); 
+            });
+        } else {
+            console.log("La geolocalización no es soportada por este navegador.");
+            request.open('GET', 'https://api.openweathermap.org/data/2.5/weather?q=Buenos%20Aires&appid=16df248820826ba8bd599c2ce8648dd2&units=metric', true);                   
+            request.onload = function () {
+                    const data = JSON.parse(this.response);
+                    console.log( "data Temperatura" + data.main.temp);
+                    console.log( "data Humedad" + data.main.humidity);
+                    this.temp = data.main.temp *100;
+                    this.humidity = data.main.humidity + "00" ;
+                    this.pins = pins;
+                JSHal.dht11.update_temperature('10', '11', this.temp);
+                JSHal.dht11.update_humidity('10', '11', this.humidity);                  
+            }
+            request.send();
+        }
         exports.BaseComponent.call(this);
-        this.components = document.querySelector('#components');
-   
+        this.components = document.querySelector('#components');   
     }
 
     Dht11.prototype = Object.create(exports.BaseComponent.prototype);
