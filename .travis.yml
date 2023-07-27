@@ -34,9 +34,12 @@ before_script:
 
 after_script:
   - echo "Pruebas unitarias completadas."
+  - echo "Pruebas de integración completadas."
 
 after_success:
   - echo "Pruebas unitarias completadas con éxito."
+  - echo "Pruebas de integración completadas con éxito."
 
 after_failure:
   - echo "Pruebas unitarias completadas con errores."
+  - echo "Pruebas de integración completadas con errores."
