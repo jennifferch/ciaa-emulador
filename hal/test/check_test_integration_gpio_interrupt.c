@@ -45,13 +45,10 @@
 #include "gpio_api_mock.h"
 #include "sapi_interrupt_mock.h"
 #include "sapi_gpio.h"
-#include "delay_api_mock.h"
-#include "sapi_tick_mock.h"
-#include "sapi_delay.h"
 
 
 
-// Definir la prueba unitaria para la función gpioInit
+// Definir la prueba de interacción para la función rtcInit
 START_TEST(test_interrupt_with_gpio_interaction) {
     // Variable de entrada para la funcion gpioRead
     gpioMap_t pin = TEC1;
@@ -97,109 +94,14 @@ START_TEST( test_gpioToggle_with_interrupt_interaction ) {
 }
 END_TEST
 
-START_TEST(test_delayInaccurateNs_with_tick_interaction) {
-    tick_t delay_ms = 500;
-
-    // Llamar a la función delayInaccurateMs que utiliza el mock
-    delayInaccurateMs(delay_ms);
-
-    // Assert la funcion fue ejecutada con exito
-    ck_assert_msg(1, "delayInaccurateMs ejecutado sin errores");
-}
-END_TEST
-
-START_TEST(test_delay_with_tick_interaction) {
-    tick_t duration_ms = 200;
-
-    // Llamar a la función delayInaccurateNs que utiliza el mock
-    delay(duration_ms);
-
-    // Assert la funcion fue ejecutada con exito
-    ck_assert_msg(1, "delay ejecutado sin errores");
-}
-END_TEST
-
-START_TEST(test_delayWrite_with_tick_interaction) {
-    delay_t refreshButton;
-    tick_t duration = 1000;
-
-    // Llamar a la función delayInit que utiliza el mock
-    delayWrite( &refreshButton, duration);
-
-    // Assert la funcion fue ejecutada con exito
-    ck_assert_msg(1, "delayWrite ejecutado sin errores");
-}
-END_TEST
-
-START_TEST(test_delayInaccurateMs_with_tick_interaction) {
-    tick_t delay_ms = 500;
-
-    // Llamar a la función delayInaccurateMs que utiliza el mock
-    delayInaccurateMs(delay_ms);
-
-    // Assert la funcion fue ejecutada con exito
-    ck_assert_msg(1, "delayInaccurateMs ejecutado sin errores");
-}
-END_TEST
-
-START_TEST(test_delayInaccurateUs_with_tick_interaction) {
-    tick_t delay_us = 1000;
-
-    // Llamar a la función delayInaccurateUs que utiliza el mock
-    delayInaccurateUs(delay_us);
-
-    // Assert la funcion fue ejecutada con exito
-    ck_assert_msg(1, "delayInaccurateUs ejecutado sin errores");
-}
-END_TEST
-
-
-START_TEST(test_delayInit_with_tick_interaction) {
-    delay_t refreshButton;
-    tick_t duration = 1000;
-
-    // Llamar a la función delayInit que utiliza el mock
-    delayInit( &refreshButton, duration);
-
-    // Assert la funcion fue ejecutada con exito
-    ck_assert_msg(1, "delayInit ejecutado sin errores");
-}
-END_TEST
-
-START_TEST(test_delayRead_with_tick_interaction) {
-    // Variable de entrada para la funcion delayRead
-    delay_t refreshButton;
-    uint64_t tick_set_result = 500;
-
-    // Configurar el comportamiento esperado del mock  delay_read
-    tickRead_set_result(tick_set_result);  // Éxito en la lectura
-
-    // Llamar a la función delayRead que utiliza el mock
-    bool_t result = delayRead(&refreshButton);
-
-    // Verificar que la función delay_read devuelve verdadero
-    assert_true(result);
-
-    // Restaurar el comportamiento original del mock delay_read
-    tickRead_set_result(0);  // Error en la lectura
-}
-END_TEST
-
 int main(void) {
-    Suite *s = suite_create("Integration Tests");
+    Suite *s = suite_create("Test de Integración");
     TCase *tc_core = tcase_create("Core");
 
     // Pruebas de integración
     tcase_add_test(tc_core, test_interrupt_with_gpio_interaction);
-    tcase_add_test(tc_core, test_delayInaccurateNs_with_tick_interaction);
-    tcase_add_test(tc_core, test_delayWrite_with_tick_interaction);
-    tcase_add_test(tc_core, test_delay_with_tick_interaction);
     tcase_add_test(tc_core, test_gpioWrite_with_interrupt_interaction);
     tcase_add_test(tc_core, test_gpioToggle_with_interrupt_interaction);
-    tcase_add_test(tc_core, test_delayInaccurateMs_with_tick_interaction);
-    tcase_add_test(tc_core, test_delayInaccurateUs_with_tick_interaction);
-    tcase_add_test(tc_core, test_delayInit_with_tick_interaction);
-    tcase_add_test(tc_core, test_delayRead_with_tick_interaction);
 
     suite_add_tcase(s, tc_core);
 

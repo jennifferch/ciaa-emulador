@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 void rtc_init(void){
-    printf("Mock: dht11_init invocado\n");
+    printf("Mock: rtc_init invocado\n");
 }
 
 struct tm rtc_read(void){
