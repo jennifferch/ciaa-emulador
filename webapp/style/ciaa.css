@@ -1351,6 +1351,19 @@ background: #5c95da;
 
 .sitemenu__left {
   z-index: 52001;
+  background-color: #8b8888;
+}
+
+.imagen-ciaa{
+  padding-top: 8px;
+  padding-left: 5px;
+}
+
+.text-ciaa{
+  font-size: 30px; 
+  color: white; 
+  line-height: 30px;
+  padding-left: 3px;
 }
 
 .sitemenu__right {
@@ -1496,11 +1509,6 @@ background: #5c95da;
   line-height: 3pc;
   border-bottom: 1px solid #dfe3e8;
 }
-
-.sitemenu__left {
-  z-index: 52001;
-}
-
 
 
 .circ_btn__icon {

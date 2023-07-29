@@ -11,7 +11,10 @@
     };
     
     var components = [
-        { component: 'LedRed', id: 'ledRed', name: 'Red LED', pins: [ 'LED' ] },
+        {   component: 'LedRed', 
+            id: 'ledRed', 
+            name: 'Red LED', 
+            pins: [ 'LED' ] },
         { component: 'LedBlue', id: 'ledBlue', name: 'Blue LED', pins: [ 'LED' ] },
         { component: 'LedYellow', id: 'ledYellow', name: 'Yellow LED', pins: [ 'LED' ] },
         { component: 'LedWhite', id: 'ledWhite', name: 'White LED', pins: [ 'LED' ] },
@@ -24,18 +27,33 @@
              { name: 'VCC', value: [ '3V3']  } ]
         },
         {
-            component: 'Lcd',
-            id: 'lcd',
+            component: 'Lcd20x4',
+            id: 'lcd20x4',
             name: 'LCD display',
             pins: [
                 { name: 'MOSI', value: [ 'p5', 'p11' ] },
-                { name: 'MISO', value: [ 'p6', 'p12' ] },
-                { name: 'SCK',  value: [ 'p7', 'p13' ] }]
+                { name: 'MISO', value: [ 'p6', 'p12' ] }]
+        },
+        {
+            component: 'Lcd16x4',
+            id: 'lcd16x4',
+            name: 'LCD display',
+            pins: [
+                { name: 'SPI_MOSI', value: [ 'p5', 'p11' ] },
+                { name: 'SPI_MISO', value: [ 'p6', 'p12' ] }]
         },
         {
             component: 'Servo',
             id: 'motorServo',
             name: 'Motor Servo',
+            pins: [ { name: 'SDA/T_FIL1(SERVO0)', value: [ 'PWM'] }, 
+             { name: 'VCC', value: ['5V']  } ,
+             { name: 'GND', value: [ 'Ground']  }]
+        },
+        {
+            component: 'Termistor',
+            id: 'termistor',
+            name: 'Termistor',
             pins: [ { name: 'SDA/T_FIL1(SERVO0)', value: [ 'PWM'] }, 
              { name: 'VCC', value: ['5V']  } ,
              { name: 'GND', value: [ 'Ground']  }]
@@ -104,13 +122,26 @@
             }
             else {
                 select.dataset.pin = pin;
-    
-                Object.keys(JSHal.gpioMap).map(function(p) {
-                    var opt = document.createElement('option');
-                    opt.textContent = p;
-                    opt.value = JSHal.gpioMap[p];
-                    select.appendChild(opt);
-                });
+
+                if (pin == "LED"){
+
+                    const list = Object.keys(JSHal.gpioMap);
+                    const iT_FIL1 = list.indexOf('T_FIL1');
+                    const listLcd = list.slice(iT_FIL1);
+                    listLcd.map(function(p) {
+                        var opt = document.createElement('option');
+                        opt.textContent = p;
+                        opt.value = JSHal.gpioMap[p];
+                        select.appendChild(opt);
+                    });
+                }else{
+                    Object.keys(JSHal.gpioMap).map(function(p) {
+                        var opt = document.createElement('option');
+                        opt.textContent = p;
+                        opt.value = JSHal.gpioMap[p];
+                        select.appendChild(opt);
+                    });
+                }
             }
             pinsEl.appendChild(label);
             pinsEl.appendChild(select);

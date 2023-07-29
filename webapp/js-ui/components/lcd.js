@@ -64,6 +64,7 @@
         }
     };
 
-    exports.Lcd = Lcd;
+    exports.Lcd16x4 = Lcd.bind(Lcd, 'lcd16x4.png');
+    exports.Lcd20x4 = Lcd.bind(Lcd, 'lcd20x4.png');
 
 })(window.JSUI);

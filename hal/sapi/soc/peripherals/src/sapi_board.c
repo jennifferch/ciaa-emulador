@@ -131,7 +131,6 @@ void boardInit(void){
    interruptInit(TEC2);
    interruptInit(TEC3);
    interruptInit(TEC4);
-   interruptInit(RESET);
 }
 
 /*==================[end of file]============================================*/

@@ -49,7 +49,7 @@
 
 /*==================[external data definition]===============================*/
 
-//extern volatile tick_t tickRateMS;
+extern volatile tick_t tickRateMS;
 
 /*==================[internal functions definition]==========================*/
 
@@ -58,25 +58,25 @@
 /* ---- Inaccurate Blocking Delay ---- */
 
 void delayInaccurateMs(tick_t delay_ms){
-   volatile tick_t i;
+ /*volatile tick_t i;
    volatile tick_t delay;
    delay = INACCURATE_TO_MS * delay_ms;
-   for( i=delay; i>0; i-- );
+   for( i=delay; i>0; i-- ); */
    retard_ms((int)delay_ms);
 }
 
 void delayInaccurateUs( tick_t delay_us ){
-   volatile tick_t i;
+ /*volatile tick_t i;
    volatile tick_t delay;
    delay = (INACCURATE_TO_US_x10 * delay_us) / 10;
-   for( i=delay; i>0; i-- );
+   for( i=delay; i>0; i-- );*/
    duration_us((int)delay_us);
 }
 
 void delayInaccurateNs( tick_t delay_ns ){
-   volatile tick_t i;
+ /*volatile tick_t i;
    volatile float delayF = (float)delay_ns / INACCURATE_MIN_NS;
-   for( i=(tick_t)round(delayF); i>0; i-- );
+   for( i=(tick_t)round(delayF); i>0; i-- );*/
    duration_ns((int)delay_ns);
 }
 
@@ -85,11 +85,10 @@ void delayInaccurateNs( tick_t delay_ns ){
 // delay( 1, DELAY_US );
 
 void delay( tick_t duration_ms ){
-   /*tick_t startTime = tickRead();
+ /*tick_t startTime = tickRead();
    while ( (tick_t)(tickRead() - startTime) < duration_ms/tickRateMS );*/
    retard_ms((int)duration_ms);
 }
-
 
 /*
 // Solo funciona en modo debug
@@ -114,9 +113,6 @@ void delayInit( delay_t * delay, tick_t duration ){
 
 bool_t delayRead( delay_t * delay ){
    bool_t timeArrived = 0;
-
-    //const ticker_data_t *const ticker = get_us_ticker_data();
-    //uint32_t start = ticker_read(ticker);
 
    if( !delay->running ) {
       delay->startTime = tickRead();

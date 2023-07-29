@@ -48,6 +48,7 @@ void wait(float s);
 void retard_ms(int ms);
 void duration_us(int us);
 void duration_ns(int ns);
+void wait_ms(int ms);
 /*==================[c++]====================================================*/
 #ifdef __cplusplus
 }

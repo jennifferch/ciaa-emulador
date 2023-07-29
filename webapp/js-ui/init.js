@@ -84,7 +84,7 @@
 
     window.JSHal = {
         die: function () {
-            Module.setStatus('Board has died');
+            Module.setStatus('Errores en la placa');
             Module.printErr('[post-exception status] mbed_die() was called');
             if (typeof window.onFailedExecution === 'function') {
                 window.onFailedExecution('Board has died');
