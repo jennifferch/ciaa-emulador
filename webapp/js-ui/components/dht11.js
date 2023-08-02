@@ -67,7 +67,7 @@
      //   img.src = "/img/Dht11.png";
 
     //    divElement.appendChild(img);
-        divElement.addEventListener('click', this.handleClick.bind(this));
+    //    divElement.addEventListener('click', this.handleClick.bind(this));
 
 
         var wrapper = document.createElement('div');
@@ -137,14 +137,14 @@
         this.components.appendChild(divElement);
     };
 
-    Dht11.prototype.handleClick = function(event) {
+ /*   Dht11.prototype.handleClick = function(event) {
         var destroy = document.getElementById("DELETE_ID");
         while (destroy.classList.length > 0) {
             destroy.classList.remove(destroy.classList.item(0));
           }
         destroy.classList.add('enabled');
         destroy.addEventListener('click', () => this.destroy(this));
-    };
+    };*/
 
     Dht11.prototype.destroy = function(param) {
         window.removeComponent(this);
