@@ -189,22 +189,24 @@ body {
 }
 
 .component {
-  text-align: center;
   font-family: 'Lucida Console', Monaco, monospace;
   font-size: 12px;
   padding: 5px;
   cursor: pointer;
+  height: 400px;
 }
+
+
 
 .component .description {
   margin: 0 0 10px 0;
+  text-align: center;
 }
 
 .destroy {
   float: right;
   color: #ddd;
   cursor: pointer;
-  margin-left: 20px;
 }
 
 .component .destroy {
@@ -324,8 +326,6 @@ html {
 body {
   margin: 0;
 }
-
-
 
 b,
 strong {
@@ -1574,3 +1574,95 @@ background: #5c95da;
   border-radius: 8px;
 }
 
+
+.sht31 {
+  width: 350px;
+  padding-top: 10px;
+  padding-left: 0px;
+}
+
+.sht31 {
+  text-align: center;
+  display: flex;
+}
+
+.dht11-img{
+  position:relative;
+  width: 110px;
+  padding-top: 20px;
+}
+
+/* Thermometer column and text */
+.sht31-comp {
+  margin: 10px 12px 60px 50px;
+  width:22px;
+  height:150px;
+  display:block;
+  font:bold 14px/152px helvetica, arial, sans-serif;
+  text-indent: 36px;
+  background: linear-gradient(top, #fff 0%, #fff 50%, #db3f02 50%, #db3f02 100%);
+  border-radius:22px 22px 0 0;
+  border:5px solid #4a1c03;
+  border-bottom:none;
+  position:relative;
+  box-shadow:inset 0 0 0 4px #fff;
+  color:#4a1c03;
+}
+
+/* Thermometer Bulb */
+.sht31-before {
+  content:' ';
+  width:44px;
+  height:44px;
+  display:block;
+  position:absolute;
+  top:142px;
+  left:-16px;
+  z-index:-1; /* Place the bulb under the column */
+  background:#db3f02;
+  border-radius:44px;
+  border:5px solid #4a1c03;
+  box-shadow:inset 0 0 0 4px #fff;
+}
+
+/* This piece here connects the column with the bulb */
+.sht31-after{
+  content:' ';
+  width:14px;
+  height:7px;
+  display:block;
+  position:absolute;
+  top:146px;
+  left:4px;
+  background:#db3f02;
+}
+
+.humidity .sht31-before, .humidity .sht31-after {
+  background: #86C5DA;
+}
+
+.labelOpcion {
+  font-size: 10px;
+  margin-top: 0px !important;
+  margin-left: 17px;
+
+}
+
+.labelDht11 {
+  display: inline-block;
+  margin-right: 10px; /* Espacio entre los radio buttons */
+  font-size: 11px;
+}
+
+.component .inputDht11{
+  text-align: left !important;
+  display: inline-block;
+}
+
+.component .labelDht11{
+  text-align: left !important;
+}
+
+.contenedorLabel{
+  display: block;
+}
