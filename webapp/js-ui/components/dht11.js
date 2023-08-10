@@ -58,6 +58,7 @@
     };
 
     Dht11.prototype.getDefaultCityFromAPI = function(request) {
+        clearTimeout(this.geolocationTimer);
         console.log("La geolocalización no es soportada por este navegador.");
         request.open('GET', 'https://api.openweathermap.org/data/2.5/weather?q=Buenos%20Aires&appid=16df248820826ba8bd599c2ce8648dd2&units=metric', true);                   
         request.onload = function () {

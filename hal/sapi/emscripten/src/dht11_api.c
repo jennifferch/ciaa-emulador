@@ -1,12 +1,12 @@
 #include "dht11_api.h"
 
 void dht11_init(int32_t gpio){
-    gpioMap_t sda = I2C_SDA; 
-    gpioMap_t scl = I2C_SCL;
+    gpioMap_t gpio1 = GPIO1; 
+    gpioMap_t gnd = GND;
 
     EM_ASM_({
         JSHal.dht11.init($0, $1, $2);
-    }, 1, 10, 11);
+    }, 1, gpio1, gnd);
 }
 
 bool_t dht11_read( float *phum, float *ptemp ){

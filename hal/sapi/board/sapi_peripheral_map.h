@@ -133,7 +133,7 @@ I2C_SCL = 11,
       // Leds
       // 40   41     42     43     44     45
 
-            LEDR  = 40,  
+      LEDR  = 40,  
       LEDG  = 41,  
       LEDB  = 42,
       //#error EDU-CIAA-NXP
