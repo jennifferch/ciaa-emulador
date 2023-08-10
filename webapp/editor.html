@@ -32,37 +32,47 @@
       <section id="editor-container">
         <div id="editor-topbar">
           <select id="select-project">
-            <option disabled>-- button --</option>
-            <option name="button">button</option>
-            <option disabled>-- gpio --</option>
-            <option selected name="blinky">blinky</option>
-            <option name="blinky_switch">blinky switch</option>
-            <option name="led_sequences">led_sequences</option>
-            <option name="semaphore">semaphore</option>
-            <option name="switches_leds">switches leds</option>
-            <option disabled>-- non_blocking_code --</option>
-            <option name="little_delay">little_delay</option>
-            <option name="non_blocking_delay">non_blocking_delay</option>
-            <option name="tick_callback">tick_callback</option>           
-            <option disabled>-- dht11 temperature/humidity --</option>
-            <option name="temperature">dht11</option>
-            <option disabled>-- rtc --</option>
-            <option name="rtc_printf">rtc printf</option>
-            <option name="rtc_uart">rtc uart</option>
-            <option disabled>-- tick hook --</option>
-            <option name="tickHook">tickHook</option>
-            <option disabled>-- rtos freertos --</option>
-            <option name="static_mem_freeRTOS_blinky">static freeRTOS blinky</option>
-            <option name="dynamic_mem_freeRTOS_blinky">dynamic freeRTOS blinky</option>
-            <option disabled>-- rtos cooperative --</option>
-            <option name="rtos_cooperative">scheduler</option>
-            <option disabled>-- seos_pont_2014 --</option>
-            <option name="seos_pont_2014">first_app</option>
-            <option name="modular_tasks">modular_tasks</option>
-            <option name="task_parameters">task_parameters</option>
-            <option disabled>-- nuevo proyecto --</option>
-            <option name="new">nuevo proyecto</option>
+            <optgroup label="Nuevo proyecto">
+              <option name="nuevo proyecto">nuevo proyecto</option>
+            </optgroup>
+            <optgroup label="GPIO">
+              <option name="blinky_switch">blinky switch</option>
+              <option selected name="blinky">blinky</option>
+              <option name="button">button</option>
+              <option name="led_sequences">led_sequences</option>
+              <option name="semaphore">semaphore</option>
+              <option name="switches_leds">switches leds</option>
+            </optgroup>
+            <optgroup label="RTC">
+              <option name="rtc_printf">rtc printf</option>
+              <option name="rtc_uart">rtc uart</option>
+            </optgroup>
+            <optgroup label="Tick">
+              <option name="tickHook">tickHook</option>
+            </optgroup>
+            <optgroup label="Non-blocking code">
+              <option name="little_delay">little_delay</option>
+              <option name="non_blocking_delay">non_blocking_delay</option>
+              <option name="tick_callback">tick_callback</option>
+            </optgroup>
+            <optgroup label="RTOS cooperative">
+              <option name="scheduler">scheduler</option>
+            </optgroup>
+            <optgroup label="&nbsp;&nbsp;&nbsp;SEOS Pont 2014">
+              <option name="first_app">&nbsp;&nbsp;&nbsp;first_app</option>
+              <option name="modular_tasks">&nbsp;&nbsp;&nbsp;modular_tasks</option>
+              <option name="task_parameters">&nbsp;&nbsp;&nbsp;task_parameters</option>
+            </optgroup>
+            <optgroup label="RTOS FreeRTOS">
+              <option name="static_mem_freeRTOS_blinky">static freeRTOS blinky</option>
+              <option name="dynamic_mem_freeRTOS_blinky">dynamic freeRTOS blinky</option>
+            </optgroup>
+            <optgroup label="External devices"></optgroup>
+            <optgroup label="&nbsp;&nbsp;&nbsp;Temperture_Humidity sensor">
+              <option name="dht11_temp_humidity">&nbsp;&nbsp;&nbsp;dht11</option>
+            </optgroup>
           </select>
+
           <button id="load-example" >Ver ejemplo</button>
           <button id="load-new">Nuevo proyecto</button>
   
@@ -83,25 +93,25 @@
         </div>
         <div id="editor">#include "sapi.h"
   
-        int main() {
-  
-          /* Inicializar la placa */
-          boardConfig();
-      
-          while (1) {
-      
-            /* Prendo el led azul */
-            gpioWrite( LEDB, ON );
-      
-            delay(500);
-      
-            /* Apago el led azul */
-            gpioWrite( LEDB, OFF );
-      
-            delay(500);
-            
-          }
-        }
+int main() {
+
+/* Inicializar la placa */
+boardConfig();
+
+while (1) {
+
+  /* Prendo el led azul */
+  gpioWrite( LEDB, ON );
+
+  delay(500);
+
+  /* Apago el led azul */
+  gpioWrite( LEDB, OFF );
+
+  delay(500);
+    
+  }
+}
         
        </div>
       </section>

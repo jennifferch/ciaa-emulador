@@ -198,6 +198,9 @@ module.exports = function(outFolder, port, staticMaxAge, runtimeLogs, callback) 
     app.post('/compile', (req, res, next) => {
         let id = compilationId++;
         console.time('compile' + id);
+
+
+        console.log('Compilación exitosa ',req.body.code);
         compile(req.body.code, outFolder).then(name => {
             console.timeEnd('compile' + id);
             consoleLog('Compilación exitosa', id);

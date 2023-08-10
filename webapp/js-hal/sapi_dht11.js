@@ -4,16 +4,16 @@ window.JSHal.dht11 = (function() {
     var obj = {};
     var values = {};
 
-    obj.init = function(id, sda, scl) {
+    obj.init = function(id, gpio, gnd) {
         sensors[id] = {
-            sda: sda,
-            scl: scl
+            gpio: gpio,
+            gnd: gnd
         };
     };
 
     obj.read_temperature = function(id) {
         if (!(id in sensors)) return 0;
-        var key = sensors[id].sda + '_' + sensors[id].scl;
+        var key = sensors[id].gpio + '_' + sensors[id].gnd;
 
         console.log( " read_temperature  key " + key);
         console.log( " values[key]  " + values[key] );
@@ -23,14 +23,14 @@ window.JSHal.dht11 = (function() {
 
     obj.read_humidity = function(id) {
         if (!(id in sensors)) return 0;
-        var key = sensors[id].sda + '_' + sensors[id].scl;
+        var key = sensors[id].gpio + '_' + sensors[id].gnd;
 
         return (values[key] || { humidity: 0 }).humidity;
     };
 
-    obj.update_temperature = function(sda, scl, temp) {
+    obj.update_temperature = function(gpio, gnd, temp) {
         console.log( "update_temperature " + temp);
-        var key = sda + '_' + scl;
+        var key = gpio + '_' + gnd;
 
         values[key] = values[key] || {
             temp: 0,
@@ -40,9 +40,9 @@ window.JSHal.dht11 = (function() {
         values[key].temp = temp;
     };
 
-    obj.update_humidity = function(sda, scl, humidity) {
+    obj.update_humidity = function(gpio, gnd, humidity) {
         console.log( "update_humidity " + humidity);
-        var key = sda + '_' + scl;
+        var key = gpio + '_' + gnd;
 
         values[key] = values[key] || {
             temp: 0,

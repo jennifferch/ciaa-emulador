@@ -1,6 +1,6 @@
 window.JSHal = window.JSHal || {};
 window.JSHal.gpioMap = {
-
+    'GND' : -1,
     'LED1': 50,
     'LED2': 52,
     'LED3': 53,
@@ -40,7 +40,7 @@ window.JSHal.gpioMap = {
     "GPIO7": 31,
     "GPIO5": 32,
     "GPIO3": 33,
-    "GPIO1": 34,
+    "GPIO1": 17,
     "LCD1": 35,
     "LCD2": 43,
     "LCD3": 44,

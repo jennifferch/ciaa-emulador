@@ -1575,13 +1575,13 @@ background: #5c95da;
 }
 
 
-.sht31 {
+.dht11 {
   width: 350px;
   padding-top: 10px;
   padding-left: 0px;
 }
 
-.sht31 {
+.dht11 {
   text-align: center;
   display: flex;
 }
@@ -1593,7 +1593,7 @@ background: #5c95da;
 }
 
 /* Thermometer column and text */
-.sht31-comp {
+.dht11-comp {
   margin: 10px 12px 60px 50px;
   width:22px;
   height:150px;
@@ -1610,7 +1610,7 @@ background: #5c95da;
 }
 
 /* Thermometer Bulb */
-.sht31-before {
+.dht11-before {
   content:' ';
   width:44px;
   height:44px;
@@ -1626,7 +1626,7 @@ background: #5c95da;
 }
 
 /* This piece here connects the column with the bulb */
-.sht31-after{
+.dht11-after{
   content:' ';
   width:14px;
   height:7px;
@@ -1637,7 +1637,7 @@ background: #5c95da;
   background:#db3f02;
 }
 
-.humidity .sht31-before, .humidity .sht31-after {
+.humidity .dht11-before, .humidity .dht11-after {
   background: #86C5DA;
 }
 
@@ -1665,4 +1665,8 @@ background: #5c95da;
 
 .contenedorLabel{
   display: block;
+}
+
+#optgroup[label^="SEOS "] {
+  margin-left: 10px;
 }

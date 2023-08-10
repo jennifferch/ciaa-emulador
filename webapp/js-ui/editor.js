@@ -5,6 +5,7 @@ editor.getSession().setMode("ace/mode/c_cpp");
 var simulatorFrame = document.querySelector('#viewer iframe');
 var compilationFailed = document.querySelector('#compilation-failed');
 
+
 if (document.location.hash) {
     if (document.location.hash.indexOf('#user') === 0) {
         var script = document.location.hash.substr(1);
@@ -14,7 +15,7 @@ if (document.location.hash) {
                 editor.setValue(x.responseText);
                 editor.selection.clearSelection();
                 editor.selection.moveCursorTo(0, 0);
-
+               
                 simulatorFrame.src = '/view/' + script;
                 simulatorFrame.style.display = 'block';
                 compilationFailed.style.display = 'none';
@@ -22,8 +23,7 @@ if (document.location.hash) {
         };
         x.open('GET', '/outUser/' + script + '.c');
         x.send();
-    }
-    else {
+    } else {
         var demo = document.location.hash.substr(1);
         var ix = [].map.call(document.querySelector('#select-project').options, function(p) {
             return p.getAttribute('name');
@@ -36,7 +36,7 @@ if (document.location.hash) {
     }
 }
 
-function load_example(demo) {
+function load_example(demo, optgroupLabel) {
     var x = new XMLHttpRequest();
     x.onload = function() {
         if (x.status === 200) {
@@ -51,9 +51,7 @@ function load_example(demo) {
             editor.selection.moveCursorTo(0, 0);
 
             document.location.hash = '#' + demo;
-        }
-        else {
-            alert('Fallo la compilación, observe la consola...');
+        }else {
             console.error('Fallo cargar el ejemplo...', x.status);
         }
 
@@ -65,23 +63,41 @@ function load_example(demo) {
             });
         }
     };
-    x.open('GET', '/examples/' + demo + '/main.c');
+    x.open('GET', '/examples/' + optgroupLabel + '/' + demo + '/main.c');
     x.send();
 }
 
 document.querySelector('#load-example').onclick = function() {
     var sp = document.querySelector('#select-project');
-    var demo = sp.options[sp.selectedIndex].getAttribute('name');
-    load_example(demo);
+    var selectedOption = sp.options[sp.selectedIndex]
+    var demo = selectedOption.getAttribute('name');
+    var optgroup = selectedOption.closest('optgroup');
+    var optgroupLabel = optgroup.getAttribute('label').trim();
+
+    switch (optgroupLabel) {
+        case 'SEOS Pont 2014':
+            var route =  'RTOS cooperative/' + optgroupLabel;
+            optgroupLabel = route;
+          break;
+        case 'Temperture_Humidity sensor':
+            var route =  'External devices/' + optgroupLabel;
+            optgroupLabel = route;
+          break;
+        default:
+          console.log("Opción ya reconocida");
+          break;
+      }
+
+    load_example(demo, optgroupLabel);
 };
 
 document.querySelector('#load-new').onclick = function() {
-    var example = 'new';
+    var optionName = 'nuevo proyecto';
+    var optgroupLabel = 'Nuevo proyecto';
     const selectElement = document.querySelector('#select-project');
-    const optionName = 'new';
     const optionIndex = Array.from(selectElement.options).findIndex(option => option.getAttribute('name') === optionName);
     selectElement.selectedIndex = optionIndex;
-    load_example(example);
+    load_example(optionName, optgroupLabel);
 };
 
 document.querySelector('#run').onclick = function() {
@@ -94,7 +110,6 @@ document.querySelector('#run').onclick = function() {
     var x = new XMLHttpRequest();
     x.onload = function() {
         btn.removeAttribute('disabled');
-
         if (x.status === 200) {
             simulatorFrame.src = '/view/' + x.responseText;
             status.textContent = '';
