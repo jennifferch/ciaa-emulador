@@ -8,14 +8,14 @@
         this.geolocationTimeout = 5000; 
         this.userOption = false; 
 
-        this.getTemperaturaHumedad();
+        this.getTemperatureHumidity();
         exports.BaseComponent.call(this);
         this.components = document.querySelector('#components');  
     }
 
     Dht11.prototype = Object.create(exports.BaseComponent.prototype);
 
-    Dht11.prototype.getTemperaturaHumedad = function() {
+    Dht11.prototype.getTemperatureHumidity = function() {
         this.request = new XMLHttpRequest();
         if (navigator.geolocation) {
             var self = this; 
@@ -47,6 +47,7 @@
                             this.temp = data.main.temp *100;
                             this.humidity = data.main.humidity + "00" ;
                             this.pins = pins;
+                            self.graphTemperatureHumidity(this.temp, this.humidity);
                             JSHal.dht11.update_temperature(JSHal.gpioMap.GPIO1, JSHal.gpioMap.GND, this.temp);
                             JSHal.dht11.update_humidity(JSHal.gpioMap.GPIO1, JSHal.gpioMap.GND, this.humidity);         
                         }
@@ -68,6 +69,7 @@
                 this.temp = data.main.temp *100;
                 this.humidity = data.main.humidity + "00" ;
                 this.pins = pins;
+                this.graphTemperatureHumidity(this.temp, this.humidity);
             JSHal.dht11.update_temperature(JSHal.gpioMap.GPIO1, JSHal.gpioMap.GND, this.temp);
             JSHal.dht11.update_humidity(JSHal.gpioMap.GPIO1, JSHal.gpioMap.GND, this.humidity);                  
         }
@@ -165,7 +167,7 @@
                 this.renderHumidity();
             }else{
                 this.userOption = false;
-                this.getTemperaturaHumedad();
+                this.getTemperatureHumidity();
             }
         }
     };
@@ -179,6 +181,23 @@
           }
         destroy.classList.add('destroy');
         destroy.classList.add('disabled');
+    };
+
+    Dht11.prototype.graphTemperatureHumidity = function(temp, humidity) {
+        var heightTemp = (temp / 100) / (50 / 146);
+        var topTemp = 146 - heightTemp;
+        var afterTemp = document.querySelector('.thermometer .dht11-after');
+        afterTemp.style.top = topTemp + 6 + 'px';
+        afterTemp.style.height = heightTemp + 'px';
+
+        var heightHum = (humidity / 100) / (100 / 146);
+        var topHum = 146 - heightHum;
+        var afterHum = document.querySelector('.humidity .dht11-after');
+        afterHum.style.top = topHum + 6 + 'px';
+        afterHum.style.height = heightHum + 'px';
+
+        document.querySelector('.thermometer .dht11-content').textContent = (temp / 100).toFixed(2) + '°C';
+        document.querySelector('.humidity  .dht11-content').textContent = (humidity / 100).toFixed(2) + '%';
     };
 
     Dht11.prototype.renderTemperature = function() {

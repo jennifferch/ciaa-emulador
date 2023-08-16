@@ -7,7 +7,6 @@
         var ix = activeComponents.indexOf(instance);
         activeComponentModel.splice(ix, 1);
         sessionStorage.setItem('model', JSON.stringify(activeComponentModel));
-        sessionStorage.setItem('model-dirty', true);
     };
     
     var components = [
@@ -65,7 +64,7 @@
         var peripherals = window.peripheralsToLoad;
         console.log("peripherals ",peripherals);
     
-        if (sessionStorage.getItem('model-dirty')) {
+        if (sessionStorage.getItem('model-dirty')  === 'true') {
             try {
                 peripherals = JSON.parse(sessionStorage.getItem('model'));
             }
@@ -88,7 +87,7 @@
             });
     
             sessionStorage.setItem('model', JSON.stringify(activeComponentModel));
-            sessionStorage.setItem('model-dirty', true);
+            document.querySelector('#collapseButton').click();
         }
     });
 
@@ -154,12 +153,14 @@
                 return curr;
             }, {});
             console.log('args reduce call ', args);
+            console.log('obj.component ', obj.component);
+            console.log(' window.JSUI ',  window.JSUI);
+            
             var component = new window.JSUI[obj.component](args);
             component.init();
             activeComponents.push(component);
             activeComponentModel.push({ component: obj.component, args: args });
             sessionStorage.setItem('model', JSON.stringify(activeComponentModel));
-            sessionStorage.setItem('model-dirty', true);
             document.querySelector('#overlay').style.display = 'none';
 
             document.querySelector('#collapseButton').click();

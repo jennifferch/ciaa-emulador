@@ -1083,7 +1083,7 @@ background: #5c95da;
     bottom: 0px;
     top: 45px;
     right: 0px;
-    height: calc(100% - 350px);
+    height: calc(100% - 550px);
     display: block;
     font-size: 15px;
     z-index: 1;
@@ -1370,12 +1370,6 @@ background: #5c95da;
   z-index: 52002;
 }
 
-
-.sitemenu--editor {
-  height: 3pc;
-  line-height: 3pc;
-}
-
 .sitemenu--editor_submenu {
   background-color: #f4f5f6;
   border-bottom: 1px solid #dfe3e8;
@@ -1392,6 +1386,7 @@ background: #5c95da;
 
 .editor_tools__tool {
   float: left;
+  line-height: 3pc;
 }
 
 .sitemenu__svg_block_btn {
@@ -1506,7 +1501,6 @@ background: #5c95da;
 
 .sitemenu--editor {
   height: 3pc;
-  line-height: 3pc;
   border-bottom: 1px solid #dfe3e8;
 }
 

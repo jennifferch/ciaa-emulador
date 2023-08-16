@@ -40,7 +40,7 @@ function load_example(demo, optgroupLabel) {
     var x = new XMLHttpRequest();
     x.onload = function() {
         if (x.status === 200) {
-            sessionStorage.removeItem('model-dirty');
+            load_peripheral(demo);
 
             simulatorFrame.src = '/view/' + demo;
             simulatorFrame.style.display = 'block';
@@ -66,6 +66,26 @@ function load_example(demo, optgroupLabel) {
     x.open('GET', '/examples/' + optgroupLabel + '/' + demo + '/main.c');
     x.send();
 }
+
+function load_peripheral(demo) {
+    var loadComponentModel = [];
+    //  sessionStorage.removeItem('model-dirty');
+    if(demo =='dht11_temp_humidity'){
+      if (!sessionStorage.getItem('model') ||  
+      sessionStorage.getItem('model') == JSON.stringify(loadComponentModel)){
+        loadComponentModel.push({ component: "Dht11", args: {
+            "SDA/SDI": -1,
+            "SIGNAL": 17,
+            "VCC": null
+        } });
+        sessionStorage.setItem('model', JSON.stringify(loadComponentModel));
+      }
+      sessionStorage.setItem('model-dirty', true);
+   }else{
+      sessionStorage.setItem('model-dirty', false);
+   }
+}
+
 
 document.querySelector('#load-example').onclick = function() {
     var sp = document.querySelector('#select-project');
