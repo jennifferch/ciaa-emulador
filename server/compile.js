@@ -14,8 +14,7 @@ module.exports = async function(content, outFolder) {
         await application.buildFile(inputFile, outputFile, [
             '-O2'
         ], false, false);
-    }
-    catch (ex) {
+    }catch (ex) {
         let basename = Path.resolve(Path.join(__dirname, '..'));
         console.error('buildFile failed', ex);
 

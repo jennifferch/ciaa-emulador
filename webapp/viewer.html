@@ -79,14 +79,6 @@
                           <div class="editor__component_item__tags">Sensor de temperatura y humedad</div>
                         </div>
                    </div>
-                   <div id="termistor" class="editor__component_item grid__item">
-                    <div class="editor__component_item__img">
-                      <img src="/img/termistor.png"></div>
-                    <div class="editor__component_item__grid">
-                      <div class="editor__component_item__grid__title">TERMISTOR</div>
-                      <div class="editor__component_item__tags">termistor</div>
-                    </div>
-                   </div>
                    <div id="lcd16x4" class="editor__component_item grid__item">
                         <div class="editor__component_item__img">
                           <img src="/img/lcd16x4.png"></div>
@@ -101,9 +93,32 @@
                     <div class="editor__component_item__grid">
                       <div class="editor__component_item__grid__title">LCD DISPLAY 20x4</div>
                       <div class="editor__component_item__tags">Lcd display 20x4</div>
+                   </div>
+                  </div>
+                  <div id="thermistor" class="editor__component_item grid__item">
+                    <div class="editor__component_item__img">
+                      <img src="/img/ntcThermistor.png"></div>
+                    <div class="editor__component_item__grid">
+                      <div class="editor__component_item__grid__title">TERMISTOR NTC</div>
+                      <div class="editor__component_item__tags">termistor NTC</div>
                     </div>
-               </div>
-                </div>
+                   </div>
+                   <div id="thermistor" class="editor__component_item grid__item">
+                    <div class="editor__component_item__img">
+                      <img src="/img/ptcThermistor.png"></div>
+                    <div class="editor__component_item__grid">
+                      <div class="editor__component_item__grid__title">TERMISTOR PTC</div>
+                      <div class="editor__component_item__tags">termistor PTC</div>
+                    </div>
+                   </div>
+                   <div id="potentiometer" class="editor__component_item grid__item">
+                    <div class="editor__component_item__img">
+                      <img src="/img/potenciometro.jpeg"></div>
+                    <div class="editor__component_item__grid">
+                      <div class="editor__component_item__grid__title">POTENCIÓ METRO</div>
+                      <div class="editor__component_item__tags">potenciómetro</div>
+                   </div>
+                  </div>
             </div>
             <div id="collapseButton" class="editor__sidebar__collapseButton"></div>
          </div>
@@ -127,7 +142,6 @@
 
   <script>
     window.peripheralsToLoad = {{{peripherals}}};
-    alert( window.peripheralsToLoad)
   </script>
 
   <script src="/socket.io/socket.io.js"></script>
@@ -157,11 +171,13 @@
   <script type="text/javascript" src="/js-ui/components/lcd.js"></script>
   <script type="text/javascript" src="/js-ui/components/dht11.js"></script>
   <script type="text/javascript" src="/js-ui/components/servo.js"></script>
-  <script type="text/javascript" src="/js-ui/components/termistor.js"></script>
-  <script type="text/javascript" src="/js-ui/viewer.js"></script>
+  <script type="text/javascript" src="/js-ui/components/thermistor.js"></script>
+  <script type="text/javascript" src="/js-ui/components/potentiometer.js"></script>
+  
   <script type="text/javascript" src="/js-ui/sidebar.js"></script>
   <script type="text/javascript" src="/js-ui/peripheral.js"></script>
-
+  <script type="text/javascript" src="/js-ui/viewer.js"></script>
+ 
   <!-- Aplicacion de usuario -->
   <script async type="text/javascript" src="/outUser/{{script}}.js"></script>
 </body>

@@ -1,0 +1,9 @@
+{
+    "peripherals": [{ "component": "Dht11", "args": {
+        "SDA/SDI": "gpioMap.GND",
+        "SIGNAL": "gpioMap.GPIO1",
+        "VCC": "3V3"
+        } }
+    ]
+
+}

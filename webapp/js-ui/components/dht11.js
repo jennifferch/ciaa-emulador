@@ -59,7 +59,8 @@
     };
 
     Dht11.prototype.getDefaultCityFromAPI = function(request) {
-        clearTimeout(this.geolocationTimer);
+        var self = this;
+        clearTimeout(self.geolocationTimer);
         console.log("La geolocalización no es soportada por este navegador.");
         request.open('GET', 'https://api.openweathermap.org/data/2.5/weather?q=Buenos%20Aires&appid=16df248820826ba8bd599c2ce8648dd2&units=metric', true);                   
         request.onload = function () {
@@ -69,7 +70,7 @@
                 this.temp = data.main.temp *100;
                 this.humidity = data.main.humidity + "00" ;
                 this.pins = pins;
-                this.graphTemperatureHumidity(this.temp, this.humidity);
+                self.graphTemperatureHumidity(this.temp, this.humidity);
             JSHal.dht11.update_temperature(JSHal.gpioMap.GPIO1, JSHal.gpioMap.GND, this.temp);
             JSHal.dht11.update_humidity(JSHal.gpioMap.GPIO1, JSHal.gpioMap.GND, this.humidity);                  
         }

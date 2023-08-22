@@ -5,7 +5,6 @@ editor.getSession().setMode("ace/mode/c_cpp");
 var simulatorFrame = document.querySelector('#viewer iframe');
 var compilationFailed = document.querySelector('#compilation-failed');
 
-
 if (document.location.hash) {
     if (document.location.hash.indexOf('#user') === 0) {
         var script = document.location.hash.substr(1);
@@ -38,11 +37,12 @@ if (document.location.hash) {
 
 function load_example(demo, optgroupLabel) {
     var x = new XMLHttpRequest();
+    const encodedString = encodeURIComponent(optgroupLabel + '/' + demo);
     x.onload = function() {
         if (x.status === 200) {
-            load_peripheral(demo);
+            sessionStorage.removeItem('model-dirty');
 
-            simulatorFrame.src = '/view/' + demo;
+            simulatorFrame.src = `/view/${encodedString}`;
             simulatorFrame.style.display = 'block';
             compilationFailed.style.display = 'none';
 
@@ -54,7 +54,6 @@ function load_example(demo, optgroupLabel) {
         }else {
             console.error('Fallo cargar el ejemplo...', x.status);
         }
-
         if (ga && typeof ga === 'function') {
             ga('send', {
                 hitType: 'event',
@@ -63,27 +62,8 @@ function load_example(demo, optgroupLabel) {
             });
         }
     };
-    x.open('GET', '/examples/' + optgroupLabel + '/' + demo + '/main.c');
+    x.open('GET', '/examples/' + encodedString + '/main.c');
     x.send();
-}
-
-function load_peripheral(demo) {
-    var loadComponentModel = [];
-    //  sessionStorage.removeItem('model-dirty');
-    if(demo =='dht11_temp_humidity'){
-      if (!sessionStorage.getItem('model') ||  
-      sessionStorage.getItem('model') == JSON.stringify(loadComponentModel)){
-        loadComponentModel.push({ component: "Dht11", args: {
-            "SDA/SDI": -1,
-            "SIGNAL": 17,
-            "VCC": null
-        } });
-        sessionStorage.setItem('model', JSON.stringify(loadComponentModel));
-      }
-      sessionStorage.setItem('model-dirty', true);
-   }else{
-      sessionStorage.setItem('model-dirty', false);
-   }
 }
 
 
@@ -92,15 +72,17 @@ document.querySelector('#load-example').onclick = function() {
     var selectedOption = sp.options[sp.selectedIndex]
     var demo = selectedOption.getAttribute('name');
     var optgroup = selectedOption.closest('optgroup');
-    var optgroupLabel = optgroup.getAttribute('label').trim();
-
+    var optgroupLabel = (optgroup.getAttribute('label')).replace(/&nbsp;/g, '')
+                                                        .trim()                                
+                                                        .toLowerCase()                  
+                                                        .replace(/ /g, '_'); 
     switch (optgroupLabel) {
-        case 'SEOS Pont 2014':
-            var route =  'RTOS cooperative/' + optgroupLabel;
+        case 'seos_pont_2014':
+            var route =  'rtos_cooperative/' + optgroupLabel;
             optgroupLabel = route;
           break;
-        case 'Temperture_Humidity sensor':
-            var route =  'External devices/' + optgroupLabel;
+        case 'temperture_humidity_sensor':
+            var route =  'external_devices/' + optgroupLabel;
             optgroupLabel = route;
           break;
         default:

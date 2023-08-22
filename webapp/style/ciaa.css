@@ -1580,7 +1580,23 @@ background: #5c95da;
   display: flex;
 }
 
+.pote {
+  padding-top: 10px;
+  padding-left: 0px;
+}
+
+.pote {
+  text-align: center;
+  display: flex;
+}
+
 .dht11-img{
+  position:relative;
+  width: 110px;
+  padding-top: 20px;
+}
+
+.pote-img{
   position:relative;
   width: 110px;
   padding-top: 20px;
@@ -1663,4 +1679,14 @@ background: #5c95da;
 
 #optgroup[label^="SEOS "] {
   margin-left: 10px;
+}
+
+.thermistor .voltage-min {
+  float: left;
+  margin-left: 10px;
+}
+
+.thermistor .voltage-max {
+  float: right;
+  margin-right: 10px;
 }

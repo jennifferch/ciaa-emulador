@@ -2,11 +2,36 @@
 
     var activeComponents = [];
     var activeComponentModel = [];
+
+    var getPeripherals = function() {
+        var peripherals = window.peripheralsToLoad;
+        if (peripherals && peripherals.length != 0 ) {
+            peripherals.forEach(function(m) {
+                var args = m.args;
+                Object.keys(args).forEach(function(k) {
+                    if (typeof args[k] === 'string' && args[k].indexOf('gpioMap.') === 0) {
+                        args[k] = JSHal.gpioMap[args[k].replace('gpioMap.', '')];
+                    }
+                });
+    
+                var component = new window.JSUI[m.component](args);
+                component.init();
+                activeComponents.push(component);
+                activeComponentModel.push(m);
+
+                sessionStorage.setItem('model', JSON.stringify(activeComponentModel));
+                sessionStorage.setItem('model-dirty', true);
+            });
+    
+            document.querySelector('#collapseButton').click();
+        }
+      };
     
     window.removeComponent = function(instance) {
         var ix = activeComponents.indexOf(instance);
         activeComponentModel.splice(ix, 1);
         sessionStorage.setItem('model', JSON.stringify(activeComponentModel));
+        sessionStorage.setItem('model-dirty', true);
     };
     
     var components = [
@@ -50,28 +75,32 @@
              { name: 'GND', value: [ 'Ground']  }]
         },
         {
-            component: 'Termistor',
-            id: 'termistor',
-            name: 'Termistor',
-            pins: [ { name: 'SDA/T_FIL1(SERVO0)', value: [ 'PWM'] }, 
-             { name: 'VCC', value: ['5V']  } ,
-             { name: 'GND', value: [ 'Ground']  }]
+            component: 'Thermistor',
+            id: 'thermistor',
+            name: 'Thermistor',
+            pins: [ { name: 'SIGNAL', value: [ 'CH1', 'CH2', 'CH3'] }, { name: 'GND', value: [ 'GNDA' ] }, { name: 'VCC', value: [ '3V3']} ]
+        },
+        {
+            component: 'Potentiometer',
+            id: 'potentiometer',
+            name: 'Potenciómetro',
+            pins: [ { name: 'SIGNAL', value: [ 'CH1', 'CH2', 'CH3'] }, { name: 'GND', value: [ 'GNDA' ] }, { name: 'VCC', value: [ '3V3']} ]
         }
 
     ];
     
    Module.preRun.push(function() {
-        var peripherals = window.peripheralsToLoad;
-        console.log("peripherals ",peripherals);
+       var peripherals = window.peripheralsToLoad;
+        console.log("peripherals test ",peripherals);
     
-        if (sessionStorage.getItem('model-dirty')  === 'true') {
+        if (sessionStorage.getItem('model-dirty')) {
             try {
                 peripherals = JSON.parse(sessionStorage.getItem('model'));
             }
             catch (ex) {}
         }
     
-        if (peripherals) {
+        if (peripherals && peripherals.length != 0 ) {
             peripherals.forEach(function(m) {
                 var args = m.args;
                 Object.keys(args).forEach(function(k) {
@@ -87,12 +116,13 @@
             });
     
             sessionStorage.setItem('model', JSON.stringify(activeComponentModel));
+            sessionStorage.setItem('model-dirty', true);
             document.querySelector('#collapseButton').click();
         }
     });
 
-
     const component_grid_item = document.querySelectorAll('.editor__component_item');
+
     component_grid_item.forEach(box => {
         box.addEventListener('mousedown', mousedown)
     });
@@ -153,14 +183,14 @@
                 return curr;
             }, {});
             console.log('args reduce call ', args);
-            console.log('obj.component ', obj.component);
-            console.log(' window.JSUI ',  window.JSUI);
-            
+
             var component = new window.JSUI[obj.component](args);
             component.init();
             activeComponents.push(component);
             activeComponentModel.push({ component: obj.component, args: args });
+
             sessionStorage.setItem('model', JSON.stringify(activeComponentModel));
+            sessionStorage.setItem('model-dirty', true);
             document.querySelector('#overlay').style.display = 'none';
 
             document.querySelector('#collapseButton').click();
@@ -172,6 +202,8 @@
             this.style.display = 'none';
         }
     };
+
+    getPeripherals();
     
     })();
     

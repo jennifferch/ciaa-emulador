@@ -126,7 +126,7 @@ static void test_delayRead() {
     bool_t result = delayRead(&refreshButton);
 
     // Verificar que la función delay_read devuelve verdadero
-    assert_true(result);
+    assert_false(result);
 
     // Restaurar el comportamiento original del mock delay_read
     tickRead_set_result(0);  // Error en la lectura

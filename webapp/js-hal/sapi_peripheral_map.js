@@ -18,13 +18,17 @@ window.JSHal.gpioMap = {
     'TEC3': 38,  
     'TEC4': 39,
 
-    'SPI_MOSI': 9,
     'SPI_MISO': 8,
     'SPI_SCK': 7,
 
     'T_FIL1': 15, 
 
     "GPIO1": 2,
+
+    "CH1": 0,
+    "CH2": 1,
+    "CH3": 2,
+    "GNDA": 12,
 
     "T_COL2": 20,
     "T_COL0": 21,

@@ -8,6 +8,8 @@ const Path = require('path');
 const fs = require('fs');
 const compile = require('./compile');
 const udp = require('dgram');
+const { exists, getDirectories} = require('../tools/util');
+const promisify = require('es6-promisify').promisify;
 const timesyncServer = require('timesync/server');
 const version = JSON.parse(fs.readFileSync(Path.join(__dirname, '..', 'package.json'), 'utf-8')).version;
 const compression = require('compression');
@@ -37,7 +39,7 @@ module.exports = function(outFolder, port, staticMaxAge, runtimeLogs, callback) 
     express.static.mime.define({'application/wasm': ['wasm']});
     app.use('/outUser', express.static(outFolder, { maxAge: staticMaxAge }));
     app.use('/examples', express.static(Path.join(__dirname, '..', 'examples'), { maxAge: staticMaxAge }));
-    app.use('/external_peripherals', express.static(Path.join(__dirname, '..', 'hal/sapi', 'external_peripherals'), { maxAge: staticMaxAge }));
+    app.use('/external_peripherals', express.static(Path.join(__dirname, '..', 'examples', 'External devices','Temperture_Humidity sensor', 'dht11_temp_humidity'), { maxAge: staticMaxAge }));
     app.use('/timesync', timesyncServer.requestHandler);
 
     app.use(express.static(Path.join(__dirname, '..', 'webapp'), { maxAge: staticMaxAge }));
@@ -158,31 +160,47 @@ module.exports = function(outFolder, port, staticMaxAge, runtimeLogs, callback) 
 
     })
 
-    app.get('/view/:script', (req, res, next) => {
+    app.get('/view/:pathScript*', (req, res, next) => {
+
+        const pathSegments = req.params.pathScript.split('/');
+        const script = pathSegments.pop(); // Último segmento es el script
+
         let maxAge = 0;
-        if (req.params.script.indexOf('user_') === 0) {
+        if (script.indexOf('user_') === 0) {
             maxAge = staticMaxAge;
         }
 
-        if (/\.js\.mem$/.test(req.params.script)) {
-            return res.sendFile(Path.join(outFolder, req.params.script), { maxAge: maxAge });
+        if (/\.js\.mem$/.test(script)) {
+            return res.sendFile(Path.join(outFolder, script), { maxAge: maxAge });
         }
 
-        if (/\.js\.map$/.test(req.params.script)) {
-            return res.sendFile(Path.join(outFolder, req.params.script), { maxAge: maxAge });
+        if (/\.js\.map$/.test(script)) {
+            return res.sendFile(Path.join(outFolder, script), { maxAge: maxAge });
         }
 
-        if (/\.data$/.test(req.params.script)) {
-            return res.sendFile(Path.join(outFolder, req.params.script), { maxAge: maxAge });
+        if (/\.data$/.test(script)) {
+            return res.sendFile(Path.join(outFolder, script), { maxAge: maxAge });
         }
 
         (async function() {
-            let componentsPath = Path.join(outFolder, req.params.script + '.js.components');
-            consoleLog('async function ', componentsPath);
-            consoleLog('req.params.script ', req.params.script);
-            consoleLog('script ', req);
+            let peripherals = [];
+            if (script.indexOf('user_') !== 0) {
+                const inputDir = Path.join(__dirname, '..', 'examples', req.params.pathScript);
+                console.log('Path completo:', inputDir);
+
+                let componentPeripherals = await exists(Path.join(inputDir, 'emuladorconfig.json'))
+                ? JSON.parse(await promisify(fs.readFile)(Path.join(inputDir, 'emuladorconfig.json')))
+                : {};
+
+                if(Object.keys(componentPeripherals).length > 0){
+                    peripherals = peripherals.concat(componentPeripherals.peripherals);
+                }
+              
+                console.log('JSON.stringify(peripherals)', JSON.stringify(peripherals));
+            }
             res.render('viewer.html', {
-                script: req.params.script,
+                script: script,
+                peripherals: JSON.stringify(peripherals),
                 version: version
             });
         })().catch(err => {
@@ -198,7 +216,6 @@ module.exports = function(outFolder, port, staticMaxAge, runtimeLogs, callback) 
     app.post('/compile', (req, res, next) => {
         let id = compilationId++;
         console.time('compile' + id);
-
 
         console.log('Compilación exitosa ',req.body.code);
         compile(req.body.code, outFolder).then(name => {

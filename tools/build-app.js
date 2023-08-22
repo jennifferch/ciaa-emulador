@@ -6,8 +6,43 @@ const libc = require('./build-libc');
 const EventEmitter = require('events');
 const promisify = require('es6-promisify').promisify;
 
-let build = async function(outFile, extraArgs, emterpretify, verbose, includeDirectories, cFiles, disableTlsNullEntropy) {
+let findPeripherals = async function() {
+    let dirs  = await libc.getAllDirectories();
+
+    let hal = [];
+    let ui = [];
+
+    // iterate over hal folders
+    for (let d of dirs.filter(d => Path.basename(d) === 'js-hal')) {
+        // read all files that end with js and add them
+        hal = hal.concat((await promisify(fs.readdir)(d)).filter(f => /\.js$/.test(f)).map(f => Path.join(d, f)));
+    }
+
+    // iterate over ui folders
+    for (let d of dirs.filter(d => Path.basename(d) === 'js-ui')) {
+        // read all files that end with js and add them
+        ui = ui.concat((await promisify(fs.readdir)(d)).filter(f => /\.js$/.test(f)).map(f => Path.join(d, f)));
+    }
+
+    // get relative to root
+    hal = hal.map(f => Path.relative(Path.join(__dirname, '..'), f));
+    ui = ui.map(f => Path.relative(Path.join(__dirname, '..'), f));
+
+    return {
+        hal: hal,
+        ui: ui
+    };
+};
+
+let build = async function(outFile, extraArgs, emterpretify, verbose, includeDirectories, cFiles, peripherals, componentFiles, disableTlsNullEntropy) {
     let componentsOutName = Path.join(Path.dirname(outFile), Path.basename(outFile) + '.components');
+
+    let builtinPeripherals = await findPeripherals();
+    let components = {
+        jshal: builtinPeripherals.hal.concat(componentFiles.jshal || []),
+        jsui: builtinPeripherals.ui.concat(componentFiles.jsui || []),
+        peripherals: peripherals
+    };
 
     let args = cFiles
         .concat(includeDirectories.map(i => '-I' + i))
@@ -40,19 +75,20 @@ let build = async function(outFile, extraArgs, emterpretify, verbose, includeDir
 
     return new Promise((resolve, reject) => {
         let stdout = '';
+
         cmd.stdout.on('data', data => stdout += data.toString('utf-8'));
         cmd.stderr.on('data', data => stdout += data.toString('utf-8'));
 
         cmd.on('close', code => {
             if (code === 0) {
-                fs.writeFile(componentsOutName, 'utf-8', function(err) {
+                fs.writeFile(componentsOutName, JSON.stringify(components, null, 4), 'utf-8', function(err) {
                     if (err) return reject(err);
 
                     resolve(outFile);
                 });
             }
             else {
-                reject('La aplicación no se pudo compilar (' + code + ')\n' + stdout);
+                reject('Application failed to build (' + code + ')\n' + stdout);
             }
         });
     });
