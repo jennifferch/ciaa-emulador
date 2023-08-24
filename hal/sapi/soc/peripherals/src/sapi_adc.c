@@ -122,7 +122,7 @@ void adcInit( adcInit_t config )
          break;
   }
 
-  adc_init(&_adc, DAC);
+     adc_init(&_adc, CH1);
 
 }
 
@@ -132,9 +132,8 @@ void adcInit( adcInit_t config )
  * @param   AI0 ... AIn
  * @return  analog value
  */
-uint16_t adcRead( adcMap_t analogInput )
+uint16_t adcRead( adcMap_t analogInput)
 {
-   uint8_t lpcAdcChannel = analogInput + 1;
    uint16_t analogValue = 0;
 
    // Enable channel

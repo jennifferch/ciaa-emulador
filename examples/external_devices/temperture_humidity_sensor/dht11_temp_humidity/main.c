@@ -16,8 +16,8 @@ int main(void) {
          gpioWrite( LEDG, ON );
          gpioWrite( LEDR, OFF );
          // Informo los valores de los sensores
-         printf( "Temperatura: %.2f grados C.\r\n", temperature );
-         printf( "Humedad: %.2f  %.\r\n\r\n", humidity );
+         printf( "Temperatura: %.2f grados C ", temperature );
+         printf( "Humedad %.2f %%\r\n", humidity );
       } else {
          // Si leyo mal apago el LEDG y enciendo el LEDR
          gpioWrite( LEDG, OFF );

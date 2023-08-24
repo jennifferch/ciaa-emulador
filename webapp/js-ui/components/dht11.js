@@ -46,10 +46,9 @@
                             console.log( "data Humedad " + data.main.humidity);
                             this.temp = data.main.temp *100;
                             this.humidity = data.main.humidity + "00" ;
-                            this.pins = pins;
                             self.graphTemperatureHumidity(this.temp, this.humidity);
-                            JSHal.dht11.update_temperature(JSHal.gpioMap.GPIO1, JSHal.gpioMap.GND, this.temp);
-                            JSHal.dht11.update_humidity(JSHal.gpioMap.GPIO1, JSHal.gpioMap.GND, this.humidity);         
+                            JSHal.dht11.update_temperature(self.pins.SIGNAL, JSHal.gpioMap.GND, this.temp);
+                            JSHal.dht11.update_humidity(self.pins.SIGNAL, JSHal.gpioMap.GND, this.humidity);         
                         }
                     }  
                 }   
@@ -69,10 +68,9 @@
                 console.log( "data Humedad" + data.main.humidity);
                 this.temp = data.main.temp *100;
                 this.humidity = data.main.humidity + "00" ;
-                this.pins = pins;
                 self.graphTemperatureHumidity(this.temp, this.humidity);
-            JSHal.dht11.update_temperature(JSHal.gpioMap.GPIO1, JSHal.gpioMap.GND, this.temp);
-            JSHal.dht11.update_humidity(JSHal.gpioMap.GPIO1, JSHal.gpioMap.GND, this.humidity);                  
+            JSHal.dht11.update_temperature(self.pins.SIGNAL, JSHal.gpioMap.GND, this.temp);
+            JSHal.dht11.update_humidity(self.pins.SIGNAL, JSHal.gpioMap.GND, this.humidity);                  
         }
         request.send();
     };
@@ -211,7 +209,7 @@
         after.style.height = height + 'px';
 
         this.tempEl.querySelector('.dht11-content').textContent = (this.temp / 100).toFixed(2) + '°C';
-        JSHal.dht11.update_temperature(JSHal.gpioMap.GPIO1, JSHal.gpioMap.GND, this.temp);
+        JSHal.dht11.update_temperature(this.pins.SIGNAL, JSHal.gpioMap.GND, this.temp);
     };
 
     Dht11.prototype.renderHumidity = function() {
@@ -224,7 +222,7 @@
         after.style.height = height + 'px';
         
         this.humiEl.querySelector('.dht11-content').textContent = (this.humidity / 100).toFixed(2) + '%';
-        JSHal.dht11.update_humidity(JSHal.gpioMap.GPIO1, JSHal.gpioMap.GND, this.humidity); 
+        JSHal.dht11.update_humidity(this.pins.SIGNAL, JSHal.gpioMap.GND, this.humidity); 
     };
 
     Dht11.prototype.change = function(ev) {

@@ -1,0 +1,9 @@
+{
+    "peripherals": [{ "component": "Potentiometer", "args": {
+        "SIGNAL": "gpioMap.CH1",
+        "GND": "gpioMap.GNDA",
+        "VCC": "3V3"
+        } }
+    ]
+
+}

@@ -75,7 +75,7 @@ document.querySelector('#load-example').onclick = function() {
     var optgroupLabel = (optgroup.getAttribute('label')).replace(/&nbsp;/g, '')
                                                         .trim()                                
                                                         .toLowerCase()                  
-                                                        .replace(/ /g, '_'); 
+                                                        .replace(/[\/\s]/g, '_'); 
     switch (optgroupLabel) {
         case 'seos_pont_2014':
             var route =  'rtos_cooperative/' + optgroupLabel;

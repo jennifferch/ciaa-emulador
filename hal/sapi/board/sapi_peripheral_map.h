@@ -93,33 +93,33 @@ typedef enum {
       LEDB  = 42,
       RESET = 1337, 
       NC = (int)0xFFFFFFFF,
-    p5 = 9,
-    p6 = 8,
-    p7 = 7,
-    p11 = 18,
-    p12 = 17,
-    p13 = 15,
-I2C_SDA = 10,
-I2C_SCL = 11,
-            LED1 = 50,
+      p5 = 9,
+      p6 = 8,
+      p7 = 7,
+      p11 = 18,
+      p12 = 17,
+      p13 = 15,
+      I2C_SDA = 10,
+      I2C_SCL = 11,
+      LED1 = 50,
       LED2 = 52,
       LED3 = 53,
       LED4 = 55,
-          SPI_MOSI = 9,
-    SPI_MISO = 8,
-        SPI_SCK  = 7,
+      SPI_MOSI = 9,
+      SPI_MISO = 8,
+      SPI_SCK  = 7,
 
-    BUTTON2 = 1338, // hope this is not used yet
-    SW1 = 1337, // hope this is not used yet
-    SW2 = 1338 // hope this is not used yet
+      BUTTON2 = 1338, // hope this is not used yet
+      SW1 = 1337, // hope this is not used yet
+      SW2 = 1338 // hope this is not used yet
    #elif (BOARD == edu_ciaa_nxp)
       VCC = -2, GND = -1,
       // P1 headere
       T_FIL1 = 15,    T_COL2,    T_COL0,    T_FIL2,      T_FIL3,  T_FIL0,     T_COL1,
       CAN_TD,    CAN_RD,    RS232_TXD, RS232_RXD,
       // P2 header
-     // GPIO8,     GPIO7,     GPIO5,     GPIO3,     GPIO1, 
-     GPIO0 = 16, GPIO1 = 17, GPIO2 = 18, GPIO3 = 19, GPIO7 = 20, GPIO8 = 21, 
+      // GPIO8,     GPIO7,     GPIO5,     GPIO3,     GPIO1, 
+      GPIO0 = 16, GPIO1 = 17, GPIO2 = 18, GPIO3 = 19, GPIO7 = 20, GPIO8 = 21, 
       LCD1,      LCD2,      LCD3,      LCDRS,       LCD4,
     //  SPI_MISO = 22,
       ENET_TXD1, ENET_TXD0, ENET_MDIO, ENET_CRS_DV, ENET_MDC, ENET_TXEN, ENET_RXD1,
@@ -140,19 +140,19 @@ I2C_SCL = 11,
       RESET = 1337, 
        NC = (int)0xFFFFFFFF,
 
-I2C_SDA = 10,
-I2C_SCL = 11,
-            LED1 = 50,
+      I2C_SDA = 10,
+      I2C_SCL = 11,
+      LED1 = 50,
       LED2 = 52,
       LED3 = 53,
       LED4 = 55,
-                SPI_MOSI = 9,
-    SPI_MISO = 8,
-        SPI_SCK  = 7,
+      SPI_MOSI = 9,
+      SPI_MISO = 8,
+      SPI_SCK  = 7,
 
-    BUTTON2 = 1338, // hope this is not used yet
-    SW1 = 1337, // hope this is not used yet
-    SW2 = 1338 // hope this is not used yet
+      BUTTON2 = 1338, // hope this is not used yet
+      SW1 = 1337, // hope this is not used yet
+      SW2 = 1338 // hope this is not used yet
    #else
       #error BOARD not supported yet!
    #endif
@@ -174,7 +174,12 @@ I2C_SCL = 11,
 
 /* Defined for sapi_adc.h */
 typedef enum {
-	#if (BOARD == ciaa_nxp)
+	#if (BOARD == edu_ciaa_nxp)
+	   CH1 = 0, // CH1 =   2 ADC0_1/ADC1_1
+	   CH2 = 1, // CH2 = 143 ADC0_2/ADC1_2
+	   CH3 = 2, // CH3 = 139 ADC0_3/ADC1_3
+	   CH4 = 3, // CH4 =  ADC0_4/ADC1_4
+	#elif (BOARD == ciaa_nxp)
 	   AIN0 = 0, // AIN0 =   2 ADC0_1/ADC1_1
 	   AIN1 = 1, // AIN1 = 143 ADC0_2/ADC1_2
 	   AIN2 = 2, // AIN2 = 139 ADC0_3/ADC1_3
@@ -183,10 +188,6 @@ typedef enum {
 	   AI1 = 1,  // AIN1 = 143 ADC0_2/ADC1_2
 	   AI2 = 2,  // AIN2 = 139 ADC0_3/ADC1_3
 	   AI3 = 3,  // AIN3 = 138 ADC0_4/ADC1_4
-	#elif (BOARD == edu_ciaa_nxp)
-	   CH1 = 0, // CH1 =   2 ADC0_1/ADC1_1
-	   CH2 = 1, // CH2 = 143 ADC0_2/ADC1_2
-	   CH3 = 2, // CH3 = 139 ADC0_3/ADC1_3
 	#else
 	   #error BOARD not supported yet!
 	#endif
@@ -194,13 +195,13 @@ typedef enum {
 
 /* Defined for sapi_dac.h */
 typedef enum {
-	#if (BOARD == ciaa_nxp)
+	#if (BOARD == edu_ciaa_nxp)
+		DAC  = 0,
+		DAC0 = 0,
+	#elif (BOARD == ciaa_nxp)
 		AO  = 0,
 		AO0 = 0,
 		AOUT = 0,
-		DAC  = 0,
-		DAC0 = 0,
-	#elif (BOARD == edu_ciaa_nxp)
 		DAC  = 0,
 		DAC0 = 0,
 	#else
@@ -213,17 +214,17 @@ typedef enum {
 // - If use UART_GPIO you can't use UART_485 and vice versa.
 // - If use UART_USB you can't use UART_ENET and vice versa.
 typedef enum {
-	#if (BOARD == ciaa_nxp)
-	   UART_485  = 1, // Hardware UART0 via RS_485 A, B and GND Borns
-					  // Hardware UART1 not routed
-	   UART_USB  = 3, // Hardware UART2 via USB DEBUG port
-	   UART_232  = 5, // Hardware UART3 via 232_RX and 232_tx pins on header P1
-	#elif (BOARD == edu_ciaa_nxp)
+	#if (BOARD == edu_ciaa_nxp)
 	   UART_GPIO = 0, // Hardware UART0 via GPIO1(TX), GPIO2(RX) pins on header P0
 	   UART_485  = 1, // Hardware UART0 via RS_485 A, B and GND Borns
 		// Hardware UART1 not routed
 	   UART_USB  = 3, // Hardware UART2 via USB DEBUG port
 	   UART_ENET = 4, // Hardware UART2 via ENET_RXD0(TX), ENET_CRS_DV(RX) pins on header P0
+	   UART_232  = 5, // Hardware UART3 via 232_RX and 232_tx pins on header P1
+	#elif (BOARD == ciaa_nxp)
+	   UART_485  = 1, // Hardware UART0 via RS_485 A, B and GND Borns
+					  // Hardware UART1 not routed
+	   UART_USB  = 3, // Hardware UART2 via USB DEBUG port
 	   UART_232  = 5, // Hardware UART3 via 232_RX and 232_tx pins on header P1
 	#else
 	   #error BOARD not supported yet!

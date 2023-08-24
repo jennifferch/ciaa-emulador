@@ -166,13 +166,13 @@ window.JSHal.gpio = (function() {
         }
         else if (declaredPins[pin].type === TYPE.ANALOG || declaredPins[pin].type === TYPE.PWM) {
             if (value < 0) value = 0;
-            if (value > 1024) value = 1024;
+            if (value > 1023) value = 1023;
 
-            if (value >= 0 && value <= 1024) {
+            if (value >= 0 && value <= 1023) {
                 declaredPins[pin].value = Math.floor(value);
             }
             else {
-                return console.error('ANALOG|PWMOUT pin debe de estar entre el 0 y 1024', pin, value);
+                return console.error('ANALOG|PWMOUT pin debe de estar entre el 0 y 1023', pin, value);
             }
         }
 

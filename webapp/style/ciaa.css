@@ -124,6 +124,7 @@ body {
 
 .viewer #status {
   float: right;
+  text-align: center;
 }
 
 .viewer #refresh {
@@ -1689,4 +1690,14 @@ background: #5c95da;
 .thermistor .voltage-max {
   float: right;
   margin-right: 10px;
+}
+
+.tooltip {
+  position: absolute;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  pointer-events: none;
 }

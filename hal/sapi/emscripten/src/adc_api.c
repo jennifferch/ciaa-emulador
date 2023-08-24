@@ -1,7 +1,7 @@
 #include "emscripten.h"
 #include "adc_api.h"
 
-void adc_init(adc_t *obj, gpioMap_t pin) {
+void adc_init(adc_t *obj, adcMap_t pin) {
     obj->pin = pin;
 
     EM_ASM_({
@@ -15,10 +15,10 @@ uint16_t adc_read_u16(adc_t *obj) {
     }, obj->pin);
 }
 
-float adc_read(adc_t *obj) {
+uint16_t adc_read(adc_t *obj) {
     int v = EM_ASM_INT({
         return JSHal.gpio.read($0);
     }, obj->pin);
 
-    return ((float)v) / 1024.0f;
+    return v;
 }

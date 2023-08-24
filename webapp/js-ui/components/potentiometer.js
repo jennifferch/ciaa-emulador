@@ -1,9 +1,8 @@
 (function(exports) {
-    function Potentiometer(pins) {
+
+    function Potentiometer(pins) {   
+        this.dataPin = pins;
         exports.BaseComponent.call(this);
-
-        this.dataPin = pins.Potentiometer;
-
         this.componentsEl = document.querySelector('#components');
     }
 
@@ -17,29 +16,42 @@
         var wrapper = document.createElement('div');
         wrapper.classList.add('pote');
         wrapper.innerHTML =
-            '<div class="pote-img"><img src="/img/potenciometro.jpeg" alt="Descripción de la imagen"></div>';
+            '<div class="pote-img"><img src="/img/potenciometro.jpeg" alt="Potenciómetro"></div>';
         el.appendChild(wrapper);
-
 
         el.classList.add('component');
         el.classList.add('thermistor');
 
         el.addEventListener('click', this.handleClick.bind(this));
 
+        var tooltip = document.createElement('div');
+        tooltip.id = 'customTooltip';
+        tooltip.className = 'tooltip';
+
         var range = document.createElement('input');
         range.setAttribute('min', 0);
         range.setAttribute('max', 3.3);
         range.step = 0.01;
-        range.value = JSHal.gpio.read(1) / 1024 * 5;
+        range.value = JSHal.gpio.read(this.dataPin.SIGNAL)/ 1023 * 3.3;
         range.setAttribute('type', 'range');
 
         range.addEventListener('change', function() {
-            window.JSHal.gpio.write(1, range.value / 5 * 1024);
+            window.JSHal.gpio.write(self.dataPin.SIGNAL, range.value/ 3.3 * 1023);
+            tooltip.textContent = (Math.floor(range.value/ 3.3 * 1023)* 3.3 / 1023.0).toFixed(6);
+            tooltip.style.display = 'block';
+        });
+     
+        range.addEventListener('mouseleave', function() {
+            tooltip.style.display = 'none'; 
+        });
+
+        range.addEventListener('mouseup', function() {
+            tooltip.style.display = 'none'; 
         });
 
         var rangeP = document.createElement('p');
         rangeP.appendChild(range);
-
+        rangeP.appendChild(tooltip);
         el.appendChild(rangeP);
 
         var voltageP = document.createElement('p');
@@ -54,7 +66,7 @@
         voltageP.appendChild(voltageMax);
 
         el.appendChild(voltageP);
-
+        
         this.componentsEl.appendChild(el);
     };
 
@@ -70,7 +82,7 @@
 
     Potentiometer.prototype.destroy = function(param) {
         window.removeComponent(this);
-        this.componentsEl.removeChild(this._el);
+        this.componentsEl.removeChild(param._el);
         var destroy = document.getElementById("DELETE_ID");
         while (destroy.classList.length > 0) {
             destroy.classList.remove(destroy.classList.item(0));

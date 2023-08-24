@@ -43,17 +43,17 @@ extern "C" {
 #endif
 
 struct adc_s {
-    gpioMap_t pin;
+    adcMap_t pin;
 };
 
 
 typedef struct adc_s adc_t;
 
 
-void adc_init(adc_t *obj, gpioMap_t pin);
+void adc_init(adc_t *obj, adcMap_t pin);
 
 
-float adc_read(adc_t *obj);
+uint16_t adc_read(adc_t *obj);
 
 
 #ifdef __cplusplus
