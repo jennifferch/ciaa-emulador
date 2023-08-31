@@ -94,8 +94,8 @@ document.querySelector('#load-example').onclick = function() {
 };
 
 document.querySelector('#load-new').onclick = function() {
-    var optionName = 'nuevo proyecto';
-    var optgroupLabel = 'Nuevo proyecto';
+    var optionName = 'nuevo_proyecto';
+    var optgroupLabel = 'nuevo_proyecto';
     const selectElement = document.querySelector('#select-project');
     const optionIndex = Array.from(selectElement.options).findIndex(option => option.getAttribute('name') === optionName);
     selectElement.selectedIndex = optionIndex;

@@ -35,7 +35,10 @@
  * Date: 2016-07-28
  */
 
-#include "sapi_7_segment_display.h"
+/*==================[inclusions]=============================================*/
+
+#include "sapi_7_segment_display.h"   /* <= own header */
+
 #include "sapi_delay.h"               /* <= delay header */
 #include "sapi_gpio.h"                /* <= GPIO header */
 
@@ -282,4 +285,3 @@ void display7SegmentRefresh( Display7Segment_t *disp )
 
 
 /*==================[end of file]============================================*/
-

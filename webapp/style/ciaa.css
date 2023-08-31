@@ -197,8 +197,6 @@ body {
   height: 400px;
 }
 
-
-
 .component .description {
   margin: 0 0 10px 0;
   text-align: center;
@@ -1495,7 +1493,6 @@ background: #5c95da;
   transform: rotate(90deg);
 }
 
-
 .sitemenu {
   z-index: 52000;
 }
@@ -1554,7 +1551,6 @@ background: #5c95da;
   padding: 0;
 }
 
-
 .button {
   background-color: #4c4e4e; 
   border: none;
@@ -1574,9 +1570,6 @@ background: #5c95da;
   width: 350px;
   padding-top: 10px;
   padding-left: 0px;
-}
-
-.dht11 {
   text-align: center;
   display: flex;
 }
@@ -1584,9 +1577,6 @@ background: #5c95da;
 .pote {
   padding-top: 10px;
   padding-left: 0px;
-}
-
-.pote {
   text-align: center;
   display: flex;
 }
@@ -1606,6 +1596,39 @@ background: #5c95da;
 /* Thermometer column and text */
 .dht11-comp {
   margin: 10px 12px 60px 50px;
+  width:22px;
+  height:150px;
+  display:block;
+  font:bold 14px/152px helvetica, arial, sans-serif;
+  text-indent: 36px;
+  background: linear-gradient(top, #fff 0%, #fff 50%, #db3f02 50%, #db3f02 100%);
+  border-radius:22px 22px 0 0;
+  border:5px solid #4a1c03;
+  border-bottom:none;
+  position:relative;
+  box-shadow:inset 0 0 0 4px #fff;
+  color:#4a1c03;
+}
+
+/* Thermometer column and text */
+.thermistor-ntc-comp {
+  margin: 10px 0px 60px 50px;
+  width:22px;
+  height:150px;
+  display:block;
+  font:bold 14px/152px helvetica, arial, sans-serif;
+  text-indent: 36px;
+  background: linear-gradient(top, #fff 0%, #fff 50%, #db3f02 50%, #db3f02 100%);
+  border-radius:22px 22px 0 0;
+  border:5px solid #4a1c03;
+  border-bottom:none;
+  position:relative;
+  box-shadow:inset 0 0 0 4px #fff;
+  color:#4a1c03;
+}
+
+.thermistor-ptc-comp {
+  margin: 10px 0px 60px 50px;
   width:22px;
   height:150px;
   display:block;
@@ -1682,12 +1705,32 @@ background: #5c95da;
   margin-left: 10px;
 }
 
-.thermistor .voltage-min {
+.pote-range .voltage-min {
   float: left;
   margin-left: 10px;
 }
 
-.thermistor .voltage-max {
+.pote-range .voltage-max {
+  float: right;
+}
+
+.thermistor-ntc {
+  padding-top: 10px;
+  padding-left: 0px;
+  text-align: center;
+  display: flex;
+}
+
+.thermistor-ntc-range {
+  width: 140px;
+}
+
+.thermistor-ntc-range .voltage-min {
+  float: left;
+  margin-left: 10px;
+}
+
+.thermistor-ntc-range .voltage-max {
   float: right;
   margin-right: 10px;
 }
@@ -1700,4 +1743,55 @@ background: #5c95da;
   padding: 5px;
   border-radius: 5px;
   pointer-events: none;
+}
+
+.vertical-input {
+  display: inline-block;
+  transform: rotate(-90deg);
+  transform-origin: left top;
+  margin-left: 140px; /* Ajusta el margen según tus necesidades */
+  margin-top: 100px; /* Ajusta el margen según tus necesidades */
+}
+
+.thermistor-ptc {
+  padding-top: 10px;
+  padding-left: 0px;
+  text-align: center;
+  display: flex;
+}
+
+.thermistor-ptc-range {
+  width: 140px;
+}
+
+.thermistor-ptc-img{
+  position:left;
+
+  padding-top: 20px;
+}
+
+.thermistor-ptc-range .voltage-min {
+  float: left;
+  margin-left: 10px;
+}
+
+.thermistor-ptc-range .voltage-max {
+  float: right;
+  margin-right: 10px;
+}
+
+.joystick{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.joystick-img{
+  height: auto;
+}
+
+.p-imagen {
+  font-size: 16px;
+  margin-top: 120px;
 }

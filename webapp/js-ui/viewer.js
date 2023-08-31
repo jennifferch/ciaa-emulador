@@ -75,9 +75,15 @@
              { name: 'GND', value: [ 'Ground']  }]
         },
         {
-            component: 'Thermistor',
-            id: 'thermistor',
-            name: 'Thermistor',
+            component: 'ThermistorNTC',
+            id: 'thermistorNTC',
+            name: 'Thermistor NTC',
+            pins: [ { name: 'SIGNAL', value: [ 'CH1', 'CH2', 'CH3'] }, { name: 'GND', value: [ 'GNDA' ] }, { name: 'VCC', value: [ '3V3']} ]
+        },
+        {
+            component: 'ThermistorPTC',
+            id: 'thermistorPTC',
+            name: 'Thermistor PTC',
             pins: [ { name: 'SIGNAL', value: [ 'CH1', 'CH2', 'CH3'] }, { name: 'GND', value: [ 'GNDA' ] }, { name: 'VCC', value: [ '3V3']} ]
         },
         {
@@ -85,8 +91,13 @@
             id: 'potentiometer',
             name: 'Potenciómetro',
             pins: [ { name: 'SIGNAL', value: [ 'CH1', 'CH2', 'CH3'] }, { name: 'GND', value: [ 'GNDA' ] }, { name: 'VCC', value: [ '3V3']} ]
+        },
+        {
+            component: 'Joystick',
+            id: 'joystick',
+            name: 'Joystick',
+            pins: [ { name: 'SIGNAL', value: [ 'CH1', 'CH2', 'CH3'] }, { name: 'GND', value: [ 'GNDA' ] }, { name: 'VCC', value: [ '3V3']} ]
         }
-
     ];
     
    Module.preRun.push(function() {

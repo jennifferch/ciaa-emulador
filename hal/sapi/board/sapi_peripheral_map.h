@@ -69,7 +69,48 @@ typedef enum {
 
    // Configure GPIO pins for each board
 
-   #if (BOARD == ciaa_nxp)
+   #if (BOARD == edu_ciaa_nxp)
+      VCC = -2, GND = -1,
+      // P1 headere
+      T_FIL1 = 15,    T_COL2,    T_COL0,    T_FIL2,      T_FIL3,  T_FIL0,     T_COL1,
+      CAN_TD,    CAN_RD,    RS232_TXD, RS232_RXD,
+      // P2 header
+      // GPIO8,     GPIO7,     GPIO5,     GPIO3,     GPIO1, 
+      GPIO0 = 16, GPIO1 = 17, GPIO2 = 18, GPIO3 = 19, GPIO7 = 20, GPIO8 = 21, 
+      LCD1,      LCD2,      LCD3,      LCDRS,       LCD4,
+    //  SPI_MISO = 22,
+      ENET_TXD1, ENET_TXD0, ENET_MDIO, ENET_CRS_DV, ENET_MDC, ENET_TXEN, ENET_RXD1,
+      GPIO6,     GPIO4,   
+      LCDEN,
+    //  SPI_MOSI = 23,
+      ENET_RXD0,
+      // Switches
+      // 36   37     38     39
+      TEC1 = 36,  TEC2 = 37,  TEC3 = 38,  TEC4 = 39,
+      // Leds
+      // 40   41     42     43     44     45
+
+      LEDR  = 40,  
+      LEDG  = 41,  
+      LEDB  = 42,
+      //#error EDU-CIAA-NXP
+      RESET = 1337, 
+      NC = (int)0xFFFFFFFF,
+
+      I2C_SDA = 10,
+      I2C_SCL = 11,
+      LED1 = 50,
+      LED2 = 52,
+      LED3 = 53,
+      LED4 = 55,
+      SPI_MOSI = 9,
+      SPI_MISO = 8,
+      SPI_SCK  = 7,
+
+      BUTTON2 = 1338, // hope this is not used yet
+      SW1 = 1337, // hope this is not used yet
+      SW2 = 1338 // hope this is not used yet
+   #elif (BOARD == ciaa_nxp)
       DOUT0_C = -3, DOUT1_C = -3, DOUT2_C = -3, DOUT3_C = -3, DIN_COM = -3, 
       VCC = -2, VIN_24V = -2, VOUT_24V = -2,
       GND = -1, GNDA0 = -1, GNDA1 = -1, GND0 = -1, GND1 = -1, GND2 = -1, GND3 = -1, 
@@ -99,47 +140,6 @@ typedef enum {
       p11 = 18,
       p12 = 17,
       p13 = 15,
-      I2C_SDA = 10,
-      I2C_SCL = 11,
-      LED1 = 50,
-      LED2 = 52,
-      LED3 = 53,
-      LED4 = 55,
-      SPI_MOSI = 9,
-      SPI_MISO = 8,
-      SPI_SCK  = 7,
-
-      BUTTON2 = 1338, // hope this is not used yet
-      SW1 = 1337, // hope this is not used yet
-      SW2 = 1338 // hope this is not used yet
-   #elif (BOARD == edu_ciaa_nxp)
-      VCC = -2, GND = -1,
-      // P1 headere
-      T_FIL1 = 15,    T_COL2,    T_COL0,    T_FIL2,      T_FIL3,  T_FIL0,     T_COL1,
-      CAN_TD,    CAN_RD,    RS232_TXD, RS232_RXD,
-      // P2 header
-      // GPIO8,     GPIO7,     GPIO5,     GPIO3,     GPIO1, 
-      GPIO0 = 16, GPIO1 = 17, GPIO2 = 18, GPIO3 = 19, GPIO7 = 20, GPIO8 = 21, 
-      LCD1,      LCD2,      LCD3,      LCDRS,       LCD4,
-    //  SPI_MISO = 22,
-      ENET_TXD1, ENET_TXD0, ENET_MDIO, ENET_CRS_DV, ENET_MDC, ENET_TXEN, ENET_RXD1,
-      GPIO6,     GPIO4,     GPIO2,     GPIO0,
-      LCDEN,
-    //  SPI_MOSI = 23,
-      ENET_RXD0,
-      // Switches
-      // 36   37     38     39
-      TEC1 = 36,  TEC2 = 37,  TEC3 = 38,  TEC4 = 39,
-      // Leds
-      // 40   41     42     43     44     45
-
-      LEDR  = 40,  
-      LEDG  = 41,  
-      LEDB  = 42,
-      //#error EDU-CIAA-NXP
-      RESET = 1337, 
-       NC = (int)0xFFFFFFFF,
-
       I2C_SDA = 10,
       I2C_SCL = 11,
       LED1 = 50,

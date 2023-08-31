@@ -70,5 +70,6 @@
 #include "sapi_eeprom24xx1025.h"         // Use sapi_i2c module
 
 #include "sapi_ultrasonic_hcsr04.h"      //
+#include "display_lcd_hd44780_gpios.h"
 
 #endif

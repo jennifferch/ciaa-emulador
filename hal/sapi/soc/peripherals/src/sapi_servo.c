@@ -79,19 +79,7 @@ typedef struct {
 static const uint8_t servoMap[ SERVO_TOTALNUMBER ] = {
    
    // Configure GPIO pins for each board
-   #if BOARD==ciaa_nxp
-      //       Servo name
-      LED,  // SERVO0
-      LED,  // SERVO1
-      LED,  // SERVO2
-      LED,  // SERVO3
-      LED,  // SERVO4
-      LED,  // SERVO5
-      LED,  // SERVO6
-      LED,  // SERVO7
-      LED   // SERVO8
-
-   #elif BOARD==edu_ciaa_nxp
+   #if BOARD==edu_ciaa_nxp
       //       Servo name
       T_FIL1,  // SERVO0
       T_COL0,  // SERVO1
@@ -102,6 +90,18 @@ static const uint8_t servoMap[ SERVO_TOTALNUMBER ] = {
       LCD2,    // SERVO6
       LCD3,    // SERVO7
       GPIO2    // SERVO8
+
+   #elif BOARD==ciaa_nxp
+      //       Servo name
+      LED,  // SERVO0
+      LED,  // SERVO1
+      LED,  // SERVO2
+      LED,  // SERVO3
+      LED,  // SERVO4
+      LED,  // SERVO5
+      LED,  // SERVO6
+      LED,  // SERVO7
+      LED   // SERVO8
 
    #elif BOARD==ciaa_z3r0
       #error CIAA-Z3R0

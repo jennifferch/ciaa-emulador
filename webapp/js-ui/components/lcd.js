@@ -35,7 +35,9 @@
         el.appendChild(cnvs);
 
         this.componentsEl.appendChild(el);
-        this._on_update_display(this.pins.MOSI, this.pins.MISO, this.pins.SCK, { length: 4096 });
+      //  this._on_update_display(this.pins.MOSI, this.pins.MISO, this.pins.SCK, { length: 4096 });
+        this._on_update_display(22, 25, 36, { length: 4096 });
+
     };
 
     Lcd.prototype.destroy = function() {
@@ -45,7 +47,7 @@
     };
 
     Lcd.prototype.on_update_display = function(mosi, miso, sck, buffer) {
-        if (this.pins.MOSI !== mosi || this.pins.MISO !== miso || this.pins.SCK !== sck) return;
+      //  if (this.pins.MOSI !== mosi || this.pins.MISO !== miso || this.pins.SCK !== sck) return;
 
         var x = 0;
         var y = 0;

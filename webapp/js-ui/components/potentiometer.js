@@ -10,17 +10,23 @@
 
     Potentiometer.prototype.init = function() {
         var self = this;
-
         var el = this._el = document.createElement('div');
+
+        el.id = 'potentiometer';
+        el.classList.add('component');
+        var p = document.createElement('p');
+        p.classList.add('description');
+
+        p.textContent = 'Potenciómetro';
+        el.appendChild(p);
 
         var wrapper = document.createElement('div');
         wrapper.classList.add('pote');
         wrapper.innerHTML =
-            '<div class="pote-img"><img src="/img/potenciometro.jpeg" alt="Potenciómetro"></div>';
+            '<div class="pote-img"><img src="/img/potenciometro.png" alt="Potenciómetro"  width="200" height="200"></div>';
         el.appendChild(wrapper);
 
-        el.classList.add('component');
-        el.classList.add('thermistor');
+        el.classList.add('pote-range');
 
         el.addEventListener('click', this.handleClick.bind(this));
 
@@ -74,7 +80,7 @@
         var destroy = document.getElementById("DELETE_ID");
         while (destroy.classList.length > 0) {
             destroy.classList.remove(destroy.classList.item(0));
-          }
+        }
         destroy.classList.add('destroy');
         destroy.classList.add('enabled');
         destroy.addEventListener('click', () => this.destroy(this));
@@ -82,11 +88,15 @@
 
     Potentiometer.prototype.destroy = function(param) {
         window.removeComponent(this);
-        this.componentsEl.removeChild(param._el);
+        try {
+            this.componentsEl.removeChild(param._el);
+        } catch (ex) {
+            console.log(ex);
+        } 
         var destroy = document.getElementById("DELETE_ID");
         while (destroy.classList.length > 0) {
             destroy.classList.remove(destroy.classList.item(0));
-          }
+        }
         destroy.classList.add('destroy');
         destroy.classList.add('disabled');
     };
