@@ -17,7 +17,9 @@
         var p = document.createElement('p');
         p.classList.add('description');
 
-        p.textContent = 'Potenciómetro';
+        p.textContent = 'Potenciómetro ( SIGNAL: ' +
+        this.pinNameForPin(self.dataPin.SIGNAL) + ')';
+
         el.appendChild(p);
 
         var wrapper = document.createElement('div');
@@ -34,6 +36,12 @@
         tooltip.id = 'customTooltip';
         tooltip.className = 'tooltip';
 
+        var pValue = document.createElement('p');
+        pValue.textContent = "0.000000";
+        pValue.style.textAlign = 'center';
+        pValue.style.marginRight = '80px';
+        el.appendChild(pValue);
+
         var range = document.createElement('input');
         range.setAttribute('min', 0);
         range.setAttribute('max', 3.3);
@@ -43,7 +51,9 @@
 
         range.addEventListener('change', function() {
             window.JSHal.gpio.write(self.dataPin.SIGNAL, range.value/ 3.3 * 1023);
-            tooltip.textContent = (Math.floor(range.value/ 3.3 * 1023)* 3.3 / 1023.0).toFixed(6);
+            var voltage = (Math.floor(range.value/ 3.3 * 1023)* 3.3 / 1023.0).toFixed(6);
+            tooltip.textContent = voltage;
+            pValue.textContent = voltage;
             tooltip.style.display = 'block';
         });
      

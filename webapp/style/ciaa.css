@@ -1707,11 +1707,12 @@ background: #5c95da;
 
 .pote-range .voltage-min {
   float: left;
-  margin-left: 10px;
+  margin-left: 2px;
 }
 
 .pote-range .voltage-max {
   float: right;
+  margin-right: 35px;
 }
 
 .thermistor-ntc {
@@ -1727,12 +1728,12 @@ background: #5c95da;
 
 .thermistor-ntc-range .voltage-min {
   float: left;
-  margin-left: 10px;
+  margin-left: 2px;
 }
 
 .thermistor-ntc-range .voltage-max {
   float: right;
-  margin-right: 10px;
+  margin-right: 0px;
 }
 
 .tooltip {
@@ -1783,8 +1784,8 @@ background: #5c95da;
 .joystick{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: left;
+  text-align: left;
 }
 
 .joystick-img{

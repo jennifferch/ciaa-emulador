@@ -57,7 +57,7 @@ function load_example(demo, optgroupLabel) {
         if (ga && typeof ga === 'function') {
             ga('send', {
                 hitType: 'event',
-                eventCategory: 'load-example',
+                eventCategory: 'select-project',
                 eventAction: demo
             });
         }
@@ -67,7 +67,7 @@ function load_example(demo, optgroupLabel) {
 }
 
 
-document.querySelector('#load-example').onclick = function() {
+document.querySelector('#select-project').onclick = function() {
     var sp = document.querySelector('#select-project');
     var selectedOption = sp.options[sp.selectedIndex]
     var demo = selectedOption.getAttribute('name');
@@ -77,6 +77,10 @@ document.querySelector('#load-example').onclick = function() {
                                                         .toLowerCase()                  
                                                         .replace(/[\/\s]/g, '_'); 
     switch (optgroupLabel) {
+        case 'adc':
+            var route =  'adc_dac/' + optgroupLabel;
+            optgroupLabel = route;
+          break;
         case 'seos_pont_2014':
             var route =  'rtos_cooperative/' + optgroupLabel;
             optgroupLabel = route;

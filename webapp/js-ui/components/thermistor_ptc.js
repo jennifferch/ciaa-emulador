@@ -14,6 +14,14 @@
         var el = this._el = document.createElement('div');
         el.classList.add('component');
 
+        var p = document.createElement('p');
+        p.classList.add('description');
+
+        p.textContent = 'Thermistor PTC ( SIGNAL: ' +
+        this.pinNameForPin(self.dataPin.SIGNAL) + ')';
+
+        el.appendChild(p);
+
         el.addEventListener('click', this.handleClick.bind(this));
 
         var tooltip = document.createElement('div');

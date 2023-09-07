@@ -39,13 +39,24 @@
 #include "sapi_adc.h"
 #include "adc_api.h"
 
+#include <stdio.h>
 /*==================[macros and definitions]=================================*/
-
+#define ADC_INST_NUM  100000
 /*==================[internal data declaration]==============================*/
-  adc_t _adc;
+ typedef struct {
+    adc_t adc;
+    adcMap_t pin;
+    int32_t index;
+} config_t;
 /*==================[internal functions declaration]=========================*/
-
+void set_config_default();
+void set_adc_instance(adcMap_t pin);
+config_t* get_adc_instance(adcMap_t pin);
 /*==================[internal data definition]===============================*/
+config_t config_default = { -1, -1, -1 };
+config_t _adc_instances[ADC_INST_NUM];
+int32_t index_instance_adc = 0;
+
 
 /*==================[external data definition]===============================*/
 
@@ -121,9 +132,7 @@ void adcInit( adcInit_t config )
         // Chip_ADC_DeInit( LPC_ADC0 );
          break;
   }
-
-     adc_init(&_adc, CH1);
-
+  set_config_default();
 }
 
 
@@ -152,10 +161,44 @@ uint16_t adcRead( adcMap_t analogInput)
 
    // Disable channel
  //  Chip_ADC_EnableChannel( LPC_ADC0, lpcAdcChannel, DISABLE );
+   config_t* instance = get_adc_instance(analogInput);
 
-   analogValue = adc_read(&_adc);
-
+   if(instance == NULL){
+     set_adc_instance(analogInput);;
+   }
+   analogValue = adc_read(&instance->adc);
+   
    return analogValue;
+}
+
+config_t* get_adc_instance(adcMap_t pin){
+   	/* Find index for GPIO instance. */
+	for (int32_t i = 0; i < ADC_INST_NUM; i++) {
+		if (pin == _adc_instances[i].pin)
+         return &_adc_instances[i];       
+	}
+    /* Invalid data given. */
+	return NULL;
+}
+
+void set_adc_instance( adcMap_t pin){
+   // Have we reached the end of the list?
+   if( index_instance_adc < ADC_INST_NUM ){
+     index_instance_adc++;
+   }
+
+   adc_t _adc;
+   _adc_instances[index_instance_adc].adc = _adc;
+   _adc_instances[index_instance_adc].pin = pin;
+   _adc_instances[index_instance_adc].index = index_instance_adc;
+
+   adc_init(&_adc_instances[index_instance_adc].adc, _adc_instances[index_instance_adc].pin);
+}
+  
+void set_config_default(){
+   for (int i = 0; i < ADC_INST_NUM; i++) {
+    _adc_instances[i] = config_default;
+   }
 }
 
 /*==================[end of file]============================================*/

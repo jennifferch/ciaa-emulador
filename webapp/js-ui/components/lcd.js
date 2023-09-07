@@ -20,7 +20,10 @@
         var p = document.createElement('p');
         p.classList.add('description');
 
-        p.textContent = 'Lcd';
+        p.textContent = 'Lcd ( SIGNAL: ' +
+        this.pinNameForPin(this.dataPin.SIGNAL) + ')';
+
+        el.appendChild(p);
 
       //  p.appendChild(this.createDestroyEl());
         el.appendChild(p);

@@ -107,7 +107,9 @@
         var p = document.createElement('p');
         p.classList.add('description');
 
-        p.textContent = 'DHT11';
+        p.textContent = 'DHT11 ( SIGNAL: ' +
+        this.pinNameForPin(this.pins.SIGNAL) + ')';
+
         divElement.appendChild(p);
 
         var wrapper = document.createElement('div');

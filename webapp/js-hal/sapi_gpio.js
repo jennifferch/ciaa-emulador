@@ -169,7 +169,8 @@ window.JSHal.gpio = (function() {
             if (value > 1023) value = 1023;
 
             if (value >= 0 && value <= 1023) {
-                declaredPins[pin].value = Math.floor(value);
+               // declaredPins[pin].value = Math.floor(value);
+                declaredPins[pin].value = Math.trunc(value);
             }
             else {
                 return console.error('ANALOG|PWMOUT pin debe de estar entre el 0 y 1023', pin, value);

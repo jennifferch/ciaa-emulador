@@ -12,14 +12,22 @@
 
     Led.prototype.init = function() {
         window.JSHal.gpio.on('gpio_write', this._on_gpio_write);
-
-        var divElement = this.element = document.createElement('div');
+        var divElement = this._el = this.element = document.createElement('div');
         divElement.classList.add('component');
         divElement.classList.add('led');
+
+        var p = document.createElement('p');
+        p.classList.add('description');
+
+        p.textContent = 'LED ( SIGNAL: ' +
+        this.pinNameForPin(this.dataPin) + ')';
+
+        divElement.appendChild(p);
 
         var img = document.createElement('img');
         img.src = '/img/' + this.img;
         img.style.width = '30px';
+        img.style.marginRight = '60px';
 
         img.classList.add('destroy');
         img.addEventListener('click', select)
@@ -27,9 +35,10 @@
         function select() {
            document.getElementById("DELETE_ID").classList.remove("disabled");
         }
-
         divElement.appendChild(img);
+
         divElement.addEventListener('click', this.handleClick.bind(this));
+
         this.componentsEl.appendChild(divElement);
         this._on_gpio_write(this.dataPin, JSHal.gpio.read(this.dataPin), JSHal.gpio.get_type(this.dataPin));
     };
@@ -39,17 +48,23 @@
         while (destroy.classList.length > 0) {
           destroy.classList.remove(destroy.classList.item(0));
         }
+        destroy.classList.add('destroy');
         destroy.classList.add('enabled');
         destroy.addEventListener('click', () => this.destroy(this));
     };
 
     Led.prototype.destroy = function(param) {
         window.removeComponent(this);
-        param.element.remove();
+        try {
+            this.componentsEl.removeChild(param._el);
+        } catch (ex) {
+            console.log(ex);
+        } 
         var destroy = document.getElementById("DELETE_ID");
         while (destroy.classList.length > 0) {
             destroy.classList.remove(destroy.classList.item(0));
           }
+        destroy.classList.add('destroy');
         destroy.classList.add('disabled');
     };
 
