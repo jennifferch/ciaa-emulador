@@ -22,3 +22,4 @@ uint16_t adc_read(adc_t *obj) {
 
     return v;
 }
+

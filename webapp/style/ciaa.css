@@ -327,9 +327,7 @@ body {
 }
 
 b,
-strong {
-  font-weight: bold;
-}
+
 
 h1 {
   font-size: 2em;
@@ -621,10 +619,6 @@ textarea {
 
 small {
   font-size: 85%;
-}
-
-strong {
-  font-weight: 500;
 }
 
 em {
@@ -1612,7 +1606,7 @@ background: #5c95da;
 
 /* Thermometer column and text */
 .thermistor-ntc-comp {
-  margin: 10px 0px 60px 50px;
+  margin: 10px 0px 60px 25px;
   width:22px;
   height:150px;
   display:block;
@@ -1746,14 +1740,6 @@ background: #5c95da;
   pointer-events: none;
 }
 
-.vertical-input {
-  display: inline-block;
-  transform: rotate(-90deg);
-  transform-origin: left top;
-  margin-left: 140px; /* Ajusta el margen según tus necesidades */
-  margin-top: 100px; /* Ajusta el margen según tus necesidades */
-}
-
 .thermistor-ptc {
   padding-top: 10px;
   padding-left: 0px;
@@ -1795,4 +1781,10 @@ background: #5c95da;
 .p-imagen {
   font-size: 16px;
   margin-top: 120px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: white; 
+  border: 2px solid black; 
+  border-radius: 10px; 
 }

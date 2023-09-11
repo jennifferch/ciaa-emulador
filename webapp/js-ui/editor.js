@@ -100,9 +100,13 @@ document.querySelector('#select-project').onclick = function() {
 document.querySelector('#load-new').onclick = function() {
     var optionName = 'nuevo_proyecto';
     var optgroupLabel = 'nuevo_proyecto';
-    const selectElement = document.querySelector('#select-project');
+    var selectElement = document.querySelector('#select-project');
+    var optionNewProject = document.createElement("option");
+    optionNewProject.setAttribute("name", optionName);
+    selectElement.appendChild(optionNewProject);
     const optionIndex = Array.from(selectElement.options).findIndex(option => option.getAttribute('name') === optionName);
     selectElement.selectedIndex = optionIndex;
+
     load_example(optionName, optgroupLabel);
 };
 
@@ -147,25 +151,34 @@ document.querySelector('#run').onclick = function() {
     x.open('POST', '/compile');
     x.setRequestHeader('Content-Type', 'application/json');
     x.send(JSON.stringify({ code: editor.getValue() }));
-}
+};
 
 
 document.querySelector('#run-download').onclick = function() {
-        var code = " ";
-        var collection = document.getElementsByClassName("ace_line"); 
+    var code = " ";
+    var collection = document.getElementsByClassName("ace_line"); 
 
-        Array.prototype.forEach.call(collection, function(el) {
-            code  =  code + el.textContent + "\n";  
-        });
+    Array.prototype.forEach.call(collection, function(el) {
+        code  =  code + el.textContent + "\n";  
+    });
 
-        var e = document.querySelector('#download_code_internal');
+    var e = document.querySelector('#download_code_internal');
+    var sp = document.querySelector('#select-project');
+    var name = sp.options[sp.selectedIndex].getAttribute('name');
 
-        var sp = document.querySelector('#select-project');
-        var name = sp.options[sp.selectedIndex].getAttribute('name');
-
-        e.setAttribute("href", "data:application/octet-stream," + encodeURIComponent(code));
-        e.setAttribute("download", name + ".c");
-        e.click();
+    e.setAttribute("href", "data:application/octet-stream," + encodeURIComponent(code));
+    e.setAttribute("download", name + ".c");
+    e.click();
 
 };
+
+document.querySelector('#select-project').addEventListener('mousedown', function() {
+    var optionName = 'nuevo_proyecto';
+    var selectElement = document.querySelector('#select-project');
+    const optionIndex = Array.from(selectElement.options).findIndex(option => option.getAttribute('name') === optionName);
+    if (optionIndex >= 0){
+        selectElement.remove(optionIndex);
+    }
+});
+
 

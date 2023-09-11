@@ -25,7 +25,7 @@
     
             document.querySelector('#collapseButton').click();
         }
-      };
+    };
     
     window.removeComponent = function(instance) {
         var ix = activeComponents.indexOf(instance);
@@ -78,25 +78,25 @@
             component: 'ThermistorNTC',
             id: 'thermistorNTC',
             name: 'Thermistor NTC',
-            pins: [ { name: 'SIGNAL', value: [ 'CH1', 'CH2', 'CH3'] }, { name: 'GND', value: [ 'GNDA' ] }, { name: 'VCC', value: [ '3V3']} ]
+            pins: [ { name: 'ADC', value: [ 'CH1', 'CH2', 'CH3'] }, { name: 'GND', value: [ 'GNDA' ] }, { name: 'VCC', value: [ '3V3']} ]
         },
         {
             component: 'ThermistorPTC',
             id: 'thermistorPTC',
             name: 'Thermistor PTC',
-            pins: [ { name: 'SIGNAL', value: [ 'CH1', 'CH2', 'CH3'] }, { name: 'GND', value: [ 'GNDA' ] }, { name: 'VCC', value: [ '3V3']} ]
+            pins: [ { name: 'ADC', value: [ 'CH1', 'CH2', 'CH3'] }, { name: 'GND', value: [ 'GNDA' ] }, { name: 'VCC', value: [ '3V3']} ]
         },
         {
             component: 'Potentiometer',
             id: 'potentiometer',
             name: 'Potenciómetro',
-            pins: [ { name: 'SIGNAL', value: [ 'CH1', 'CH2', 'CH3'] }, { name: 'GND', value: [ 'GNDA' ] }, { name: 'VCC', value: [ '3V3']} ]
+            pins: [ { name: 'ADC', value: [ 'CH1', 'CH2', 'CH3'] }, { name: 'GND', value: [ 'GNDA' ] }, { name: 'VCC', value: [ '3V3']} ]
         },
         {
             component: 'Joystick',
             id: 'joystick',
             name: 'Joystick',
-            pins: [ { name: 'SIGNAL', value: [ 'CH1', 'CH2', 'CH3'] }, { name: 'GND', value: [ 'GNDA' ] }, { name: 'VCC', value: [ '3V3']} ]
+            pins: [ { name: 'ADCx', value: [ 'CH1', 'CH2', 'CH3'] }, { name: 'ADCy', value: [ 'CH1', 'CH2', 'CH3'] }, { name: 'SW', value: [ 'GPIO0']} ]
         }
     ];
     
@@ -215,6 +215,7 @@
     };
 
     getPeripherals();
+    Module.setStatus('');
     
     })();
     

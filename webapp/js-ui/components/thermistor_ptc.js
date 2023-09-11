@@ -17,8 +17,8 @@
         var p = document.createElement('p');
         p.classList.add('description');
 
-        p.textContent = 'Thermistor PTC ( SIGNAL: ' +
-        this.pinNameForPin(self.dataPin.SIGNAL) + ')';
+        p.textContent = 'Thermistor PTC ( ADC: ' +
+        this.pinNameForPin(self.dataPin.ADC) + ')';
 
         el.appendChild(p);
 
@@ -42,14 +42,14 @@
         resistanceRange.setAttribute('min', 0);
         resistanceRange.setAttribute('max', 10000);
         resistanceRange.step = 100;
-        resistanceRange.value = JSHal.gpio.read(this.dataPin.SIGNAL);
+        resistanceRange.value = JSHal.gpio.read(this.dataPin.ADC);
         resistanceRange.setAttribute('type', 'range');
 
         resistanceRange.addEventListener('change', function() {
             var selectedResistance = parseFloat(resistanceRange.value);
             self.graphTemperature(resistanceRange.value);
 
-            window.JSHal.gpio.write(self.dataPin.SIGNAL, resistanceRange.value);
+            window.JSHal.gpio.write(self.dataPin.ADC, resistanceRange.value);
            
             tooltip.textContent = resistanceRange.value;
             tooltip.style.display = 'block';        

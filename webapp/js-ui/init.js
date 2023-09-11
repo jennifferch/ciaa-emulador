@@ -66,10 +66,10 @@
         totalDependencies: 0,
         monitorRunDependencies: function (left) {
             this.totalDependencies = Math.max(this.totalDependencies, left);
-            Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies - left) + '/' + this.totalDependencies + ')' : 'Descarga completa.');
+            Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies - left) + '/' + this.totalDependencies + ')' : 'Carga completa.');
         }
     };
-    Module.setStatus('Descargando...');
+    Module.setStatus('cargando programa...');
 
     window.onerror = function (message) {
         // TODO: do not warn on ok events like simulating an infinite loop or exitStatus

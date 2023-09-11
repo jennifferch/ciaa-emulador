@@ -54,6 +54,12 @@ let StickStatus =
     cardinalDirection: "C"
 };
 
+let xExtendedMin = 0;    // Valor mínimo extendido para X
+let xExtendedMax = 3.3;  // Valor máximo extendido para X
+
+let yExtendedMin = 0;    // Valor mínimo extendido para Y
+let yExtendedMax = 3.3;  // Valor máximo extendido para Y
+
 /**
  * @desc Principal object that draw a joystick, you only need to initialize the object and suggest the HTML container
  * @costructor
@@ -146,7 +152,9 @@ var JoyStick = (function(container, parameters, callback)
         context.arc(centerX, centerY, externalRadius, 0, circumference, false);
         context.lineWidth = externalLineWidth;
         context.strokeStyle = externalStrokeColor;
+        context.fillStyle = "black";
         context.stroke();
+        context.fill();
     }
 
     /**
@@ -405,6 +413,34 @@ var JoyStick = (function(container, parameters, callback)
     this.GetY = function ()
     {
         return ((100*((movedY - centerY)/maxMoveStick))*-1).toFixed();
+    };
+
+    /**
+     * @desc Normalizzed value of X move of stick
+     * @return Integer from -100 to +100
+     */
+    this.GetVRx = function ()
+    {
+        let normalizedX = ((movedX - centerX) / maxMoveStick);
+        // Asegurarse de que el valor normalizado esté en el rango de -1 a 1
+        normalizedX = Math.min(1, Math.max(-1, normalizedX));
+        // Mapear el valor normalizado al nuevo rango extendido
+        let mappedX = ((normalizedX + 1) / 2) * (xExtendedMax - xExtendedMin) + xExtendedMin;
+        return parseFloat(mappedX.toFixed(2)); // Redondear a un decimal
+    };
+    
+    /**
+    * @desc Normalizzed value of Y move of stick
+    * @return Integer from -100 to +100
+    */
+    this.GetVRy = function ()
+    {
+        let normalizedY = (((movedY - centerY) / maxMoveStick) * -1);
+        // Asegurarse de que el valor normalizado esté en el rango de -1 a 1
+        normalizedY = Math.min(1, Math.max(-1, normalizedY));
+        // Mapear el valor normalizado al nuevo rango extendido
+        let mappedY = ((normalizedY + 1) / 2) * (yExtendedMax - yExtendedMin) + yExtendedMin;
+        return parseFloat(mappedY.toFixed(2)); // Redondear a un decimal      
     };
 
     /**

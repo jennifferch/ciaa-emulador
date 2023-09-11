@@ -1,6 +1,6 @@
 {
     "peripherals": [{ "component": "ThermistorPTC", "args": {
-        "SIGNAL": "gpioMap.CH1",
+        "ADC": "gpioMap.CH1",
         "GND": "gpioMap.GNDA",
         "VCC": "3V3"
         } }

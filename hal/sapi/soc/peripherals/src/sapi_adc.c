@@ -161,12 +161,15 @@ uint16_t adcRead( adcMap_t analogInput)
 
    // Disable channel
  //  Chip_ADC_EnableChannel( LPC_ADC0, lpcAdcChannel, DISABLE );
-   config_t* instance = get_adc_instance(analogInput);
+ /*  config_t* instance = get_adc_instance(analogInput);
 
    if(instance == NULL){
-     set_adc_instance(analogInput);;
+     set_adc_instance(analogInput);
    }
-   analogValue = adc_read(&instance->adc);
+   analogValue = adc_read(&instance->adc);*/
+   adc_t _adc;
+   _adc.pin = analogInput;
+   analogValue = adc_read(&_adc);
    
    return analogValue;
 }
@@ -192,7 +195,7 @@ void set_adc_instance( adcMap_t pin){
    _adc_instances[index_instance_adc].pin = pin;
    _adc_instances[index_instance_adc].index = index_instance_adc;
 
-   adc_init(&_adc_instances[index_instance_adc].adc, _adc_instances[index_instance_adc].pin);
+ //  adc_init(&_adc_instances[index_instance_adc].adc, _adc_instances[index_instance_adc].pin);
 }
   
 void set_config_default(){

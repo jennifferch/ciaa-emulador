@@ -16,6 +16,7 @@
         this.temp = 2500;
         this.sample = 0; // ADC Read retuns an integer in range [0,1023] (10 bits resolution)
         this.componentsEl = document.querySelector('#components');
+        JSHal.adc.update_adc(this.dataPin.ADC);
     }
 
     ThermistorNTC.prototype =  Object.create(exports.BaseComponent.prototype);
@@ -25,12 +26,13 @@
 
         var el = this._el = document.createElement('div');
         el.classList.add('component');
+        el.style.marginTop = '20px';
 
         var p = document.createElement('p');
         p.classList.add('description');
 
-        p.textContent = 'Thermistor NTC ( SIGNAL: ' +
-        this.pinNameForPin(self.dataPin.SIGNAL) + ')';
+        p.innerHTML = 'Thermistor NTC ( <strong>ADC</strong>: ' +
+        this.pinNameForPin(self.dataPin.ADC) + ')';
 
         el.appendChild(p);
 
@@ -44,63 +46,15 @@
         wrapper.classList.add('thermistor-ntc');
         wrapper.innerHTML =
             '<div class="thermistor-img"><img src="/img/ntcCurvaThermistor.png" alt="Thermistor NTC" width="210" height="200"></div>' +
-            '<div class="thermometer thermistor-ntc-comp"><div class="dht11-before"></div><span class="dht11-content">3.22&deg;C</span><div style="margin-top:-245px; margin-left:-50px"><span class="kelvin-content">3.22&deg;K</span></div><div class="dht11-after"></div></div>';
+            '<div class="thermometer thermistor-ntc-comp"><div class="dht11-before"></div><div style="margin-top:-20px; margin-left:-5px"><span class="dht11-content">3.22&deg;C</span></div>' +
+            '<div style="margin-top:-222px; margin-left:-50px"><span class="kelvin-content">3.22&deg;K</span></div>'+
+            '<div style="margin-top:-50px; margin-left:-5px"><span>R_NTC:</span></div>'+
+            '<div style="margin-top:-133px; margin-left:-5px; font-weight: normal;"><span class="ohmn-content">9840.00Ω</span></div><div class="dht11-after"></div></div>';
         el.appendChild(wrapper);
 
         var divntcrange = document.createElement('div');
         divntcrange.classList.add('thermistor-ntc-range');
 
-        var pValue = document.createElement('p');
-        pValue.id = "valueRange";
-        pValue.textContent = "0.000000";
-        pValue.style.textAlign = 'center';
-        pValue.style.marginRight = '150px';
-        el.appendChild(pValue);
-
-        var resistanceRange = document.createElement('input');
-        resistanceRange.id = "resistanceRange";
-        resistanceRange.setAttribute('min', 0);
-        resistanceRange.setAttribute('max', 100000);
-        resistanceRange.step =  0.01;
-        resistanceRange.value = JSHal.gpio.read(this.dataPin.SIGNAL)/ 1023 * 3.3;
-        resistanceRange.setAttribute('type', 'range');
-
-        resistanceRange.addEventListener('change', function() {
-            var voltage = (Math.floor(resistanceRange.value/ 3.3 * 1023)* 3.3 / 1023.0).toFixed(6);
-            tooltip.textContent = resistanceRange.value;
-            pValue.textContent = resistanceRange.value;
-            tooltip.style.display = 'block';
-
-            self.updateSampleADC(resistanceRange.value);
-            self.calculateTemperature(resistanceRange.value);
-        });
-
-        resistanceRange.addEventListener('mouseleave', function() {
-            tooltip.style.display = 'none'; 
-        });
-
-        resistanceRange.addEventListener('mouseup', function() {
-            tooltip.style.display = 'none'; 
-        });
-
-        var rangeP = document.createElement('p');
-        rangeP.appendChild(resistanceRange);
-        rangeP.appendChild(tooltip);
-        divntcrange.appendChild(rangeP);
-        
-        var voltageP = document.createElement('p');
-        var voltageMin = document.createElement('span');
-        voltageMin.classList.add('voltage-min');
-        voltageMin.textContent = '0Ω';
-        var voltageMax = document.createElement('span');
-        voltageMax.classList.add('voltage-max');
-        voltageMax.textContent = '100.000Ω';
-
-        voltageP.appendChild(voltageMin);
-        voltageP.appendChild(voltageMax);
-
-        divntcrange.appendChild(voltageP);
-        el.appendChild(divntcrange);
 
         this.tempEl = el.querySelector('.thermometer');
         [].forEach.call(el.querySelectorAll('.thermistor-ntc-comp'), function(c) {
@@ -146,10 +100,8 @@
         R_NTC = parseFloat(Math.exp((((T0 * B_param) / Temp_K) - B_param) / T0) * R_10k).toFixed(2);
 
         this.updateSampleADC(R_NTC);
-        document.querySelector('#valueRange').textContent = R_NTC;
-        document.querySelector('#resistanceRange').value = R_NTC;
         this.tempEl.querySelector('.thermometer .kelvin-content').textContent = Temp_K + 'K';       
-
+        this.tempEl.querySelector('.thermometer .ohmn-content').textContent = R_NTC + 'Ω'; 
     };
 
     ThermistorNTC.prototype.updateSampleADC= function(R_NTC) {
@@ -160,7 +112,8 @@
         Vout = parseFloat(VoutT.toFixed(2)); 
 
         this.sample = parseFloat((Vout * 1023.0 / Vsupply).toPrecision(4));
-        window.JSHal.gpio.write(this.dataPin.SIGNAL, this.sample);     
+        console.log('this.sample ', this.sample);
+        window.JSHal.gpio.write(this.dataPin.ADC, this.sample);     
     };
 
     ThermistorNTC.prototype.change = function(ev) {
