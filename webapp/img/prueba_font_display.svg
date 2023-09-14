@@ -1,0 +1,23 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <!-- svg-source:excalidraw -->
+  <defs>
+    <style>
+      @font-face {
+        font-family: "Virgil";
+        src: url("Virgil.woff2");
+      }
+    </style>
+  </defs>
+  <text x="10" y="20" font-family="Virgil, Segoe UI Emoji" font-size="20px">
+    Hola Display LCD!
+  </text>
+  <text x="10" y="45" font-family="Virgil, Segoe UI Emoji" font-size="20px">
+    Linea 2 ------------
+  </text>
+  <text x="10" y="70" font-family="Virgil, Segoe UI Emoji" font-size="20px">
+    Linea 3 ------------
+  </text>
+  <text x="10" y="95" font-family="Virgil, Segoe UI Emoji" font-size="20px">
+    Linea 4 ------------
+  </text>
+</svg>
