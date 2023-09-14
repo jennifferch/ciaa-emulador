@@ -8,16 +8,16 @@
       }
     </style>
   </defs>
-  <text x="10" y="20" font-family="Virgil, Segoe UI Emoji" font-size="20px">
+  <text x="10" y="20" font-family="HD44780, Segoe UI Emoji" font-size="20px">
     Hola Display LCD!
   </text>
-  <text x="10" y="45" font-family="Virgil, Segoe UI Emoji" font-size="20px">
+  <text x="10" y="45" font-family="HD44780, Segoe UI Emoji" font-size="20px">
     Linea 2 ------------
   </text>
-  <text x="10" y="70" font-family="Virgil, Segoe UI Emoji" font-size="20px">
+  <text x="10" y="70" font-family="HD44780, Segoe UI Emoji" font-size="20px">
     Linea 3 ------------
   </text>
-  <text x="10" y="95" font-family="Virgil, Segoe UI Emoji" font-size="20px">
+  <text x="10" y="95" font-family="HD44780, Segoe UI Emoji" font-size="20px">
     Linea 4 ------------
   </text>
 </svg>
