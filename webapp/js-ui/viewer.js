@@ -47,24 +47,28 @@
             id: 'dht11',
             name: 'Dht11 temperature / humidity sensor',
             pins: [ { name: 'SDA/SDI', value: [ 'GND'] }, 
-            { name: 'SIGNAL', value: [ 'GPIO1']  } ,
-             { name: 'VCC', value: [ '3V3']  } ]
+                { name: 'SIGNAL', value: [ 'GPIO1']  } ,
+                { name: 'VCC', value: [ '3V3']  } ]
         },
         {
             component: 'Lcd20x4',
             id: 'lcd20x4',
-            name: 'LCD display',
+            name: 'Lcd display 20x4',
             pins: [
-                { name: 'MOSI', value: [ 'p5', 'p11' ] },
-                { name: 'MISO', value: [ 'p6', 'p12' ] }]
+                { name: 'LCD', value: [ 'LCD1', 'LCD2', 'LCD3', 'LCD4'] },
+                { name: 'RS', value: [ 'LCDRS' ] },
+                { name: 'E', value: [ 'LCDEN' ] },
+                { name: 'VCC', value: ['5V']  }]
         },
         {
-            component: 'Lcd16x4',
-            id: 'lcd16x4',
-            name: 'LCD display',
+            component: 'Lcd128x64',
+            id: 'lcd128x64',
+            name: 'GLCD 128x64',
             pins: [
-                { name: 'SPI_MOSI', value: [ 'p5', 'p11' ] },
-                { name: 'SPI_MISO', value: [ 'p6', 'p12' ] }]
+                { name: 'LCD', value: [ 'LCD1', 'LCD2', 'LCD3', 'LCD4'] },
+                { name: 'RS', value: [ 'LCDRS' ] },
+                { name: 'E', value: [ 'LCDEN' ] },
+                { name: 'VCC', value: ['5V']  }]
         },
         {
             component: 'Servo',

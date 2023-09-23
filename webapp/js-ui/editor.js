@@ -89,6 +89,10 @@ document.querySelector('#select-project').onclick = function() {
             var route =  'external_devices/' + optgroupLabel;
             optgroupLabel = route;
           break;
+        case 'lcd':
+            var route =  'external_devices/' + optgroupLabel;
+            optgroupLabel = route;
+          break;
         default:
           console.log("Opción ya reconocida");
           break;

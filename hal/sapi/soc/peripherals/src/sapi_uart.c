@@ -45,7 +45,10 @@
 
 #include "mbed_trace.h"
 
+#include <stdio.h>
+
 #define CIAA_UART_USB 115200
+
 /*==================[macros]=================================================*/
 
 /*==================[typedef]================================================*/
@@ -56,6 +59,17 @@ typedef struct {
    lpc4337ScuPin_t   rxPin;
   // IRQn_Type         uartIrqAddr;
 } uartLpcInit_t;
+
+const char* getUartName(uartMap_t uart) {
+    switch (uart) {
+        case UART_GPIO: return "UART_GPIO";
+        case UART_485: return "UART_485";
+        case UART_USB: return "UART_USB";
+        case UART_ENET: return "UART_ENET";
+        case UART_232: return "UART_232";
+        default: return "Unknown UART";
+    }
+}
 
 /*==================[internal data declaration]==============================*/
 
@@ -103,7 +117,7 @@ static const lpc4337ScuPin_t lpcUart485DirPin = {
    callBackFuncPtr_t txIsrCallback;
    callBackFuncPtr_t rxIsrCallback;
 */
-
+uartMap_t uart_init;
 /*==================[internal functions declaration]=========================*/
 
 #ifdef SAPI_USE_INTERRUPTS
@@ -572,7 +586,7 @@ void uartTxWrite( uartMap_t uart, const uint8_t value )
 // UART Initialization
 void uartInit( uartMap_t uart, uint32_t baudRate )
 {
-
+   uart_init = uart;
    if(baudRate == CIAA_UART_USB)
    {
       mbed_trace_init();
@@ -714,11 +728,13 @@ void uartWriteByte( uartMap_t uart, const uint8_t value )
 // Blocking Send a string
 void uartWriteString( uartMap_t uart, const char* str )
 {
-   tr_warn(str);
+   if (uart_init == uart){
+      printf("[%s]: %s\n", getUartName(uart), str);
 
-   while( *str != 0 ) {
-      uartWriteByte( uart, (uint8_t)*str );
-      str++;
+      while( *str != 0 ) {
+         uartWriteByte( uart, (uint8_t)*str );
+         str++;
+      }
    }
 
 }

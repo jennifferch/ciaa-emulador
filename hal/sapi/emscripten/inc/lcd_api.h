@@ -31,8 +31,8 @@
  *
  */
 
-#ifndef DISPLAY_LCD_HD44780_GPIOS_API_H
-#define DISPLAY_LCD_HD44780_GPIOS_API_H
+#ifndef LCD_API_H
+#define LCD_API_H
 
 #include "emscripten.h"
 
@@ -44,11 +44,11 @@
 extern "C" {
 #endif
 
-    void display_lcd_hd44780_gpios_init( gpioMap_t _mosi, gpioMap_t _miso, gpioMap_t _sck );
+    void lcd_init( gpioMap_t _mosi, gpioMap_t _miso, gpioMap_t _sck );
 
-    void display_lcd_hd44780_gpios_cursor_set(gpioMap_t _mosi, gpioMap_t _miso, gpioMap_t _sck, char * buffer);
+    void lcd_cursor_set(gpioMap_t _mosi, gpioMap_t _miso, gpioMap_t _sck, char * buffer);
 
-    void display_lcd_hd44780_gpios_copy_to_lcd(gpioMap_t _mosi, gpioMap_t _miso, gpioMap_t _sck, char * buffer);
+    void lcd_copy_to_lcd(gpioMap_t _mosi, gpioMap_t _miso, gpioMap_t _sck, char * buffer);
 /*==================[c++]====================================================*/
 #ifdef __cplusplus
 }

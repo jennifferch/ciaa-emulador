@@ -48,12 +48,6 @@ body {
   font-family: 'Lucida Console', Monaco, monospace;
 }
 
-#c12832 {
-  border: solid 1px;
-  padding: 5px;
-}
-
-
 #project {
   width: 100%;
   display: flex;
@@ -194,7 +188,7 @@ body {
   font-size: 12px;
   padding: 5px;
   cursor: pointer;
-  height: 400px;
+ /* height: 400px;*/
 }
 
 .component .description {
@@ -215,8 +209,19 @@ body {
   margin-left: 20px;
 }
 
-.component .destroy:hover {
+.component .destroyX:hover {
   color: #333;
+}
+
+.component .lcd {
+  border: solid 1px black;
+}
+
+.component .destroyX {
+  float: right;
+  color: #ddd;
+  cursor: pointer;
+  margin-left: 20px;
 }
 
 #compilation-failed {

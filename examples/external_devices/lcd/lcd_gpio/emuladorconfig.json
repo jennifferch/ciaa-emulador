@@ -1,0 +1,10 @@
+{
+    "peripherals": [{ "component": "Lcd128x64", "args": {
+        "LCD": "gpioMap.LCD1",
+        "RS": "gpioMap.LCDRS",
+        "E": "gpioMap.LCDEN",
+        "VCC": "5V"
+        } }
+    ]
+
+}

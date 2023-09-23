@@ -43,6 +43,18 @@
    inkscape:current-layer="svg45713" />
  <defs
    id="defs28752">
+
+    <style>
+      @font-face {
+        font-family: "Nouveau IBM";
+        src: url("Nouveau_IBM_ST7920.ttf");
+      }
+      @font-face {
+        font-family: "Consolas";
+        src: url("consolas.ttf");
+      }
+    </style> 
+
   <font
    id="FontID3"
    horiz-adv-x="750"
@@ -67993,35 +68005,36 @@
    y="24788.359"
    class="fil8 fnt3"
    id="text45701"
-   style="font-weight:500;font-size:760.91998291px;font-family:'Nouveau IBM';fill:#fefefe" />
-
-   <text
-   x="6933.7202"
-   y="24788.359"
-   class="fil8 fnt3"
-   id="text45703"
-   style="font-weight:500;font-size:760.91998291px;font-family:'Nouveau IBM';fill:#fefefe" />
-
+   style="font-weight:500;font-size:760.91998291px;font-family:'Nouveau IBM';fill:#fefefe" >
+      	    Linea 1
+   </text>
+   
    <text
    x="2801.9199"
    y="25549.279"
    class="fil8 fnt3"
    id="text45705"
-   style="font-weight:500;font-size:760.91998291px;font-family:'Nouveau IBM';fill:#fefefe" />
-
+   style="font-weight:500;font-size:760.91998291px;font-family:'Nouveau IBM';fill:#fefefe" >
+       Linea 3
+   </text>
+   
    <text
    x="2801.9199"
    y="26310.199"
    class="fil8 fnt3"
    id="text45707"
-   style="font-weight:500;font-size:760.91998291px;font-family:'Nouveau IBM';fill:#fefefe" />
-
+   style="font-weight:500;font-size:760.91998291px;font-family:'Nouveau IBM';fill:#fefefe" >
+   	   Linea 4
+   </text>
+   
    <text
    x="2801.9199"
    y="27071.119"
    class="fil8 fnt3"
    id="text45709"
-   style="font-weight:500;font-size:760.91998291px;font-family:'Nouveau IBM';fill:#fefefe" />
+   style="font-weight:500;font-size:760.91998291px;font-family:'Nouveau IBM';fill:#fefefe" >
+   	   Linea 5
+   </text>
 
   </g>
 

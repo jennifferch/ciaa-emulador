@@ -195,7 +195,6 @@ typedef struct{
 } lcdCustomChar_t;
 
 
-
 // some defines for the DMA use
 #define DMA_CHANNEL_ENABLE      1
 #define DMA_TRANSFER_TYPE_M2P   (1UL << 11)
@@ -207,21 +206,6 @@ typedef struct{
 #define DMA_SSP0_TX             (0)
 #define DMA_DEST_SSP1_TX        (2UL << 6)
 #define DMA_DEST_SSP0_TX        (0UL << 6)
-
-/** Draw mode
-  * NORMAl
-  * XOR set pixel by xor the screen
-  */
-enum {NORMAL,XOR};
-
-/** Bitmap
- */
-typedef struct{
-    int xSize;
-    int ySize;
-    int Byte_in_Line;
-    char* data;
-}Bitmap;
 
 /*==================[external data declaration]==============================*/
 
@@ -267,38 +251,6 @@ void lcdSendFloatClearLine( float value, uint32_t decDigits );
 void lcdSendFloatFormXY( float value, uint32_t decDigits, uint8_t x, uint8_t y );
 void lcdSendFloatFormXYClearLine( float value, uint32_t decDigits, uint8_t x, uint8_t y );
 
-
-int width();
-int height();
-void pixel(int x, int y,int colour);
-void circle(int x, int y, int r, int colour);
-void fillcircle(int x, int y, int r, int colour);
-void line(int x0, int y0, int x1, int y1, int colour);
-void rect(int x0, int y0, int x1, int y1, int colour);
-void fillrect(int x0, int y0, int x1, int y1, int colour);
-
-void set_contrast(unsigned int o);
-int get_contrast(void);
-void invert(unsigned int o);
-void setmode(int mode);
-int columns_d(void);
-int rows_d(void);
-int _putc_d(int value);
-void character_d(int x, int y, int c);
-void locate(int x, int y);
-void set_auto_up(unsigned int up);
-int get_auto_up(void);
-void set_font(unsigned char* f);
-void lcdCreateCharT(Bitmap bm, int x, int y);
-void _flush();
-void hline(int x0, int x1, int y, int colour);
-void vline(int y0, int y1, int x, int colour);
-void lcd_reset();
-void wr_dat(unsigned char value);
-void wr_cmd(unsigned char value);
-void wr_cnt(unsigned char cmd);
-void copy_to_lcd(void);
-int printfLCD(const char *format, ...);
 
 #define lcdSendStringLn(str)   lcdSendString(str); \
                                lcdSendEnter()
