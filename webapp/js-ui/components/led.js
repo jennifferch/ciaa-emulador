@@ -16,26 +16,12 @@
         divElement.classList.add('component');
         divElement.classList.add('led');
 
-        var p = document.createElement('p');
-        p.classList.add('description');
-
-        p.textContent = 'LED ( SIGNAL: ' +
-        this.pinNameForPin(this.dataPin) + ')';
-
-        divElement.appendChild(p);
-
-        var img = document.createElement('img');
-        img.src = '/img/' + this.img;
-        img.style.width = '30px';
-        img.style.marginRight = '60px';
-
-        img.classList.add('destroy');
-        img.addEventListener('click', select)
-         
-        function select() {
-           document.getElementById("DELETE_ID").classList.remove("disabled");
-        }
-        divElement.appendChild(img);
+        var wrapper = document.createElement('div');
+        wrapper.classList.add('joystick');
+        wrapper.innerHTML =
+             '<object id="led-svg" data="/img/'+this.img+'"' + 'type="image/svg+xml"></object>';
+     
+        divElement.appendChild(wrapper);
 
         divElement.addEventListener('click', this.handleClick.bind(this));
 
@@ -71,18 +57,29 @@
     Led.prototype.on_gpio_write = function(pin, value, type) {
         if (pin !== this.dataPin) return;
 
-        if (type === JSHal.gpio.TYPE.DIGITAL) {
-            this.element.querySelector('img').style.opacity = value === 1 ? '1' : '0.3';
-        }else if (type === JSHal.gpio.TYPE.PWM) {
-            this.element.querySelector('img').style.opacity = (value / 1024 * 0.7) + 0.3;
-        }else {
-            console.error('LED no soporta el tipo', type);
-        }
+        this._el.querySelector('#led-svg').addEventListener('load', function() {
+            const svgObject = this._el.querySelector('#led-svg');
+            this.svgDoc = svgObject.contentDocument;
+    
+            var pin_LED = this.pinNameForPin(this.dataPin);
+            var txtLED = this.svgDoc.getElementById('text_led_gpio');
+            txtLED.textContent = pin_LED;
+
+            var txtOpacity = this.svgDoc.querySelector('rect_led_status');
+            if (type === JSHal.gpio.TYPE.DIGITAL) {
+              //   value === 1 ? txtOpacity.setAttribute('fill-opacity', '50%') : txtOpacity.setAttribute('fill-opacity', '0%');
+            }else if (type === JSHal.gpio.TYPE.PWM) {
+               //       this.element.querySelector('img').style.opacity = (value / 1024 * 0.7) + 0.3;
+            }else {
+                console.error('LED no soporta el tipo', type);
+            }
+    
+        }.bind(this));
     };
 
-    exports.LedRed = Led.bind(Led, 'led_red.png');
-    exports.LedBlue = Led.bind(Led, 'led_blue.png');
+    exports.LedRed = Led.bind(Led, 'led_red.svg');
+    exports.LedBlue = Led.bind(Led, 'led_blue.svg');
     exports.LedYellow = Led.bind(Led, 'led_yellow.png');
-    exports.LedWhite = Led.bind(Led, 'led_white.png');
+    exports.LedWhite = Led.bind(Led, 'led_white.svg');
 
 })(window.JSUI);

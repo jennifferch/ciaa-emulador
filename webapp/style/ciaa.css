@@ -42,12 +42,6 @@ body {
   padding: 10px;
 }
 
-#board-svg {
-  width: 57vw;
-  height: 60vw;
-  font-family: 'Lucida Console', Monaco, monospace;
-}
-
 #project {
   width: 100%;
   display: flex;
@@ -1566,18 +1560,19 @@ background: #5c95da;
 
 
 .dht11 {
-  width: 350px;
-  padding-top: 10px;
-  padding-left: 0px;
+  padding-left: 50px;
   text-align: center;
   display: flex;
 }
 
 .pote {
-  padding-top: 10px;
-  padding-left: 0px;
+  padding-left: 50px;
   text-align: center;
   display: flex;
+}
+
+.lcd {
+  cursor: pointer;
 }
 
 .dht11-img{
@@ -1715,8 +1710,7 @@ background: #5c95da;
 }
 
 .thermistor-ntc {
-  padding-top: 10px;
-  padding-left: 0px;
+  padding-left: 50px;
   text-align: center;
   display: flex;
 }
@@ -1746,8 +1740,7 @@ background: #5c95da;
 }
 
 .thermistor-ptc {
-  padding-top: 10px;
-  padding-left: 0px;
+  padding-left: 50px;
   text-align: center;
   display: flex;
 }
@@ -1773,6 +1766,7 @@ background: #5c95da;
 }
 
 .joystick{
+  padding-left: 50px;
   display: flex;
   flex-direction: column;
   align-items: left;
@@ -1792,4 +1786,14 @@ input[type="range"]::-webkit-slider-runnable-track {
   background-color: white; 
   border: 2px solid black; 
   border-radius: 10px; 
+}
+
+#board-svg {
+  width: 39vw;
+  height: 60vw;
+  font-family: 'Lucida Console', Monaco, monospace;
+}
+
+circle {
+  cursor: pointer;
 }

@@ -39,15 +39,15 @@
             id: 'ledRed', 
             name: 'Red LED', 
             pins: [ 'LED' ] },
-        { component: 'LedBlue', id: 'ledBlue', name: 'Blue LED', pins: [ 'LED' ] },
+        { component: 'LedBlue', id: 'ledBlue', name: 'LED Azul', pins: [ 'LED'  ] },
         { component: 'LedYellow', id: 'ledYellow', name: 'Yellow LED', pins: [ 'LED' ] },
         { component: 'LedWhite', id: 'ledWhite', name: 'White LED', pins: [ 'LED' ] },
         {
             component: 'Dht11',
             id: 'dht11',
             name: 'Dht11 temperature / humidity sensor',
-            pins: [ { name: 'SDA/SDI', value: [ 'GND'] }, 
-                { name: 'SIGNAL', value: [ 'GPIO1']  } ,
+            pins: [ { name: 'GND', value: [ 'GND'] }, 
+                { name: 'Data', value: [ 'GPIO1']  } ,
                 { name: 'VCC', value: [ '3V3']  } ]
         },
         {

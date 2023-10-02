@@ -12,7 +12,7 @@ int main( void )
 
    while(TRUE) {
       tec1 = !gpioRead(TEC1);
-      gpioWrite( LEDR, tec1 );
+      gpioWrite( LEDB, tec1 );
 
       tiempoEnTicks = tickRead();
       if( tiempoEnTicks >= 5000 ){

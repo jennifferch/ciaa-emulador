@@ -2,8 +2,8 @@
 
     function Dht11(pins) {
         this.pins = pins;
-        this.temp = 2050;
-        this.humidity = 3000;
+        this.temp = 20.50;
+        this.humidity = 30.00;
         this.geolocationTimer;
         this.geolocationTimeout = 5000; 
         this.userOption = false; 
@@ -44,11 +44,11 @@
                             console.log( "cityName " + cityName);
                             console.log( "data Temperatura " + data.main.temp);
                             console.log( "data Humedad " + data.main.humidity);
-                            this.temp = data.main.temp *100;
-                            this.humidity = data.main.humidity + "00" ;
-                            self.graphTemperatureHumidity(this.temp, this.humidity);
-                            JSHal.dht11.update_temperature(self.pins.SIGNAL, JSHal.gpioMap.GND, this.temp);
-                            JSHal.dht11.update_humidity(self.pins.SIGNAL, JSHal.gpioMap.GND, this.humidity);         
+                            this.temp = data.main.temp;
+                            this.humidity = data.main.humidity;
+                            self.renderTemperature(this.temp);
+                            self.renderHumidity(this.humidity);
+                            JSHal.dht11.update_humidity(self.pins.Data, JSHal.gpioMap.GND, this.humidity + "00"); 
                         }
                     }  
                 }   
@@ -66,11 +66,11 @@
                 const data = JSON.parse(this.response);
                 console.log( "data Temperatura" + data.main.temp);
                 console.log( "data Humedad" + data.main.humidity);
-                this.temp = data.main.temp *100;
-                this.humidity = data.main.humidity + "00" ;
-                self.graphTemperatureHumidity(this.temp, this.humidity);
-            JSHal.dht11.update_temperature(self.pins.SIGNAL, JSHal.gpioMap.GND, this.temp);
-            JSHal.dht11.update_humidity(self.pins.SIGNAL, JSHal.gpioMap.GND, this.humidity);                  
+                this.temp = data.main.temp;
+                this.humidity = data.main.humidity;
+                self.renderTemperature(this.temp);
+                self.renderHumidity(this.humidity);    
+                JSHal.dht11.update_humidity(self.pins.Data, JSHal.gpioMap.GND, this.humidity + "00");            
         }
         request.send();
     };
@@ -81,13 +81,107 @@
 
         divElement.addEventListener('click', this.handleClick.bind(this));
 
-        this.tempEl = divElement.querySelector('.thermometer');
-        this.humiEl = divElement.querySelector('.humidity');
+        divElement.querySelector('#dht11-svg').addEventListener('load', function() {
+            const svgObject = divElement.querySelector('#dht11-svg');
+            this.svgDoc = svgObject.contentDocument;
 
-        [].forEach.call(divElement.querySelectorAll('.dht11-comp'), function(c) {
-            c.onclick = this.change.bind(this);
+            //update pin GPIO
+            var pin_GPIO = this.pinNameForPin(this.pins.Data);
+            var txtGPIO = this.svgDoc.getElementById('pin_GPIO');
+            txtGPIO.textContent = pin_GPIO;
+
+            const self = this;
+            this.svgDoc.addEventListener('click', function(event) {
+                const clickX = event.clientX;
+                const clickY = event.clientY;
+
+                const circleManual = self.svgDoc.getElementById('tempManual');
+                const circleLocal = self.svgDoc.getElementById('tempLocal');
+                const pathThermometer = self.svgDoc.getElementById('thermometer');
+                const pathHumidity = self.svgDoc.getElementById('humidity');
+
+                const circleManualBoundingBox = circleManual.getBoundingClientRect();
+                const circleLocalBoundingBox = circleLocal.getBoundingClientRect();
+                const pathThermometerBoundingBox = pathThermometer.getBoundingClientRect();
+                const pathHumidityBoundingBox = pathHumidity.getBoundingClientRect();
+
+                if (isPointInsideCircle(clickX, clickY, circleManualBoundingBox)){
+                    self.userOption = true;
+                    circleManual.setAttribute("class", "fil19"); 
+                    circleLocal.setAttribute("class", "fil0 str4");
+                    self.renderTemperature(self.temp);
+                    self.renderHumidity(self.humidity);
+                    JSHal.dht11.update_humidity(self.pins.Data, JSHal.gpioMap.GND, self.humidity + "00");    
+                }else if ( isPointInsideCircle(clickX, clickY, circleLocalBoundingBox)){
+                    self.userOption = false;
+                    circleLocal.setAttribute("class", "fil19");
+                    circleManual.setAttribute("class", "fil0 str4"); 
+                    self.getTemperatureHumidity();
+                }
+
+                if (isPointInsidePath(clickX, clickY, pathThermometer, pathThermometerBoundingBox)) {
+                    if(self.userOption){                  
+                        const lecturaTemperatura = calcularLecturaTemperatura(clickY, pathThermometerBoundingBox);
+                        self.renderTemperature(lecturaTemperatura);
+                    }
+                }
+
+                if (isPointInsidePath(clickX, clickY, pathHumidity, pathHumidityBoundingBox)) {
+                    if(self.userOption){                  
+                        const readHumidity= calculateHumidity(clickY, pathHumidityBoundingBox);
+                        self.renderHumidity(readHumidity);
+                        JSHal.dht11.update_humidity(self.pins.Data, JSHal.gpioMap.GND, Math.round(readHumidity * 100)); 
+                    }
+                }
+            });
+
+            function isPointInsideCircle(x, y, circleBoundingBox) {
+                const circleCenterX = circleBoundingBox.left + circleBoundingBox.width / 2;
+                const circleCenterY = circleBoundingBox.top + circleBoundingBox.height / 2;
+                const distance = Math.sqrt((x - circleCenterX) ** 2 + (y - circleCenterY) ** 2);
+                return distance <= circleBoundingBox.width / 2;
+            }
+
+            function isPointInsidePath(x, y, path, boundingBox) {
+                    const svgObject = divElement.querySelector('#dht11-svg');
+                    this.svgDoc = svgObject.contentDocument;
+
+                    if (
+                        x >= boundingBox.left &&
+                        x <= boundingBox.right &&
+                        y >= boundingBox.top &&
+                        y <= boundingBox.bottom
+                    ) {
+                        const svgPoint = this.svgDoc.documentElement.createSVGPoint();
+                        svgPoint.x = x;
+                        svgPoint.y = y;
+
+                        const inverseTransform = path.getScreenCTM().inverse();
+                        const transformedPoint = svgPoint.matrixTransform(inverseTransform);
+
+                        return path.isPointInFill(transformedPoint);
+                    } else {
+                        return false;
+                    }
+              }
+
+              function calcularLecturaTemperatura(y, boundingBox) {
+                    const termometroAltura = boundingBox.bottom - boundingBox.top;
+                    const porcentajeAltura = 1 - (y - boundingBox.top) / termometroAltura;
+                    const lectura = porcentajeAltura * 50;
+                    const lecturaConDosDecimales = parseFloat(lectura.toFixed(2));
+                    return lecturaConDosDecimales;
+              }
+
+              function calculateHumidity(y, boundingBox) {
+                const humidityAltura = boundingBox.bottom - boundingBox.top;
+                const porcentajeAltura = 1 - (y - boundingBox.top) / humidityAltura;
+                const lectura = porcentajeAltura * 100;
+                const lecturaConDosDecimales = lectura.toFixed(2);
+                return parseFloat(lecturaConDosDecimales);
+          }
+
         }.bind(this));
-        
         this.components.appendChild(divElement);
     };
 
@@ -104,74 +198,13 @@
     Dht11.prototype.createHTML = function(divElement){
         divElement.id = 'Dht11';
         divElement.classList.add('component');
-        var p = document.createElement('p');
-        p.classList.add('description');
-
-        p.textContent = 'DHT11 ( SIGNAL: ' +
-        this.pinNameForPin(this.pins.SIGNAL) + ')';
-
-        divElement.appendChild(p);
-
+       
         var wrapper = document.createElement('div');
         wrapper.classList.add('dht11');
         wrapper.innerHTML =
-            '<div class="dht11-img"><img src="/img/Dht11.png" alt="Descripción de la imagen"></div>' +
-            '<div class="thermometer dht11-comp"><div class="dht11-before"></div><span class="dht11-content">3.22&deg;C</span><div class="dht11-after"></div></div>' +
-            '<div class="humidity dht11-comp"><div class="dht11-before"></div><span class="dht11-content">7.09%</span><div class="dht11-after"></div></div>';
+           '<object id="dht11-svg" data="/img/dht11.svg" type="image/svg+xml"></object>';
         divElement.appendChild(wrapper);
-
-        var divServidor = document.createElement('div');
-        divServidor.classList.add('contenedorLabel');
-        var inputServidor = document.createElement('input');
-        inputServidor.id = "tempLocal";
-        inputServidor.type = "radio";
-        inputServidor.classList.add('inputDht11');
-        inputServidor.checked = true;
-        inputServidor.addEventListener("click", this.selectOption.bind(this, 'tempLocal','tempManual'));
-        divServidor.appendChild(inputServidor); 
-        var labelServidor = document.createElement('label');
-        labelServidor.textContent = "Obtener temperatura local de servidor climático";
-        labelServidor.classList.add('labelDht11');
-        divServidor.appendChild(labelServidor); 
-        divElement.appendChild(divServidor);  
-
-        var divManual = document.createElement('div');
-        divManual.classList.add('contenedorLabel');
-        var inputManual = document.createElement('input');
-        inputManual.id = "tempManual";
-        inputManual.type = "radio";
-        inputManual.classList.add('inputDht11');
-        inputManual.addEventListener("click", this.selectOption.bind(this, 'tempManual', 'tempLocal'));
-        divManual.appendChild(inputManual); 
-        var labelManual = document.createElement('label');
-        labelManual.textContent = "Establecer temperatura y humedad manualmente";
-        labelManual.classList.add('labelDht11');
-        divManual.appendChild(labelManual); 
-        var labelOpcionManual = document.createElement('label');
-        labelOpcionManual.classList.add('labelOpcion');
-        labelOpcionManual.textContent = "(haga click sobre los indicadores)";
-
-        var saltoDeLinea = document.createElement("br");
-        divManual.appendChild(saltoDeLinea);
-        divManual.appendChild(labelOpcionManual);
-        divElement.appendChild(divManual); 
     }
-
-    Dht11.prototype.selectOption = function(checkedId, unCheckedId) {
-        const clickedRadio = document.getElementById(checkedId);
-        const otherRadio = document.getElementById(unCheckedId);
-        if (clickedRadio.checked) {
-            otherRadio.checked = false;
-            if(clickedRadio.id=='tempManual'){
-                this.userOption = true;
-                this.renderTemperature();
-                this.renderHumidity();
-            }else{
-                this.userOption = false;
-                this.getTemperatureHumidity();
-            }
-        }
-    };
 
     Dht11.prototype.destroy = function(param) {
         window.removeComponent(this);
@@ -184,66 +217,47 @@
         destroy.classList.add('disabled');
     };
 
-    Dht11.prototype.graphTemperatureHumidity = function(temp, humidity) {
-        var heightTemp = (temp / 100) / (50 / 146);
-        var topTemp = 146 - heightTemp;
-        var afterTemp = document.querySelector('.thermometer .dht11-after');
-        afterTemp.style.top = topTemp + 6 + 'px';
-        afterTemp.style.height = heightTemp + 'px';
+    Dht11.prototype.renderTemperature = function(temp) {
+        var polygonTemp = this.svgDoc.querySelector('#thermometer_dht11-after');
+        var pointsTemp = polygonTemp.getAttribute("points").split(" ");
 
-        var heightHum = (humidity / 100) / (100 / 146);
-        var topHum = 146 - heightHum;
-        var afterHum = document.querySelector('.humidity .dht11-after');
-        afterHum.style.top = topHum + 6 + 'px';
-        afterHum.style.height = heightHum + 'px';
+        var roundTemp = Math.round(temp);
+        var topTemp = Math.min(50, Math.max(0, roundTemp));
+        var normalizedTemp = (topTemp / 50) * 2000;
+        var yT2 = 3200 - normalizedTemp;
+        //update points
+        pointsTemp[2] =  "1079.87," + yT2 + ".02"; 
+        pointsTemp[3] =  "889.65," + yT2 + ".02"; 
 
-        document.querySelector('.thermometer .dht11-content').textContent = (temp / 100).toFixed(2) + '°C';
-        document.querySelector('.humidity  .dht11-content').textContent = (humidity / 100).toFixed(2) + '%';
+        polygonTemp.setAttribute("points", pointsTemp.join(" "));
+
+        var Temp_C = parseFloat(temp).toFixed(2);
+        var Temp_K = parseFloat((parseFloat(Temp_C) + 273.15).toFixed(2));
+
+        var txtTempC = this.svgDoc.querySelector('#txtTempC');
+        txtTempC.textContent = "T: "+Temp_C+ '°C';
+        var txtTempK = this.svgDoc.querySelector('#txtTempK');
+        txtTempK.textContent = Temp_K + "K";
+        JSHal.dht11.update_temperature(this.pins.Data, JSHal.gpioMap.GND, temp * 100);
     };
 
-    Dht11.prototype.renderTemperature = function() {
-        // 0..146, max temp is 50 degrees
-        var height = (this.temp / 100) / (50 / 146);
-        var top = 146 - height;
+    Dht11.prototype.renderHumidity = function(humidity) {
+        var polygonHum = this.svgDoc.querySelector('#humidity_dht11-after');
+        var pointsHum = polygonHum.getAttribute("points").split(" ");
 
-        var after = this.tempEl.querySelector('.dht11-after');
-        after.style.top = top + 6 + 'px';
-        after.style.height = height + 'px';
+        var roundHum = Math.round(humidity);
+        var topHum = Math.min(100, Math.max(0, roundHum));
+        var normalizedHum = (topHum / 100) * 2000;
+        var yH2 = 3200 - normalizedHum;
+ 
+        pointsHum[2] = "4804.3," + yH2 + ".02"; 
+        pointsHum[3] = "4614.08," + yH2 + ".02"; 
+        polygonHum.setAttribute("points", pointsHum.join(" "));
 
-        this.tempEl.querySelector('.dht11-content').textContent = (this.temp / 100).toFixed(2) + '°C';
-        JSHal.dht11.update_temperature(this.pins.SIGNAL, JSHal.gpioMap.GND, this.temp);
-    };
+        var Hum = parseFloat(humidity).toFixed(2);
 
-    Dht11.prototype.renderHumidity = function() {
-        // 0..146, max is 100%
-        var height = (this.humidity / 100) / (100 / 146);
-        var top = 146 - height;
-
-        var after = this.humiEl.querySelector('.dht11-after');
-        after.style.top = top + 6 + 'px';
-        after.style.height = height + 'px';
-        
-        this.humiEl.querySelector('.dht11-content').textContent = (this.humidity / 100).toFixed(2) + '%';
-        JSHal.dht11.update_humidity(this.pins.SIGNAL, JSHal.gpioMap.GND, this.humidity); 
-    };
-
-    Dht11.prototype.change = function(ev) {
-        if(this.userOption){
-            // this reflows... but I don't feel like fixing it
-            var y = ev.pageY - ev.currentTarget.offsetTop;
-            if (y < 10) y = 10;
-            y -= 10;
-            if (ev.currentTarget === this.tempEl) {
-                this.temp = (1 - (y / 155)) * 5000 | 0;
-                if (this.temp < 0) this.temp = 0;
-                this.renderTemperature();
-            }
-            else if (ev.currentTarget === this.humiEl) {
-                this.humidity = (1 - (y / 155)) * 10000 | 0;
-                if (this.humidity < 0) this.humidity = 0;
-                this.renderHumidity();
-            }
-        }
+        var txtHum = this.svgDoc.querySelector('#txtHum');
+        txtHum.textContent = "H:"+ Hum + '%';
     };
 
     Dht11.prototype.on_update_display = function(mosi, miso, sck, buffer) {

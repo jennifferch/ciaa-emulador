@@ -25,46 +25,30 @@
         var self = this;
 
         var el = this._el = document.createElement('div');
-        el.classList.add('component');
-        el.style.marginTop = '20px';
-
-        var p = document.createElement('p');
-        p.classList.add('description');
-
-        p.innerHTML = 'Thermistor NTC ( <strong>ADC</strong>: ' +
-        this.pinNameForPin(self.dataPin.ADC) + ')';
-
-        el.appendChild(p);
 
         el.addEventListener('click', this.handleClick.bind(this));
-
-        var tooltip = document.createElement('div');
-        tooltip.id = 'customTooltip';
-        tooltip.className = 'tooltip';
 
         var wrapper = document.createElement('div');
         wrapper.classList.add('thermistor-ntc');
         wrapper.innerHTML =
-            '<div class="thermistor-img"><img src="/img/ntcCurvaThermistor.png" alt="Thermistor NTC" width="210" height="200"></div>' +
-            '<div class="thermometer thermistor-ntc-comp"><div class="dht11-before"></div><div style="margin-top:-20px; margin-left:-5px"><span class="dht11-content">3.22&deg;C</span></div>' +
-            '<div style="margin-top:-222px; margin-left:-50px"><span class="kelvin-content">3.22&deg;K</span></div>'+
-            '<div style="margin-top:-50px; margin-left:-5px"><span>R_NTC:</span></div>'+
-            '<div style="margin-top:-133px; margin-left:-5px; font-weight: normal;"><span class="ohmn-content">9840.00Ω</span></div><div class="dht11-after"></div></div>';
+           '<object id="termistor_ntc-svg" data="/img/termistor_ntc.svg" type="image/svg+xml"></object>';
         el.appendChild(wrapper);
 
-        var divntcrange = document.createElement('div');
-        divntcrange.classList.add('thermistor-ntc-range');
-
-
-        this.tempEl = el.querySelector('.thermometer');
-        [].forEach.call(el.querySelectorAll('.thermistor-ntc-comp'), function(c) {
-            c.onclick = this.change.bind(this);
+        el.querySelector('#termistor_ntc-svg').addEventListener('load', function() {
+            const svgObject = el.querySelector('#termistor_ntc-svg');
+            this.svgDoc = svgObject.contentDocument;
+    
+            //update pin GPIO
+            var pin_ADC = this.pinNameForPin(self.dataPin.ADC);
+            var txtADC = this.svgDoc.getElementById('pin_ADC');
+            txtADC.textContent = pin_ADC;
+    
         }.bind(this));
 
         this.componentsEl.appendChild(el);
 
-        this.renderTemperature();
-        this.renderResistance();
+      //  this.renderTemperature();
+     //   this.renderResistance();
     };
 
     ThermistorNTC.prototype.calculateTemperature = function(R_NTC) {

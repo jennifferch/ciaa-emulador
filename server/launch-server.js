@@ -10,7 +10,7 @@ const compile = require('./compile');
 //const udp = require('dgram');
 const { exists} = require('../tools/util');
 const promisify = require('es6-promisify').promisify;
-//const timesyncServer = require('timesync/server');
+const timesyncServer = require('timesync/server');
 const version = JSON.parse(fs.readFileSync(Path.join(__dirname, '..', 'package.json'), 'utf-8')).version;
 const compression = require('compression');
 
@@ -40,7 +40,7 @@ module.exports = function(outFolder, port, staticMaxAge, runtimeLogs, callback) 
     app.use('/outUser', express.static(outFolder, { maxAge: staticMaxAge }));
     app.use('/examples', express.static(Path.join(__dirname, '..', 'examples'), { maxAge: staticMaxAge }));
     //app.use('/external_peripherals', express.static(Path.join(__dirname, '..', 'examples', 'External devices','Temperture_Humidity sensor', 'dht11_temp_humidity'), { maxAge: staticMaxAge }));
-    //app.use('/timesync', timesyncServer.requestHandler);
+    app.use('/timesync', timesyncServer.requestHandler);
 
     app.use(express.static(Path.join(__dirname, '..', 'webapp'), { maxAge: staticMaxAge }));
     app.use(bodyParser.json());
