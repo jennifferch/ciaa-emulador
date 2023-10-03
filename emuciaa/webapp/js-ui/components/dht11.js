@@ -1,6 +1,7 @@
 (function(exports) {
 
-    function Dht11(pins) {
+    function Dht11(img, pins) {
+        this.img = img;
         this.pins = pins;
         this.temp = 20.50;
         this.humidity = 30.00;
@@ -200,7 +201,7 @@
         var wrapper = document.createElement('div');
         wrapper.classList.add('dht11');
         wrapper.innerHTML =
-           '<object id="dht11-svg" data="/img/dht11.svg" type="image/svg+xml"></object>';
+           '<object id="dht11-svg" data="/img/'+this.img+'"' + 'type="image/svg+xml"></object>';
         divElement.appendChild(wrapper);
     }
 
@@ -278,6 +279,6 @@
             }
         }
     };
-    exports.Dht11 = Dht11;
-
+    exports.Dht11 = Dht11.bind(Dht11, 'dht11.svg');
+    exports.Dht11Module = Dht11.bind(Dht11, 'dht11_module.svg');
 })(window.JSUI);

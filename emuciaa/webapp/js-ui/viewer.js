@@ -56,6 +56,16 @@
                 { name: 'VCC', value: [ '3V3']  } ]
         },
         {
+            component: 'Dht11Module',
+            id: 'dht11Module',
+            name: 'Dht11 temperature / humidity módulo',
+            pins: [ { name: 'GND', value: [ 'GND'] }, 
+                { name: 'DATA', value: [ 'GPIO0', 'GPIO1', 'GPIO2', 'GPIO3', 'GPIO4', 'GPIO5', 'GPIO6', 'GPIO7', 'GPIO8',  
+                                         'LCD1', 'LCD2','LCD3', 'LCD4','LCDRS', 'LCDEN',
+                                         'T_FIL0', 'T_FIL1','T_FIL2', 'T_FIL3','T_COL0', 'T_COL1', 'T_COL2'] } ,
+                { name: 'VCC', value: [ '3V3']  } ]
+        },
+        {
             component: 'Lcd20x4',
             id: 'lcd20x4',
             name: 'Lcd display 20x4',
