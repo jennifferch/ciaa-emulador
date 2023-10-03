@@ -17,11 +17,6 @@
         var el = this._el = document.createElement('div');  
         el.classList.add('component');
 
-        var p = document.createElement('p');
-        p.classList.add('description');
-        p.innerHTML = 'GLCD' ;
-        el.appendChild(p);
-
         var wrapper = document.createElement('div');
         wrapper.classList.add('lcd');
         wrapper.innerHTML =

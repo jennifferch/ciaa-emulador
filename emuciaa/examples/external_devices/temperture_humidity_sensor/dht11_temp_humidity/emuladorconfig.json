@@ -1,7 +1,7 @@
 {
     "peripherals": [{ "component": "Dht11", "args": {
         "GND": "gpioMap.GND",
-        "Data": "gpioMap.GPIO1",
+        "DATA": "gpioMap.GPIO1",
         "VCC": "3V3"
         } }
     ]

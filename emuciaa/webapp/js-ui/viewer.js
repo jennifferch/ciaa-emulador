@@ -39,15 +39,20 @@
             id: 'ledRed', 
             name: 'Red LED', 
             pins: [ 'LED' ] },
-        { component: 'LedBlue', id: 'ledBlue', name: 'LED Azul', pins: [ 'LED'  ] },
-        { component: 'LedYellow', id: 'ledYellow', name: 'Yellow LED', pins: [ 'LED' ] },
-        { component: 'LedWhite', id: 'ledWhite', name: 'White LED', pins: [ 'LED' ] },
+        { component: 'LedBlue', id: 'ledBlue', name: 'LED Azul', pins: [ { name: 'DATA', value:  'LED'  },
+                                                                         { name: 'GND', value: [ 'GND']  } ] },
+        { component: 'LedYellow', id: 'ledYellow', name: 'Yellow LED', pins: [ { name: 'DATA', value:  'LED'  },
+                                                                         { name: 'GND', value: [ 'GND']  } ] },
+        { component: 'LedWhite', id: 'ledWhite', name: 'White LED', pins: [ { name: 'DATA', value:  'LED'  },
+                                                                            { name: 'GND', value: [ 'GND']  } ] },
         {
             component: 'Dht11',
             id: 'dht11',
             name: 'Dht11 temperature / humidity sensor',
             pins: [ { name: 'GND', value: [ 'GND'] }, 
-                { name: 'Data', value: [ 'GPIO1']  } ,
+                { name: 'DATA', value: [ 'GPIO0', 'GPIO1', 'GPIO2', 'GPIO3', 'GPIO4', 'GPIO5', 'GPIO6', 'GPIO7', 'GPIO8',  
+                                         'LCD1', 'LCD2','LCD3', 'LCD4','LCDRS', 'LCDEN',
+                                         'T_FIL0', 'T_FIL1','T_FIL2', 'T_FIL3','T_COL0', 'T_COL1', 'T_COL2'] } ,
                 { name: 'VCC', value: [ '3V3']  } ]
         },
         {
@@ -99,8 +104,13 @@
         {
             component: 'Joystick',
             id: 'joystick',
-            name: 'Joystick',
-            pins: [ { name: 'ADCx', value: [ 'CH1', 'CH2', 'CH3'] }, { name: 'ADCy', value: [ 'CH1', 'CH2', 'CH3'] }, { name: 'SW', value: [ 'GPIO0']} ]
+            name: 'Analog stick',
+            pins: [ { name: 'VRx', value: [ 'CH1', 'CH2', 'CH3'] }, { name: 'VRy', value: [ 'CH1', 'CH2', 'CH3'] }, 
+                    { name: 'SW', value: [ 'GPIO0', 'GPIO1', 'GPIO2', 'GPIO3', 'GPIO4', 'GPIO5', 'GPIO6', 'GPIO7', 'GPIO8',  
+                                           'LCD1', 'LCD2','LCD3', 'LCD4','LCDRS', 'LCDEN',
+                                           'T_FIL0', 'T_FIL1','T_FIL2', 'T_FIL3','T_COL0', 'T_COL1', 'T_COL2'] },
+                    { name: '+5V', value: [ '3V3'] },
+                    { name: 'GND', value: [ 'GNDA' ] }]
         }
     ];
     
@@ -156,13 +166,25 @@
     
             if (typeof pin === 'object') {
                 select.dataset.pin = pin.name;
-    
-                pin.value.forEach(function(p) {
-                    var opt = document.createElement('option');
-                    opt.textContent = p;
-                    opt.value = JSHal.gpioMap[p];
-                    select.appendChild(opt);
-                });
+                if (pin.value  == "LED"){
+
+                    const list = Object.keys(JSHal.gpioMap);
+                    const iT_FIL1 = list.indexOf('T_FIL1');
+                    const listLcd = list.slice(iT_FIL1);
+                    listLcd.map(function(p) {
+                        var opt = document.createElement('option');
+                        opt.textContent = p;
+                        opt.value = JSHal.gpioMap[p];
+                        select.appendChild(opt);
+                    });
+                }else{
+                    pin.value.forEach(function(p) {
+                        var opt = document.createElement('option');
+                        opt.textContent = p;
+                        opt.value = JSHal.gpioMap[p];
+                        select.appendChild(opt);
+                    });
+                }  
             }
             else {
                 select.dataset.pin = pin;

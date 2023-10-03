@@ -1,7 +1,7 @@
 {
     "peripherals": [{ "component": "Joystick", "args": {
-        "ADCx": "gpioMap.CH1",
-        "ADCy": "gpioMap.CH2",
+        "VRx": "gpioMap.CH1",
+        "VRy": "gpioMap.CH2",
         "SW": "gpioMap.GPIO0"
         } }
     ]

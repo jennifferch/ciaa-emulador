@@ -48,7 +48,7 @@
                             this.humidity = data.main.humidity;
                             self.renderTemperature(this.temp);
                             self.renderHumidity(this.humidity);
-                            JSHal.dht11.update_humidity(self.pins.Data, JSHal.gpioMap.GND, this.humidity + "00"); 
+                            JSHal.dht11.update_humidity(self.pins.DATA, JSHal.gpioMap.GND, this.humidity + "00"); 
                         }
                     }  
                 }   
@@ -70,7 +70,7 @@
                 this.humidity = data.main.humidity;
                 self.renderTemperature(this.temp);
                 self.renderHumidity(this.humidity);    
-                JSHal.dht11.update_humidity(self.pins.Data, JSHal.gpioMap.GND, this.humidity + "00");            
+                JSHal.dht11.update_humidity(self.pins.DATA, JSHal.gpioMap.GND, this.humidity + "00");            
         }
         request.send();
     };
@@ -86,7 +86,7 @@
             this.svgDoc = svgObject.contentDocument;
 
             //update pin GPIO
-            var pin_GPIO = this.pinNameForPin(this.pins.Data);
+            var pin_GPIO = this.pinNameForPin(this.pins.DATA);
             var txtGPIO = this.svgDoc.getElementById('pin_GPIO');
             txtGPIO.textContent = pin_GPIO;
 
@@ -111,7 +111,7 @@
                     circleLocal.setAttribute("class", "fil0 str4");
                     self.renderTemperature(self.temp);
                     self.renderHumidity(self.humidity);
-                    JSHal.dht11.update_humidity(self.pins.Data, JSHal.gpioMap.GND, self.humidity + "00");    
+                    JSHal.dht11.update_humidity(self.pins.DATA, JSHal.gpioMap.GND, self.humidity + "00");    
                 }else if ( isPointInsideCircle(clickX, clickY, circleLocalBoundingBox)){
                     self.userOption = false;
                     circleLocal.setAttribute("class", "fil19");
@@ -121,7 +121,7 @@
 
                 if (isPointInsidePath(clickX, clickY, pathThermometer, pathThermometerBoundingBox)) {
                     if(self.userOption){                  
-                        const lecturaTemperatura = calcularLecturaTemperatura(clickY, pathThermometerBoundingBox);
+                        const lecturaTemperatura = calculateTemperature(clickY, pathThermometerBoundingBox);
                         self.renderTemperature(lecturaTemperatura);
                     }
                 }
@@ -130,7 +130,7 @@
                     if(self.userOption){                  
                         const readHumidity= calculateHumidity(clickY, pathHumidityBoundingBox);
                         self.renderHumidity(readHumidity);
-                        JSHal.dht11.update_humidity(self.pins.Data, JSHal.gpioMap.GND, Math.round(readHumidity * 100)); 
+                        JSHal.dht11.update_humidity(self.pins.DATA, JSHal.gpioMap.GND, Math.round(readHumidity * 100)); 
                     }
                 }
             });
@@ -145,7 +145,6 @@
             function isPointInsidePath(x, y, path, boundingBox) {
                     const svgObject = divElement.querySelector('#dht11-svg');
                     this.svgDoc = svgObject.contentDocument;
-
                     if (
                         x >= boundingBox.left &&
                         x <= boundingBox.right &&
@@ -165,7 +164,7 @@
                     }
               }
 
-              function calcularLecturaTemperatura(y, boundingBox) {
+              function calculateTemperature(y, boundingBox) {
                     const termometroAltura = boundingBox.bottom - boundingBox.top;
                     const porcentajeAltura = 1 - (y - boundingBox.top) / termometroAltura;
                     const lectura = porcentajeAltura * 50;
@@ -180,7 +179,6 @@
                 const lecturaConDosDecimales = lectura.toFixed(2);
                 return parseFloat(lecturaConDosDecimales);
           }
-
         }.bind(this));
         this.components.appendChild(divElement);
     };
@@ -238,7 +236,7 @@
         txtTempC.textContent = "T: "+Temp_C+ '°C';
         var txtTempK = this.svgDoc.querySelector('#txtTempK');
         txtTempK.textContent = Temp_K + "K";
-        JSHal.dht11.update_temperature(this.pins.Data, JSHal.gpioMap.GND, temp * 100);
+        JSHal.dht11.update_temperature(this.pins.DATA, JSHal.gpioMap.GND, temp * 100);
     };
 
     Dht11.prototype.renderHumidity = function(humidity) {
