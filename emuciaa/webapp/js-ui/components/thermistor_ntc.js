@@ -44,6 +44,8 @@
 
             const self = this;
             this.svgDoc.addEventListener('click', function(event) {
+                handleClick();
+
                 const clickX = event.clientX;
                 const clickY = event.clientY;
 
@@ -86,6 +88,31 @@
                 const lectura = porcentajeAltura * 100;
                 const lecturaConDosDecimales = parseFloat(lectura.toFixed(2));
                 return lecturaConDosDecimales;
+            }
+
+            function handleClick () {
+                var destroy = document.getElementById("DELETE_ID");
+                while (destroy.classList.length > 0) {
+                    destroy.classList.remove(destroy.classList.item(0));
+                }
+                destroy.classList.add('destroy');
+                destroy.classList.add('enabled');
+                destroy.addEventListener('click', function(param) {
+                    window.removeComponent(this);
+                    try {
+                        while ( self._el.firstChild) {
+                            self._el.removeChild(self._el.firstChild);
+                          }
+                    } catch (ex) {
+                        console.log(ex);
+                    } 
+                    var destroy = document.getElementById("DELETE_ID");
+                    while (destroy.classList.length > 0) {
+                        destroy.classList.remove(destroy.classList.item(0));
+                    }
+                    destroy.classList.add('destroy');
+                    destroy.classList.add('disabled');
+                });
             }
 
             self.renderTemperature();

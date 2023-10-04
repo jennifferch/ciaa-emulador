@@ -93,6 +93,8 @@
 
             const self = this;
             this.svgDoc.addEventListener('click', function(event) {
+                handleClick();
+
                 const clickX = event.clientX;
                 const clickY = event.clientY;
 
@@ -179,7 +181,33 @@
                 const lectura = porcentajeAltura * 100;
                 const lecturaConDosDecimales = lectura.toFixed(2);
                 return parseFloat(lecturaConDosDecimales);
-          }
+              }
+
+              function handleClick () {
+                var destroy = document.getElementById("DELETE_ID");
+                while (destroy.classList.length > 0) {
+                    destroy.classList.remove(destroy.classList.item(0));
+                }
+                destroy.classList.add('destroy');
+                destroy.classList.add('enabled');
+                destroy.addEventListener('click', function(param) {
+                    window.removeComponent(this);
+                    try {
+                        while ( self.element.firstChild) {
+                            self.element.removeChild(self.element.firstChild);
+                          }
+                    } catch (ex) {
+                        console.log(ex);
+                    } 
+                    var destroy = document.getElementById("DELETE_ID");
+                    while (destroy.classList.length > 0) {
+                        destroy.classList.remove(destroy.classList.item(0));
+                    }
+                    destroy.classList.add('destroy');
+                    destroy.classList.add('disabled');
+                });
+            }
+
         }.bind(this));
         this.components.appendChild(divElement);
     };
