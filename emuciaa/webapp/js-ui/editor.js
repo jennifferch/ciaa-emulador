@@ -81,16 +81,20 @@ document.querySelector('#select-project').onclick = function() {
             var route =  'adc_dac/' + optgroupLabel;
             optgroupLabel = route;
           break;
-        case 'seos_pont_2014':
-            var route =  'rtos_cooperative/' + optgroupLabel;
+        case 'rtos_seos_pont':
+            var route =  'rtos_cooperative/' + 'seos_pont_2014';
             optgroupLabel = route;
           break;
-        case 'temperture_humidity_sensor':
-            var route =  'external_devices/' + optgroupLabel;
+        case 'sensors':
+            var route =  'external_devices/' +  'temperture_humidity_sensor';
             optgroupLabel = route;
           break;
         case 'lcd':
             var route =  'external_devices/' + optgroupLabel;
+            optgroupLabel = route;
+          break;
+        case 'fsm':
+            var route =  'gpio/';
             optgroupLabel = route;
           break;
         default:

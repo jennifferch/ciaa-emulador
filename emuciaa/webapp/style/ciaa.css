@@ -1766,11 +1766,8 @@ background: #5c95da;
 }
 
 .joystick{
-  padding-left: 50px;
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  text-align: left;
+
+  border: 2px solid #BDBFC1;
 }
 
 .joystick-img{
@@ -1796,4 +1793,22 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 #run-download {
   cursor: pointer;
+}
+
+
+.fnt1 {
+  font-weight: normal;
+  font-family: 'Arial';
+}
+
+.fil7 {
+  color: #ED3237;
+}
+
+.fil8 {
+  color: #00A859;
+}
+
+.fil5 {
+  color: #373435;
 }
