@@ -87,8 +87,6 @@
         Object.keys(builtInButtons_release).forEach(function(pin) {
             var button = builtInButtons_release[pin];
 
-            var entro = false;
-
             button.addEventListener('mousedown', function(event) {
                 console.log("button onmousedown");                
                 window.JSHal.gpio.write(pin, 0); 

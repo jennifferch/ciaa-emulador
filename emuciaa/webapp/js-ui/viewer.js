@@ -35,10 +35,8 @@
     };
     
     var components = [
-        {   component: 'LedRed', 
-            id: 'ledRed', 
-            name: 'Red LED', 
-            pins: [ 'LED' ] },
+        {   component: 'LedRed', id: 'ledRed', name: 'Red LED', pins: [ { name: 'DATA', value:  'LED'  },
+                                                                         { name: 'GND', value: [ 'GND']  } ] },
         { component: 'LedBlue', id: 'ledBlue', name: 'LED Azul', pins: [ { name: 'DATA', value:  'LED'  },
                                                                          { name: 'GND', value: [ 'GND']  } ] },
         { component: 'LedYellow', id: 'ledYellow', name: 'Yellow LED', pins: [ { name: 'DATA', value:  'LED'  },

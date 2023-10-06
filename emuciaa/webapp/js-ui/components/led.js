@@ -97,18 +97,23 @@
     Led.prototype.on_gpio_write = function(pin, value, type) {
         if (pin !== this.dataPin) return;
 
-        var txtOpacity = this.svgDoc.querySelector('#rect_led_status');
-        var txtStatus = this.svgDoc.querySelector('#text_led_status');
-        
-        if (type === JSHal.gpio.TYPE.DIGITAL) {
-                 value === 1 ? txtOpacity.setAttribute('fill-opacity', '50%') : txtOpacity.setAttribute('fill-opacity', '0%');
-                 value === 1 ? txtStatus.textContent = "Estado: OFF": txtStatus.textContent = "Estado: ON";
-        }else if (type === JSHal.gpio.TYPE.PWM) {
-               //       this.element.querySelector('img').style.opacity = (value / 1024 * 0.7) + 0.3;
-        }else {
-                console.error('LED no soporta el tipo', type);
-        }
+        var svg = this._el.querySelector('#led-svg');
 
+        if (svg.contentDocument && svg.contentDocument.rootElement) {
+            var txtOpacity = this.svgDoc.getElementById('rect_led_status');
+            var txtStatus = this.svgDoc.getElementById('text_led_status');
+
+            if (type === JSHal.gpio.TYPE.DIGITAL) {
+                value === 1 ? txtOpacity.setAttribute('fill-opacity', '0%') : txtOpacity.setAttribute('fill-opacity', '50%');
+                value === 1 ? txtStatus.textContent = "Estado: ON": txtStatus.textContent = "Estado: OFF";
+            }else if (type === JSHal.gpio.TYPE.PWM) {
+                    //       this.element.querySelector('img').style.opacity = (value / 1024 * 0.7) + 0.3;
+            }else {
+                    console.error('LED no soporta el tipo', type);
+            }
+        }else {
+           console.log("no se que paso");
+        }                 
     };
 
     exports.LedRed = Led.bind(Led, 'led_red.svg');
