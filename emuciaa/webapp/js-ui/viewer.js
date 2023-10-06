@@ -35,13 +35,21 @@
     };
     
     var components = [
-        {   component: 'LedRed', id: 'ledRed', name: 'Red LED', pins: [ { name: 'DATA', value:  'LED'  },
+        {   component: 'LedRed', id: 'ledRed', name: 'Red LED', pins: [ { name: 'DATA', value: [ 'GPIO0', 'GPIO1', 'GPIO2', 'GPIO3', 'GPIO4', 'GPIO5', 'GPIO6', 'GPIO7', 'GPIO8',  
+                                                                                                 'LCD1', 'LCD2','LCD3', 'LCD4','LCDRS', 'LCDEN',
+                                                                                                 'T_FIL0', 'T_FIL1','T_FIL2', 'T_FIL3','T_COL0', 'T_COL1', 'T_COL2']  },
                                                                          { name: 'GND', value: [ 'GND']  } ] },
-        { component: 'LedBlue', id: 'ledBlue', name: 'LED Azul', pins: [ { name: 'DATA', value:  'LED'  },
+        { component: 'LedBlue', id: 'ledBlue', name: 'LED Azul', pins: [ { name: 'DATA', value:  [ 'GPIO0', 'GPIO1', 'GPIO2', 'GPIO3', 'GPIO4', 'GPIO5', 'GPIO6', 'GPIO7', 'GPIO8',  
+                                                                                                   'LCD1', 'LCD2','LCD3', 'LCD4','LCDRS', 'LCDEN',
+                                                                                                   'T_FIL0', 'T_FIL1','T_FIL2', 'T_FIL3','T_COL0', 'T_COL1', 'T_COL2']   },
                                                                          { name: 'GND', value: [ 'GND']  } ] },
-        { component: 'LedYellow', id: 'ledYellow', name: 'Yellow LED', pins: [ { name: 'DATA', value:  'LED'  },
+        { component: 'LedYellow', id: 'ledYellow', name: 'Yellow LED', pins: [ { name: 'DATA', value:  [ 'GPIO0', 'GPIO1', 'GPIO2', 'GPIO3', 'GPIO4', 'GPIO5', 'GPIO6', 'GPIO7', 'GPIO8',  
+                                                                                                         'LCD1', 'LCD2','LCD3', 'LCD4','LCDRS', 'LCDEN',
+                                                                                                         'T_FIL0', 'T_FIL1','T_FIL2', 'T_FIL3','T_COL0', 'T_COL1', 'T_COL2']  },
                                                                          { name: 'GND', value: [ 'GND']  } ] },
-        { component: 'LedWhite', id: 'ledWhite', name: 'White LED', pins: [ { name: 'DATA', value:  'LED'  },
+        { component: 'LedWhite', id: 'ledWhite', name: 'White LED', pins: [ { name: 'DATA', value: [ 'GPIO0', 'GPIO1', 'GPIO2', 'GPIO3', 'GPIO4', 'GPIO5', 'GPIO6', 'GPIO7', 'GPIO8',  
+                                                                                                     'LCD1', 'LCD2','LCD3', 'LCD4','LCDRS', 'LCDEN',
+                                                                                                     'T_FIL0', 'T_FIL1','T_FIL2', 'T_FIL3','T_COL0', 'T_COL1', 'T_COL2']  },
                                                                             { name: 'GND', value: [ 'GND']  } ] },
         {
             component: 'Dht11',
