@@ -76,14 +76,17 @@
                 const rectWidth = boundingBox.right - boundingBox.left;
                 const clampedX = Math.max(boundingBox.left, Math.min(x, boundingBox.right));
                 let lectura = ((clampedX - boundingBox.left) / rectWidth) * 3.3;
-                if (clampedX === boundingBox.left) {
+                console.log('lectura ' + lectura);
+
+                const mathBoundingLeft = Math.floor(boundingBox.left);
+                const mathBoundingRight = Math.floor(boundingBox.right);
+                if (clampedX >= mathBoundingLeft && clampedX <= (mathBoundingLeft +4)) {
                     lectura = 0;
-                } else if (clampedX === boundingBox.right) {
+                }else if (clampedX >= mathBoundingRight && clampedX <= (mathBoundingRight +4)) {
                     lectura = 3.3;
                 }
-              
-                const cxMin = 2200.8;
-                const cxMax = 4850.8;
+                const cxMin = 2180.8;
+                const cxMax = 4860.8;
                 const cx = ((lectura - 0.08) / (3.28 - 0.08)) * (cxMax - cxMin) + cxMin;
                 const clampedCx = Math.min(Math.max(cx, cxMin), cxMax); 
                 const floatCX = parseFloat(clampedCx.toFixed(2));

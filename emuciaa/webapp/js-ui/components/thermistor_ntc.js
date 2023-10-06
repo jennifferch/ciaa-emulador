@@ -85,9 +85,13 @@
             function calculateTemperature(y, boundingBox) {
                 const termometroAltura = boundingBox.bottom - boundingBox.top;
                 const porcentajeAltura = 1 - (y - boundingBox.top) / termometroAltura;
-                const lectura = porcentajeAltura * 100;
-                const lecturaConDosDecimales = parseFloat(lectura.toFixed(2));
-                return lecturaConDosDecimales;
+                let lectura = porcentajeAltura * 102;
+                const mathlectura = Math.floor(lectura);
+                if (mathlectura >= 100) {
+                    lectura = 100;
+                }
+
+                return parseFloat(lectura.toFixed(2));
             }
 
             function handleClick () {

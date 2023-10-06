@@ -170,7 +170,12 @@
               function calculateTemperature(y, boundingBox) {
                     const termometroAltura = boundingBox.bottom - boundingBox.top;
                     const porcentajeAltura = 1 - (y - boundingBox.top) / termometroAltura;
-                    const lectura = porcentajeAltura * 50;
+                    let lectura = porcentajeAltura * 52;
+
+                    const mathlectura = Math.floor(lectura);
+                    if (mathlectura >= 50) {
+                        lectura = 50;
+                    }
                     const lecturaConDosDecimales = parseFloat(lectura.toFixed(2));
                     return lecturaConDosDecimales;
               }
@@ -178,7 +183,12 @@
               function calculateHumidity(y, boundingBox) {
                 const humidityAltura = boundingBox.bottom - boundingBox.top;
                 const porcentajeAltura = 1 - (y - boundingBox.top) / humidityAltura;
-                const lectura = porcentajeAltura * 100;
+                let lectura = porcentajeAltura * 102;
+
+                const mathlectura = Math.floor(lectura);
+                if (mathlectura >= 100) {
+                    lectura = 100;
+                }
                 const lecturaConDosDecimales = lectura.toFixed(2);
                 return parseFloat(lecturaConDosDecimales);
               }

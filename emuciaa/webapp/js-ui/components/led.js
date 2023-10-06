@@ -17,7 +17,6 @@
         divElement.classList.add('led');
 
         var wrapper = document.createElement('div');
-        wrapper.classList.add('joystick');
         wrapper.innerHTML =
              '<object id="led-svg" data="/img/'+this.img+'"' + 'type="image/svg+xml"></object>';
      
