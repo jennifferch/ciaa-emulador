@@ -43,6 +43,16 @@
    units="px" />
  <defs
    id="defs785">
+
+<!-- @EmuCIAA - Begin -->
+<style>
+  @font-face {
+	font-family: "Consolas";
+	src: url("../fonts/consolas.ttf");
+  }
+</style> 
+<!-- @EmuCIAA - End -->
+
   <font
    id="FontID1"
    horiz-adv-x="549"

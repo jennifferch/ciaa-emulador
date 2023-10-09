@@ -117,7 +117,7 @@
 
     exports.LedRed = Led.bind(Led, 'led_red.svg');
     exports.LedBlue = Led.bind(Led, 'led_blue.svg');
-    exports.LedYellow = Led.bind(Led, 'led_blue.svg');
+    exports.LedYellow = Led.bind(Led, 'led_yellow.svg');
     exports.LedWhite = Led.bind(Led, 'led_white.svg');
 
 })(window.JSUI);

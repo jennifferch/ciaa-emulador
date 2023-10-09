@@ -70,7 +70,7 @@
             Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies - left) + '/' + this.totalDependencies + ')' : 'Carga completa.');
         }
     };
-    Module.setStatus('cargando programa...');
+    Module.setStatus('Cargando programa...');
 
     window.onerror = function (message) {
         // TODO: do not warn on ok events like simulating an infinite loop or exitStatus
