@@ -36,6 +36,9 @@ if (document.location.hash) {
 }
 
 function load_example(demo, optgroupLabel) {
+    var status = document.querySelector('#run-status');
+    status.textContent = '';
+    
     var x = new XMLHttpRequest();
     const encodedString = encodeURIComponent(optgroupLabel + '/' + demo);
     x.onload = function() {

@@ -2,7 +2,7 @@ const http = require('http');
 const fs = require('fs');
 
 const hostname = '134.209.168.175';
-const port = 7829;  // Reemplaza con el puerto que has habilitado
+const port = 7900;  // Reemplaza con el puerto que has habilitado
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;

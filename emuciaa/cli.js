@@ -116,7 +116,7 @@ fn(program.inputDir || program.inputFile, program.outputFile, extraArgs, program
         if (program.launch || program.launchHeadless) {
             let browser;
             try {
-                let port = process.env.PORT || 7900;
+                let port = process.env.PORT || 7700;
                 let logsEnabled = !program.disableRuntimeLogs;
                 await promisify(launchServer)(outputDir, port, 0, logsEnabled);
 

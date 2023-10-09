@@ -2,10 +2,9 @@
 
     var svg = document.querySelector('#board-svg');
 
-    if (svg.contentDocument && svg.contentDocument.rootElement) {
+    if (svg && svg.contentDocument && svg.contentDocument.rootElement) {
         attachHandlers(svg.contentDocument);
-    }
-    else {
+    }else {
         svg.addEventListener('load', function() {
             attachHandlers(this.contentDocument);
         });

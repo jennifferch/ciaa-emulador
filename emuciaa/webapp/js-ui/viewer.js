@@ -160,6 +160,15 @@
             sessionStorage.setItem('model-dirty', true);
             document.querySelector('#collapseButton').click();
         }
+
+        Module.setStatus('En ejecución');
+
+        var refresh = document.getElementById("refresh");
+        var refreshIcon = document.getElementById("refreshIcon");
+        refresh.classList.remove("disabled-refresh");
+        refreshIcon.classList.remove("disabled-refresh");
+        refresh.classList.add('enabled');
+        refreshIcon.classList.add('enabled');
     });
 
     const component_grid_item = document.querySelectorAll('.editor__component_item');

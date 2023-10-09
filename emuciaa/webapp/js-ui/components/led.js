@@ -98,7 +98,7 @@
 
         var svg = this._el.querySelector('#led-svg');
 
-        if (svg.contentDocument && svg.contentDocument.rootElement) {
+        if (svg && svg.contentDocument && svg.contentDocument.rootElement) {
             var txtOpacity = this.svgDoc.getElementById('rect_led_status');
             var txtStatus = this.svgDoc.getElementById('text_led_status');
 
@@ -111,7 +111,7 @@
                     console.error('LED no soporta el tipo', type);
             }
         }else {
-           console.log("no se que paso");
+           console.log("svg null");
         }                 
     };
 

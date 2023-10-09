@@ -117,7 +117,7 @@ body {
 
 .viewer #refresh {
   float: right;
-  margin-left: 20px;
+  margin-left: 10px;
   color: #0e0d0d;
   text-decoration: none;
 }
@@ -1809,4 +1809,10 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 .fil5 {
   color: #373435;
+}
+
+.disabled-refresh {
+  color: gray; /* Cambia el color a gris */
+  pointer-events: none; /* Deshabilita los eventos de puntero (clic, hover, etc.) */
+  text-decoration: none; /* Elimina cualquier decoración de texto (subrayado, etc.) */
 }
