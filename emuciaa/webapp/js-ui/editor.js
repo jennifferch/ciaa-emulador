@@ -92,12 +92,8 @@ document.querySelector('#select-project').onclick = function() {
             var route =  'external_devices/' +  'temperture_humidity_sensor';
             optgroupLabel = route;
           break;
-        case 'lcd':
+        case 'displays':
             var route =  'external_devices/' + optgroupLabel;
-            optgroupLabel = route;
-          break;
-        case 'fsm':
-            var route =  'gpio/';
             optgroupLabel = route;
           break;
         default:

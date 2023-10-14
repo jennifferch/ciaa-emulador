@@ -12,16 +12,5 @@ int main( void )
 {
    boardInit();  // Inicializar la placa
 
-   while( true ) {
-
-      gpioWrite( LEDB, ON );   // Encender LED Azul de la placa
-
-      delay(500);              // Esperar 500 ms
-
-      gpioWrite( LEDB, OFF );  // Apagar LED Azul de la placa
-
-      delay(500);              // Esperar 500 ms
-   }
-
    return 0;
 }

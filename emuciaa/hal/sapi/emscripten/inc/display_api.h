@@ -46,9 +46,19 @@ extern "C" {
 
     void lcd_init( gpioMap_t _mosi, gpioMap_t _miso, gpioMap_t _sck );
 
-    void lcd_cursor_set(gpioMap_t _mosi, gpioMap_t _miso, gpioMap_t _sck, char * buffer);
+    void lcd_cursor_set(gpioMap_t _mosi, gpioMap_t _miso, gpioMap_t _sck, unsigned char * buffer);
 
-    void lcd_copy_to_lcd(gpioMap_t _mosi, gpioMap_t _miso, gpioMap_t _sck, char * buffer);
+    void lcd_copy_to_lcd(gpioMap_t _mosi, gpioMap_t _miso, gpioMap_t _sck, unsigned char * buffer);
+
+    void char_to_glcd(int x, int y, unsigned char * buffer);
+
+    void char_to_lcd(int x, int y, unsigned char * buffer);
+
+    void bitmap_to_glcd( uint8_t* bitmap);
+
+    void display_clear_glcd();
+
+    void display_clear_lcd();
 /*==================[c++]====================================================*/
 #ifdef __cplusplus
 }

@@ -3,7 +3,7 @@
 
 #include "sapi.h"  
 #include "Small_7.h"
-#include "lcd_api.h"
+#include "display_api.h"
 
 /*==================[c]====================================================*/
 #ifdef __cplusplus
@@ -25,6 +25,8 @@ extern "C" {
     unsigned int auto_up;
     unsigned char* font;
     unsigned char buffer[32 * 128];
+    unsigned char buffer16x4[16 * 4];
+    unsigned char buffer20x4[20 * 4];
 
     struct FileHandle {
       int isatty;  
@@ -53,11 +55,6 @@ extern "C" {
 
     void fill(int x, int y, int w, int h, int colour);
 
-    void invert(unsigned int o);
-    void set_contrast(unsigned int o);
-    unsigned int get_contrast(void);
-    void wr_cmd(unsigned char cmd);
-    void wr_dat(unsigned char dat);
     void lcd_reset();
     void copy_to_lcd(void);
     void cls(void);
@@ -92,13 +89,19 @@ extern "C" {
     int rows();
     int lcdputc(int c);
     int lcdPrintf(const char *format, ...);
+    int lcdPrintChar(const char *format, ...);
+    int glcdPrintChar(const char *format, ...);
+
+    void glcd_print_bitmap(uint8_t* bitmap);
+
     void mbed_set_unbuffered_stream(FILE *_file);
 
     off_t seek(off_t offset, int whence);
     void window(int x, int y, int w, int h);
     void putp(int colour);
     void pixel(int x, int y, int color);
-
+    void glcd_clear();
+    void lcd_clear();
 #ifdef __cplusplus
 }
 #endif

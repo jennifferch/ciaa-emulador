@@ -1,34 +1,36 @@
+/*============================================================================
+ Copyright (c) 2016, Eric Pernia <ericpernia@gmail.com>
+ All rights reserved.
+ License: bsd-3-clause (see https://opensource.org/license/bsd-3-clause/)
+ Date: 2016-04-26
+ Version: 1.0
+============================================================================*/
+
 #include "sapi.h"
 
-int main(void) {
+int main(void){
 
-   /* ------------- INICIALIZACIONES ------------- */
+   boardInit();
 
-   /* Inicializar la placa */
-   boardConfig();
+   delay_t delay;  // Variable de Retardo no bloqueante
 
-   /* Variable de Retardo no bloqueante */
-   delay_t delay;
+   // Inicializar Retardo no bloqueante con tiempo en milisegundos
+   // (500ms = 0,5s)
+   delayInit( &delay, 500 );
+   
+   bool_t valor = 0;
 
-   /* Inicializar Retardo no bloqueante con tiempo en milisegundos
-      (500ms = 0,5s) */
-   delayConfig( &delay, 500 );
+   while(1) {
 
-   uint8_t led = OFF;
-   uint8_t valor = 0;
-
-    /* ------------- REPETIR POR SIEMPRE ------------- */
-    while (1) {
-      /* delayRead retorna TRUE cuando se cumple el tiempo de retardo */
+      // delayRead() retorna true cuando se cumple el tiempo del retardo
       if ( delayRead( &delay ) ){
-         if( !led )
-            led = ON;
-         else
-            led = OFF;
-         gpioWrite( LEDB, led );
+         gpioToggle( LEDB ); // Invertir el estado del LEDB
       }
 
       valor = !gpioRead( TEC4 );
       gpioWrite( LED3, valor );
-    }
+
+   }
+
+   return 0 ;
 }

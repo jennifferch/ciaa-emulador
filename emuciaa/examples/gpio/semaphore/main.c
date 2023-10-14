@@ -1,10 +1,16 @@
+/*============================================================================
+ Copyright (c) 2019, Eric Pernia <ericpernia@gmail.com>
+ All rights reserved.
+ License: bsd-3-clause (see https://opensource.org/license/bsd-3-clause/)
+ Date: 2019/05/03
+ Version: 1.0
+============================================================================*/
+
 #include "sapi.h"
 
-// EDU-CIAA-NXP V1.1 primer tirada (abajo dice ASSISI)
-#define edu_ciaa_nxp_v_1_1_0
-
-// EDU-CIAA-NXP V1.1 segunda tirada (abajo dice ASEMBLI)
-//#define edu_ciaa_nxp_v_1_1_1
+// Elegir una placa EDU-CIAA-NXP:
+#define edu_ciaa_nxp_v_1_1_0 // EDU-CIAA-NXP V1.1.0 (debajo dice ASSISI)
+//#define edu_ciaa_nxp_v_1_1_1 // EDU-CIAA-NXP V1.1.1 (debajo dice ASEMBLI)
 
 #if defined(edu_ciaa_nxp_v_1_1_0)
    #define LUZ_ROJA     LED2
@@ -20,12 +26,10 @@
 #define TIEMPO_EN_AMARILLO 1000 // ms
 #define TIEMPO_EN_VERDE    2000 // ms
 
-
-int main() {
-   // ----- Setup -----------------------------------
+int main( void )
+{
    boardInit();
 
-   // ----- Repeat for ever -------------------------
    while( true ) {
 
       gpioWrite( LUZ_ROJA, ON );
@@ -44,4 +48,6 @@ int main() {
       delay( TIEMPO_EN_AMARILLO );
       gpioWrite( LUZ_AMARILLA, OFF ); 
    }
+
+   return 0;
 }

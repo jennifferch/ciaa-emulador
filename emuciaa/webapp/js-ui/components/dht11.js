@@ -296,27 +296,6 @@
         var txtHum = this.svgDoc.querySelector('#txtHum');
         txtHum.textContent = "H:"+ Hum + '%';
     };
-
-    Dht11.prototype.on_update_display = function(mosi, miso, sck, buffer) {
-      //  if (this.pins.MOSI !== mosi || this.pins.MISO !== miso || this.pins.SCK !== sck) return;
-
-        // so... we're getting 4096 bytes...
-        var x = 0;
-        var y = 0;
-
-        var ctx = this.cnvs.getContext('2d');
-
-        for (var ix = 0; ix < buffer.length; ix++) {
-            ctx.fillStyle = buffer[ix] === 1 ? '#000' : '#767c69';
-            ctx.fillRect(x, y, PIXEL_SIZE, PIXEL_SIZE);
-
-            x += PIXEL_SIZE;
-            if (x === (128 * PIXEL_SIZE)) {
-                x = 0;
-                y += PIXEL_SIZE;
-            }
-        }
-    };
     exports.Dht11 = Dht11.bind(Dht11, 'dht11.svg');
     exports.Dht11Module = Dht11.bind(Dht11, 'dht11_module.svg');
 })(window.JSUI);

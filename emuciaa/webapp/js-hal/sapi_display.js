@@ -1,4 +1,4 @@
-window.JSHal.lcd = (function() {
+window.JSHal.display = (function() {
     var sensors = {};
 
     var obj = new EventEmitter();
@@ -9,6 +9,26 @@ window.JSHal.lcd = (function() {
 
     obj.update_display = function(mosi, miso, sck, buffer) {
         obj.emit('update_display', mosi, miso, sck, buffer);
+    };
+
+    obj.glcd_update_char_display = function(x, y, buffer) {
+        obj.emit('glcd_update_char_display', x, y, buffer);
+    };
+
+    obj.lcd_update_char_display = function(x, y, buffer) {
+        obj.emit('lcd_update_char_display', x, y, buffer);
+    };
+
+    obj.update_graphic_display = function( bitmap) {
+        obj.emit('update_graphic_display', bitmap);
+    };
+
+    obj.display_clear_glcd = function() {
+        obj.emit('display_clear_glcd');
+    };
+
+    obj.display_clear_lcd = function() {
+        obj.emit('display_clear_lcd');
     };
 
     obj.update_lcd = function( lcd, rs, e) {

@@ -74,22 +74,30 @@
         {
             component: 'Lcd20x4',
             id: 'lcd20x4',
-            name: 'Lcd display 20x4',
+            name: 'LCD HD44780 c20x4',
             pins: [
-                { name: 'LCD', value: [ 'LCD1', 'LCD2', 'LCD3', 'LCD4'] },
-                { name: 'RS', value: [ 'LCDRS' ] },
-                { name: 'E', value: [ 'LCDEN' ] },
-                { name: 'VCC', value: ['5V']  }]
+                { name: 'D4', value: ['LCD1'] },
+                { name: 'D5', value: ['LCD2'] },
+                { name: 'D6', value: ['LCD3'] },
+                { name: 'D7', value: ['LCD4'] },
+                { name: 'RS', value: [ 'LCD_RS' ] },
+                { name: 'E', value: [ 'LCD_E' ] },
+                { name: 'VDD', value: [ '5V' ] },
+                { name: 'VSS', value: ['GND']  }]
         },
         {
-            component: 'Lcd128x64',
-            id: 'lcd128x64',
-            name: 'GLCD 128x64',
+            component: 'Glcd128x64',
+            id: 'glcd128x64',
+            name: 'GLCD ST7920 g128x64 c16x4',
             pins: [
-                { name: 'LCD', value: [ 'LCD1', 'LCD2', 'LCD3', 'LCD4'] },
-                { name: 'RS', value: [ 'LCDRS' ] },
-                { name: 'E', value: [ 'LCDEN' ] },
-                { name: 'VCC', value: ['5V']  }]
+                { name: 'DB4', value: ['LCD1'] },
+                { name: 'DB5', value: ['LCD2'] },
+                { name: 'DB6', value: ['LCD3'] },
+                { name: 'DB7', value: ['LCD4'] },
+                { name: 'RS', value: [ 'LCD_RS' ] },
+                { name: 'E', value: [ 'LCD_E' ] },
+                { name: 'VCC', value: [ '5V' ] },
+                { name: 'GND', value: ['GND']  }]
         },
         {
             component: 'Servo',
@@ -183,6 +191,7 @@
         document.getElementById("component").innerHTML = obj.name;
         var pinsEl = document.querySelector('#pins');
         pinsEl.innerHTML = '';
+        const enterLine = document.createElement('br');
     
         obj.pins.forEach(function(pin) {
             var label = document.createElement('label');
@@ -191,51 +200,27 @@
     
             if (typeof pin === 'object') {
                 select.dataset.pin = pin.name;
-                if (pin.value  == "LED"){
-
-                    const list = Object.keys(JSHal.gpioMap);
-                    const iT_FIL1 = list.indexOf('T_FIL1');
-                    const listLcd = list.slice(iT_FIL1);
-                    listLcd.map(function(p) {
+                pin.value.forEach(function(p) {
                         var opt = document.createElement('option');
                         opt.textContent = p;
                         opt.value = JSHal.gpioMap[p];
                         select.appendChild(opt);
-                    });
-                }else{
-                    pin.value.forEach(function(p) {
-                        var opt = document.createElement('option');
-                        opt.textContent = p;
-                        opt.value = JSHal.gpioMap[p];
-                        select.appendChild(opt);
-                    });
-                }  
-            }
-            else {
+                });
+            }else {
                 select.dataset.pin = pin;
-
-                if (pin == "LED"){
-
-                    const list = Object.keys(JSHal.gpioMap);
-                    const iT_FIL1 = list.indexOf('T_FIL1');
-                    const listLcd = list.slice(iT_FIL1);
-                    listLcd.map(function(p) {
+                Object.keys(JSHal.gpioMap).map(function(p) {
                         var opt = document.createElement('option');
                         opt.textContent = p;
                         opt.value = JSHal.gpioMap[p];
                         select.appendChild(opt);
-                    });
-                }else{
-                    Object.keys(JSHal.gpioMap).map(function(p) {
-                        var opt = document.createElement('option');
-                        opt.textContent = p;
-                        opt.value = JSHal.gpioMap[p];
-                        select.appendChild(opt);
-                    });
-                }
+                });
+
             }
             pinsEl.appendChild(label);
             pinsEl.appendChild(select);
+            if(label.textContent === "D7" || label.textContent ==="DB7"){
+                pinsEl.appendChild(enterLine);
+            }
         });
 
         document.querySelector('#add-component-btn').onclick = function() {

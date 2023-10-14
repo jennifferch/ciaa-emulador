@@ -33,11 +33,14 @@
         <div id="editor-topbar">
           <select id="select-project">
             <optgroup label="GPIO">
-              <option name="blinky_switch">blinky switch</option>
               <option selected name="blinky">blinky</option>
-              <option name="led_sequences">led_sequences</option>
               <option name="semaphore">semaphore</option>
+              <option name="blinky_switch">blinky switch</option>
               <option name="switches_leds">switches leds</option>
+              <option name="led_sequences">led_sequences</option>
+            </optgroup>
+            <optgroup label="UART">
+              <option name="serial_output">serial_output</option>
             </optgroup>
             <optgroup label="RTC">
               <option name="rtc_uart">rtc_uart</option>
@@ -54,21 +57,31 @@
             <optgroup label="Sensors">
               <option name="dht11_temp_humidity">dht11_temp_humidity</option>
             </optgroup>
+            <optgroup label="Displays">
+              <option name="lcd_hd44780_c20x4_gpio_4bits">lcd_hd44780_c20x4_gpio_4bits</option>
+              <option name="lcd_hd44780_c20x4_gpio_4bits_custom_chars">lcd_hd44780_c20x4_gpio_4bits_custom_chars</option>
+              <option name="glcd_st7920_c16x4_gpio_4bits">glcd_st7920_c16x4_gpio_4bits</option>
+              <option name="glcd_st7920_g128x64_gpio_4bits">glcd_st7920_g128x64_gpio_4bits</option>
+            </optgroup>
             <optgroup label="Non-blocking code">
               <option name="little_delay">short_delay</option>
               <option name="tick_callback">tick_counter</option>
               <option name="non_blocking_delay">non_blocking_delay</option>
             </optgroup>
             <optgroup label="FSM">
+              <option name="semaphore">semaphore</option>
+              <option name="debounce">debounce</option>
               <option name="button">button</option>
             </optgroup>
             <optgroup label="RTOS cooperative">
               <option name="scheduler">scheduler</option>
+              <option name="scheduler_bgfg">scheduler_bgfg</option>
             </optgroup>
             <optgroup label="RTOS SEOS Pont">
               <option name="first_app">pont_blinky</option>
               <option name="task_parameters">pont_tasks_parameters</option>
               <option name="modular_tasks">pont_modular_tasks</option>
+              <option name="pont_uart_clock">pont_uart_clock</option>
             </optgroup>
             <optgroup label="RTOS FreeRTOS">
               <option name="dynamic_mem_freeRTOS_blinky">freertos_blinky_dynamic_men</option>

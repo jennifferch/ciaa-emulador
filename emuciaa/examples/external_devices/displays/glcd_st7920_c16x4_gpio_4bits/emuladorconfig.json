@@ -1,0 +1,14 @@
+{
+    "peripherals": [{ "component": "Glcd128x64", "args": {
+        "DB4": "gpioMap.LCD1",
+        "DB5": "gpioMap.LCD2",
+        "DB6": "gpioMap.LCD3",
+        "DB7": "gpioMap.LCD4",
+        "RS": "gpioMap.LCDRS",
+        "E": "gpioMap.LCDEN",
+        "5V": "gpioMap.VCC",
+        "GND": "gpioMap.GND"
+        } }
+    ]
+
+}

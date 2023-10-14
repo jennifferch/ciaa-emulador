@@ -1,0 +1,14 @@
+{
+    "peripherals": [{ "component": "Lcd20x4", "args": {
+        "D4": "gpioMap.LCD1",
+        "D5": "gpioMap.LCD2",
+        "D6": "gpioMap.LCD3",
+        "D7": "gpioMap.LCD4",
+        "RS": "gpioMap.LCDRS",
+        "E":  "gpioMap.LCDEN",
+        "5V": "VDD",
+        "GND": "VSS"
+        } }
+    ]
+
+}

@@ -36,29 +36,6 @@ void fill(int x, int y, int w, int h, int colour)
     }
 }
 
-void invert(unsigned int o)
-{
-}
-
-void set_contrast(unsigned int o)
-{
-}
-
-unsigned int get_contrast(void)
-{
-    return(contrast);
-}
-
-void wr_cmd(unsigned char cmd)
-{
-}
-
-// write data to lcd controller
-void wr_dat(unsigned char dat)
-{
-    /* no-op */
-}
-
 void lcd_reset()
 {
     memset(buffer,0x00,4096);  // clear display buffer
@@ -71,6 +48,34 @@ void lcd_reset()
 void copy_to_lcd(void)
 {
   lcd_copy_to_lcd( _lcdrs, _lcden, _lcd, buffer);
+}
+
+
+void glcd_print_bitmap(uint8_t* bitmap)
+{
+   bitmap_to_glcd(bitmap);
+}
+
+void copy_char_to_glcd(void)
+{
+   char_to_glcd(char_x, char_y, buffer16x4);
+}
+
+void copy_char_to_lcd(void)
+{
+   char_to_lcd(char_x, char_y, buffer20x4);
+}
+
+void glcd_clear(void)
+{
+    memset(buffer16x4, 0x00, 64);
+    display_clear_glcd();
+}
+
+void lcd_clear(void)
+{
+    memset(buffer20x4, 0x00, 80);
+    display_clear_lcd();
 }
 
 void cls(void)
@@ -458,6 +463,42 @@ int lcdPrintf(const char *format, ...)
     va_end(arg);
     return r;
 }
+
+int glcdPrintChar(const char *format, ...)
+{
+    memset(buffer16x4, 0x00, 64);
+    va_list arg;
+    va_start(arg, format);
+
+    char buffer[64] = {};
+    int r = vsprintf(buffer, format, arg);
+    for (int ix = 0; ix < r; ix++) {
+       buffer16x4[ix] = buffer[ix];
+    }
+    copy_char_to_glcd();
+
+    va_end(arg);
+    return r;
+}
+
+
+int lcdPrintChar(const char *format, ...)
+{
+    memset(buffer20x4, 0x00, 80);
+    va_list arg;
+    va_start(arg, format);
+
+    char buffer[80] = {};
+    int r = vsprintf(buffer, format, arg);
+    for (int ix = 0; ix < r; ix++) {
+       buffer20x4[ix] = buffer[ix];
+    }
+    copy_char_to_lcd();
+
+    va_end(arg);
+    return r;
+}
+
 
 void _flush(void)
 {
