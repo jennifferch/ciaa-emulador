@@ -39,31 +39,69 @@ const ROW_PX = 8;  // Definir los píxeles por fila
         el.appendChild(wrapper);
         el.addEventListener('click', this.handleClick.bind(this));
 
+        el.querySelector('#lcd-svg').addEventListener('load', function() {
+          const svgObject = this._el.querySelector('#lcd-svg');
+          this.svgDoc = svgObject.contentDocument;
+  
+          const self = this;
+          this.svgDoc.addEventListener('click', function(event) {
+              handleClick();
+          });
+
+          function handleClick () {
+              var destroy = document.getElementById("DELETE_ID");
+              while (destroy.classList.length > 0) {
+                  destroy.classList.remove(destroy.classList.item(0));
+              }
+              destroy.classList.add('destroy');
+              destroy.classList.add('enabled');
+              destroy.addEventListener('click', function() {
+                  window.removeComponent(this);
+                  try {
+                      while ( self._el.firstChild) {
+                          self._el.removeChild(self._el.firstChild);
+                        }
+                  } catch (ex) {
+                      console.log(ex);
+                  } 
+                  var destroy = document.getElementById("DELETE_ID");
+                  while (destroy.classList.length > 0) {
+                      destroy.classList.remove(destroy.classList.item(0));
+                  }
+                  destroy.classList.add('destroy');
+                  destroy.classList.add('disabled');
+              });
+          }
+      }.bind(this));
+
         this.componentsEl.appendChild(el);
     };
 
     Lcd20x4.prototype.on_update_display = function(mosi, miso, sck, buffer) {
       const svgObject = this._el.querySelector('#lcd-svg');
-      this.svgDoc = svgObject.contentDocument;
-    
-      for (let l_idx = 0; l_idx < LINES; l_idx++) {
-        for (let c_idx = 0; c_idx < CHARS_PER_LINE; c_idx++) {
-            const charGroupId = `lcd_char_c${c_idx}_l${l_idx}`;
-            
-            for (let y_idx = 0; y_idx < ROW_PX; y_idx++) {
-                for (let x_idx = 0; x_idx < COL_PX; x_idx++) {
-                    const rectId = `lcd_pixel_c${c_idx}_l${l_idx}_x${x_idx}_y${y_idx}`;
-                    const rectElement = this.svgDoc.getElementById(rectId);
-                    
-                    if (rectElement) {
-                        const ix = c_idx * COL_PX + x_idx;
-                        const iy = l_idx * ROW_PX + y_idx;
-                        rectElement.setAttribute('class', buffer[iy * 128 + ix] === 1 ? 'pixel_on' : 'pixel_off');
+      if (svgObject && svgObject.contentDocument && svgObject.contentDocument.rootElement) {
+          this.svgDoc = svgObject.contentDocument;
+        
+          for (let l_idx = 0; l_idx < LINES; l_idx++) {
+            for (let c_idx = 0; c_idx < CHARS_PER_LINE; c_idx++) {
+                const charGroupId = `lcd_char_c${c_idx}_l${l_idx}`;
+                for (let y_idx = 0; y_idx < ROW_PX; y_idx++) {
+                    for (let x_idx = 0; x_idx < COL_PX; x_idx++) {
+                        const rectId = `lcd_pixel_c${c_idx}_l${l_idx}_x${x_idx}_y${y_idx}`;
+                        const rectElement = this.svgDoc.getElementById(rectId);
+                        
+                        if (rectElement) {
+                            const ix = c_idx * COL_PX + x_idx;
+                            const iy = l_idx * ROW_PX + y_idx;
+                            rectElement.setAttribute('class', buffer[iy * 128 + ix] === 1 ? 'pixel_on' : 'pixel_off');
+                        }
                     }
                 }
             }
-        }
-      }
+          }
+      }else {
+          console.log("svg null");
+      } 
     };
 
     Lcd20x4.prototype.on_update_char_display = function(x, y, buffer) {
@@ -105,55 +143,61 @@ const ROW_PX = 8;  // Definir los píxeles por fila
     };
 
     Lcd20x4.prototype.displayStringWrite = function(str) {
-        const svgObject = this._el.querySelector('#lcd-svg');
-        this.svgDoc = svgObject.contentDocument;
+      const svgObject = this._el.querySelector('#lcd-svg');
+      if (svgObject && svgObject.contentDocument && svgObject.contentDocument.rootElement) {
+          this.svgDoc = svgObject.contentDocument;
 
-        const oldCutLeft = this.displayTextLines[this.currentYPosition].substr( 0, this.currentXPosition );
-      
-        const oldCutRight = this.displayTextLines[this.currentYPosition].substr( str.length + this.currentXPosition, CHARS_PER_LINE );
-      
-        var newTextLine = oldCutLeft + str + oldCutRight;
-        newTextLine = newTextLine.substr( 0, CHARS_PER_LINE );
-      
-        this.displayTextLines[this.currentYPosition] = newTextLine;
-      
-        this.currentXPosition = str.length + this.currentXPosition; // Actualizo la posicion en x
-      
-        for (let i = 0; i < this.displayTextLines.length; i++) {
-            const elemento = this.displayTextLines[i];
-            const caracteres = [];
-            for (let i = 0; i < elemento.length; i++) {
-              caracteres.push(elemento.charAt(i));
-            }
-            for (let e = 0; e < caracteres.length; e++) {
-                const text = caracteres[e];
-                if (text != " "){
-                  console.log(`Elemento ${e}: ${text}`);
-                  var textId = `lcd_pixel_c${e}_l${i}`;
-                  
-                  var textSvg = this.svgDoc.getElementById(textId);
-                  if (textSvg) {
-                      textSvg.textContent = text;
+          const oldCutLeft = this.displayTextLines[this.currentYPosition].substr( 0, this.currentXPosition );
+        
+          const oldCutRight = this.displayTextLines[this.currentYPosition].substr( str.length + this.currentXPosition, CHARS_PER_LINE );
+        
+          var newTextLine = oldCutLeft + str + oldCutRight;
+          newTextLine = newTextLine.substr( 0, CHARS_PER_LINE );
+        
+          this.displayTextLines[this.currentYPosition] = newTextLine;
+        
+          this.currentXPosition = str.length + this.currentXPosition; // Actualizo la posicion en x
+        
+          for (let i = 0; i < this.displayTextLines.length; i++) {
+              const elemento = this.displayTextLines[i];
+              const caracteres = [];
+              for (let i = 0; i < elemento.length; i++) {
+                caracteres.push(elemento.charAt(i));
+              }
+              for (let e = 0; e < caracteres.length; e++) {
+                  const text = caracteres[e];
+                  if (text != " "){
+                    console.log(`Elemento ${e}: ${text}`);
+                    var textId = `lcd_pixel_c${e}_l${i}`;
+                    
+                    var textSvg = this.svgDoc.getElementById(textId);
+                    if (textSvg) {
+                        textSvg.textContent = text;
+                    }
                   }
-                }
+              }
             }
-          }
+      }else {
+          console.log("svg null");
+      } 
     };
 
     Lcd20x4.prototype._on_display_clear = function() {
         this.displayTextLines = Array(LINES).fill(textLine);
         const svgObject = this._el.querySelector('#lcd-svg');
-        this.svgDoc = svgObject.contentDocument;
-    
-          for (let i = 0; i < LINES; i++) {
-            for (let e = 0; e < CHARS_PER_LINE; e++) {
-                  var textId = `lcd_pixel_c${e}_l${i}`;
-                  var textSvg = this.svgDoc.getElementById(textId);
-                  if (textSvg) {
-                    textSvg.textContent = "";
-                  }
+        if (svgObject && svgObject.contentDocument && svgObject.contentDocument.rootElement) {
+          this.svgDoc = svgObject.contentDocument;
+      
+            for (let i = 0; i < LINES; i++) {
+              for (let e = 0; e < CHARS_PER_LINE; e++) {
+                    var textId = `lcd_pixel_c${e}_l${i}`;
+                    var textSvg = this.svgDoc.getElementById(textId);
+                    if (textSvg) {
+                      textSvg.textContent = "";
+                    }
+              }
             }
-          }
+        }
     };
 
     Lcd20x4.prototype.handleClick = function(event) {

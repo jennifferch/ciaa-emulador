@@ -40,6 +40,41 @@ const SCREEN_PX_Y = Object.freeze(64);      // Definir la cantidad de pixeles de
         el.appendChild(wrapper);
         el.addEventListener('click', this.handleClick.bind(this));
 
+        el.querySelector('#glcd-svg').addEventListener('load', function() {
+          const svgObject = this._el.querySelector('#glcd-svg');
+          this.svgDoc = svgObject.contentDocument;
+  
+          const self = this;
+          this.svgDoc.addEventListener('click', function(event) {
+              handleClick();
+          });
+
+          function handleClick () {
+              var destroy = document.getElementById("DELETE_ID");
+              while (destroy.classList.length > 0) {
+                  destroy.classList.remove(destroy.classList.item(0));
+              }
+              destroy.classList.add('destroy');
+              destroy.classList.add('enabled');
+              destroy.addEventListener('click', function() {
+                  window.removeComponent(this);
+                  try {
+                      while ( self._el.firstChild) {
+                          self._el.removeChild(self._el.firstChild);
+                        }
+                  } catch (ex) {
+                      console.log(ex);
+                  } 
+                  var destroy = document.getElementById("DELETE_ID");
+                  while (destroy.classList.length > 0) {
+                      destroy.classList.remove(destroy.classList.item(0));
+                  }
+                  destroy.classList.add('destroy');
+                  destroy.classList.add('disabled');
+              });
+          }
+      }.bind(this));
+
         this.componentsEl.appendChild(el);
     };
 
@@ -75,28 +110,31 @@ const SCREEN_PX_Y = Object.freeze(64);      // Definir la cantidad de pixeles de
 
     Glcd128x64.prototype.graphicDisplay = function() {
       const svgObject = this._el.querySelector('#glcd-svg');
-      this.svgDoc = svgObject.contentDocument;
+      if (svgObject && svgObject.contentDocument && svgObject.contentDocument.rootElement) {
+        this.svgDoc = svgObject.contentDocument;
 
-      const bytesPerLine = SCREEN_PX_X/8;
-      
-      for( let line=0; line<SCREEN_PX_Y; line++ ) {
-        for( let byte=0; byte<bytesPerLine; byte++ ) {
-          for( let bit=7; bit>=0; bit-- ) {
-            var  x = (7-bit) + byte*8;
-            var rectId = `glcd_pixel_x${x}_y${line}`;
-            var rect = this.svgDoc.getElementById(rectId);
-            if( ((this.screen[byte + line*bytesPerLine]>>bit) & 1) != 0 ) {
-              if (rect) {
-                rect.setAttribute('class', 'pixel_on');
-              }
-            } else {
-              if (rect) {
-                rect.setAttribute('class', 'pixel_off');
+        const bytesPerLine = SCREEN_PX_X/8;
+        for( let line=0; line<SCREEN_PX_Y; line++ ) {
+          for( let byte=0; byte<bytesPerLine; byte++ ) {
+            for( let bit=7; bit>=0; bit-- ) {
+              var  x = (7-bit) + byte*8;
+              var rectId = `glcd_pixel_x${x}_y${line}`;
+              var rect = this.svgDoc.getElementById(rectId);
+              if( ((this.screen[byte + line*bytesPerLine]>>bit) & 1) != 0 ) {
+                if (rect) {
+                  rect.setAttribute('class', 'pixel_on');
+                }
+              } else {
+                if (rect) {
+                  rect.setAttribute('class', 'pixel_off');
+                }
               }
             }
           }
         }
-      }
+      }else {
+        console.log("svg null");
+      } 
     };
 
     Glcd128x64.prototype.on_update_char_display = function(x, y, buffer) {
@@ -124,35 +162,41 @@ const SCREEN_PX_Y = Object.freeze(64);      // Definir la cantidad de pixeles de
 
     Glcd128x64.prototype.displayStringWrite = function(str) {
         const svgObject = this._el.querySelector('#glcd-svg');
-        this.svgDoc = svgObject.contentDocument;
+        if (svgObject && svgObject.contentDocument && svgObject.contentDocument.rootElement) {
+            this.svgDoc = svgObject.contentDocument;
 
-        const oldCutLeft = this.displayTextLines[this.currentYPosition].substr( 0, this.currentXPosition );    
-        const oldCutRight = this.displayTextLines[this.currentYPosition].substr( str.length + this.currentXPosition, CHARS_PER_LINE );
-      
-        var newTextLine = oldCutLeft + str + oldCutRight;
-        newTextLine = newTextLine.substr( 0, CHARS_PER_LINE );
-      
-        this.displayTextLines[this.currentYPosition] = newTextLine;
-        this.currentXPosition = str.length + this.currentXPosition; // Actualizo la posicion en x
-
-        for (let i = 0; i < this.displayTextLines.length; i++) {
-            const elemento = this.displayTextLines[i];
-            const caracteres = [];
-            for (let i = 0; i < elemento.length; i++) {
-              caracteres.push(elemento.charAt(i));
-            }
-            for (let e = 0; e < caracteres.length; e++) {
-                const text = caracteres[e];
-                if (text != " "){
-                  console.log(`Elemento ${e}: ${text}`);
-                  var textId = `glcd_pixel_l${i}_c${e}`;
-                  var textSvg = this.svgDoc.getElementById(textId);
-                  if (textSvg) {
-                    textSvg.textContent = text;
-                  }
+            const oldCutLeft = this.displayTextLines[this.currentYPosition].substr( 0, this.currentXPosition );    
+            const oldCutRight = this.displayTextLines[this.currentYPosition].substr( str.length + this.currentXPosition, CHARS_PER_LINE );
+          
+            var newTextLine = oldCutLeft + str + oldCutRight;
+            newTextLine = newTextLine.substr( 0, CHARS_PER_LINE );
+          
+            this.displayTextLines[this.currentYPosition] = newTextLine;
+            this.currentXPosition = str.length + this.currentXPosition; // Actualizo la posicion en x
+    
+            for (let i = 0; i < this.displayTextLines.length; i++) {
+                const elemento = this.displayTextLines[i];
+                const caracteres = [];
+                for (let i = 0; i < elemento.length; i++) {
+                  caracteres.push(elemento.charAt(i));
                 }
-            }
-          }
+                for (let e = 0; e < caracteres.length; e++) {
+                    const text = caracteres[e];
+                    if (text != " "){
+                      console.log(`Elemento ${e}: ${text}`);
+                      var textId = `glcd_pixel_l${i}_c${e}`;
+                      if (svgObject && svgObject.contentDocument && svgObject.contentDocument.rootElement) {
+                          var textSvg = this.svgDoc.getElementById(textId);
+                          if (textSvg) {
+                            textSvg.textContent = text;
+                          }
+                      }
+                    }
+                }
+              }
+        }else {
+          console.log("svg null");
+        }    
     };
 
     Glcd128x64.prototype.convertToCharacter = function(buffer) {
@@ -174,8 +218,8 @@ const SCREEN_PX_Y = Object.freeze(64);      // Definir la cantidad de pixeles de
     Glcd128x64.prototype._on_display_clear = function() {
     this.displayTextLines = Array(LINES).fill(textLine);
     const svgObject = this._el.querySelector('#glcd-svg');
-    this.svgDoc = svgObject.contentDocument;
-
+    if (svgObject && svgObject.contentDocument && svgObject.contentDocument.rootElement) {
+      this.svgDoc = svgObject.contentDocument;
       for (let i = 0; i < LINES; i++) {
         for (let e = 0; e < CHARS_PER_LINE; e++) {
               var textId = `glcd_pixel_l${i}_c${e}`;
@@ -185,7 +229,10 @@ const SCREEN_PX_Y = Object.freeze(64);      // Definir la cantidad de pixeles de
               }
         }
       }
-   };
+    }else {
+      console.log("svg null");
+    } 
+  };
 
   exports.Glcd128x64 = Glcd128x64;
 
