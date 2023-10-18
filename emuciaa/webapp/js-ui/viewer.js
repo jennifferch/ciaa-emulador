@@ -250,6 +250,10 @@
         }
     };
 
+    document.querySelector('#cancel-component-btn').onclick = function() {
+        document.querySelector('#overlay').style.display = 'none';
+    };
+
     getPeripherals();
     Module.setStatus('');
     
