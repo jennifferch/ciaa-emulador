@@ -52,13 +52,19 @@ void clearCustomChar( void )
 // GLCD display only
 void displayModeWrite( displayMode_t mode )
 {
-     displayMode = mode;
+   if( displayMode != mode){
+       glcd_clear();
+   }
+   displayMode = mode;
+    
 }
 
 void displayBitmapWrite( uint8_t* bitmap )
 {
-     glcd_print_bitmap(bitmap);
-     delay(1); 
+    if( displayType == DISPLAY_TYPE_GLCD_ST7920 && displayMode == DISPLAY_MODE_GRAPHIC){
+        glcd_print_bitmap(bitmap);
+        delay(1); 
+    }
 }
 
 void displayBitmapWriteMbed( struct Bitmap bm, int x, int y)

@@ -34,7 +34,6 @@ const SCREEN_PX_Y = Object.freeze(64);      // Definir la cantidad de pixeles de
         el.classList.add('component');
 
         var wrapper = document.createElement('div');
-        wrapper.classList.add('lcd');
         wrapper.innerHTML =
             '<object id="glcd-svg" data="/img/glcd_st7920_g128x64_c16x4_with_pins.svg" type="image/svg+xml"></object>';
         el.appendChild(wrapper);
@@ -56,6 +55,16 @@ const SCREEN_PX_Y = Object.freeze(64);      // Definir la cantidad de pixeles de
               }
               destroy.classList.add('destroy');
               destroy.classList.add('enabled');
+
+              var rectElement = self.svgDoc.getElementById("rectElement");
+              rectElement.setAttribute('class', 'fil1Select');
+              var polygonElement = self.svgDoc.getElementById("polygonElement");
+              var currentClass = polygonElement.getAttribute('class');
+              if (!currentClass.includes('str0Select')) {
+                var updatedClass = currentClass.replace('str0', 'str0Select');
+                polygonElement.setAttribute('class', updatedClass);
+              }
+
               destroy.addEventListener('click', function() {
                   window.removeComponent(this);
                   try {
@@ -217,6 +226,10 @@ const SCREEN_PX_Y = Object.freeze(64);      // Definir la cantidad de pixeles de
 
     Glcd128x64.prototype._on_display_clear = function() {
     this.displayTextLines = Array(LINES).fill(textLine);
+    this.currentXPosition = 0; 
+    this.currentYPosition = 0; 
+    this.screen = ( new Uint8Array(SCREEN_PX_X*SCREEN_PX_Y) ).fill(0x00);
+
     const svgObject = this._el.querySelector('#glcd-svg');
     if (svgObject && svgObject.contentDocument && svgObject.contentDocument.rootElement) {
       this.svgDoc = svgObject.contentDocument;

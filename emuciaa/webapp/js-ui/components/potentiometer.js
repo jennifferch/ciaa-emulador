@@ -30,10 +30,8 @@
             var pin_ADC = this.pinNameForPin(this.dataPin.ADC);
             var txtADC = this.svgDoc.getElementById('pin_ADC');
             txtADC.textContent = pin_ADC;
-            
-
+        
             const self = this;
-
             this.svgDoc.addEventListener('click', function(event) {
                 handleClick();
 
@@ -102,6 +100,15 @@
                 }
                 destroy.classList.add('destroy');
                 destroy.classList.add('enabled');
+
+                var rectElement = self.svgDoc.getElementById("rectElement");
+                rectElement.setAttribute('class', 'fil1Select');
+                var polygonElement = self.svgDoc.getElementById("rectPolygonElement");
+                var currentClass = polygonElement.getAttribute('class');
+                if (!currentClass.includes('str0Select')) {
+                  var updatedClass = currentClass.replace('str0', 'str0Select');
+                  polygonElement.setAttribute('class', updatedClass);
+                }
                 destroy.addEventListener('click', function(param) {
                     window.removeComponent(this);
                     try {

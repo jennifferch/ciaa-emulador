@@ -1772,6 +1772,11 @@ background: #5c95da;
   height: auto;
 }
 
+.joystickSelect{
+
+  border: 2px solid #0000FF;
+}
+
 .p-imagen {
   font-size: 16px;
   margin-top: 120px;

@@ -2032,6 +2032,7 @@
     .fnt6 {font-weight:normal;font-size:422.59px;font-family:'Arial'}
     .fnt1 {font-weight:normal;font-size:422.6px;font-family:'Arial'}
     .fnt4 {font-weight:normal;font-size:422.6px;font-family:'Arial'}
+    .fil1Select {fill:#0000FF}
    ]]>
   </style>
      <clipPath
@@ -2083,7 +2084,6 @@
  <g
    id="g640"
    transform="translate(13430.524,12572.01)"><rect
-     style="fill:#a9abae"
      id="rect790"
      height="747.23999"
      width="9683.5801"

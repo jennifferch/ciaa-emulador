@@ -16,6 +16,7 @@
         el.classList.add('component');
 
         var wrapperDivMain = document.createElement('div');
+        wrapperDivMain.id ="divMain";
         wrapperDivMain.classList.add('joystick');
 
 
@@ -115,6 +116,17 @@
                 }
                 destroy.classList.add('destroy');
                 destroy.classList.add('enabled');
+
+                const borderSvgObject = el.querySelector('#border-svg');
+                var rectElement = borderSvgObject.contentDocument.getElementById("rect790");
+                rectElement.setAttribute('class', 'fil1Select');
+
+                var divElement = el.querySelector('#divMain');  
+                if (divElement.classList.contains('joystick')) {
+                    divElement.classList.remove('joystick');
+                    divElement.classList.add('joystickSelect');
+                }
+
                 destroy.addEventListener('click', function(param) {
                     window.removeComponent(this);
                     try {
@@ -142,6 +154,18 @@
           }
         destroy.classList.add('destroy');
         destroy.classList.add('enabled');
+
+        const borderSvgObject = this._el.querySelector('#border-svg');
+        if (borderSvgObject && borderSvgObject.contentDocument && borderSvgObject.contentDocument.rootElement) {
+            var rectElement = borderSvgObject.contentDocument.getElementById("rect790");
+            rectElement.setAttribute('class', 'fil1Select');
+        }
+        var divElement = this._el.querySelector('#divMain');  
+        if (divElement.classList.contains('joystick')) {
+            divElement.classList.remove('joystick');
+            divElement.classList.add('joystickSelect');
+        }
+
         destroy.addEventListener('click', () => this.destroy(this));
     };
 

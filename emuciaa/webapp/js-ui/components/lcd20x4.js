@@ -33,7 +33,6 @@ const ROW_PX = 8;  // Definir los píxeles por fila
         el.classList.add('component');
        
         var wrapper = document.createElement('div');
-        wrapper.classList.add('lcd');
         wrapper.innerHTML =
             '<object id="lcd-svg" data="/img/lcd_hd44780_c20x4_with_pins.svg" type="image/svg+xml"></object>';
         el.appendChild(wrapper);
@@ -55,6 +54,16 @@ const ROW_PX = 8;  // Definir los píxeles por fila
               }
               destroy.classList.add('destroy');
               destroy.classList.add('enabled');
+
+              var rectElement = self.svgDoc.getElementById("rectElement");
+              rectElement.setAttribute('class', 'fil1Select');
+              var polygonElement = self.svgDoc.getElementById("polygonElement");
+              var currentClass = polygonElement.getAttribute('class');
+              if (!currentClass.includes('str0Select')) {
+                var updatedClass = currentClass.replace('str0', 'str0Select');
+                polygonElement.setAttribute('class', updatedClass);
+              }
+
               destroy.addEventListener('click', function() {
                   window.removeComponent(this);
                   try {
@@ -184,6 +193,9 @@ const ROW_PX = 8;  // Definir los píxeles por fila
 
     Lcd20x4.prototype._on_display_clear = function() {
         this.displayTextLines = Array(LINES).fill(textLine);
+        this.currentXPosition = 0; 
+        this.currentYPosition = 0; 
+
         const svgObject = this._el.querySelector('#lcd-svg');
         if (svgObject && svgObject.contentDocument && svgObject.contentDocument.rootElement) {
           this.svgDoc = svgObject.contentDocument;
@@ -207,6 +219,7 @@ const ROW_PX = 8;  // Definir los píxeles por fila
       }
       destroy.classList.add('destroy');
       destroy.classList.add('enabled');
+
       destroy.addEventListener('click', () => this.destroy(this));
     };
 
