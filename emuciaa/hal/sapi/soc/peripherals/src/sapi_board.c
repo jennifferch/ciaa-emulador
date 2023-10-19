@@ -70,7 +70,7 @@ void boardInit(void){
    interruptInit(TEC3);
    interruptInit(TEC4);
 
-   delay(100);//Error de arranque
+   delay(1000);//Error de arranque
 }
 
 /*==================[end of file]============================================*/

@@ -1,0 +1,8 @@
+{
+    "peripherals": [{ "component": "LedBlue", "args": {
+        "DATA": "gpioMap.GPIO0",
+        "GND": "gpioMap.GND"
+        } }
+    ]
+
+}

@@ -9,7 +9,9 @@
 #include "sapi.h"
 
 // Elegir una placa EDU-CIAA-NXP:
+
 #define edu_ciaa_nxp_v_1_1_0 // EDU-CIAA-NXP V1.1.0 (debajo dice ASSISI)
+
 //#define edu_ciaa_nxp_v_1_1_1 // EDU-CIAA-NXP V1.1.1 (debajo dice ASEMBLI)
 
 #if defined(edu_ciaa_nxp_v_1_1_0)
@@ -22,9 +24,9 @@
    #define LUZ_VERDE    LED3
 #endif
 
-#define TIEMPO_EN_ROJO     3000 // ms
-#define TIEMPO_EN_AMARILLO 1000 // ms
-#define TIEMPO_EN_VERDE    2000 // ms
+#define TIEMPO_EN_ROJO     3000 // 3000 ms
+#define TIEMPO_EN_AMARILLO 1000 // 1000 ms
+#define TIEMPO_EN_VERDE    2000 // 2000 ms
 
 int main( void )
 {

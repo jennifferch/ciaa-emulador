@@ -13,31 +13,31 @@ int main(void){
    boardInit();
 
    delay_t delay;
-   delayInit( &delay, 500 );
+   delayInit( &delay, 125 );
 
    int8_t i = 3;
    uint8_t sequence = 0;
 
    while(1) {
 
-      if( !gpioRead(TEC1) ) {       // Secuencia hacia izquierda <--
-         sequence = 0;
+      if( !gpioRead(TEC1) ) {
+         sequence = 0;              // Secuencia hacia izquierda <--
       }
       if( !gpioRead(TEC2) ) {
-         delayWrite( &delay, 150 ); // Velocidad rapida
+         delayWrite( &delay, 50 );  // Velocidad rapida
       }
       if( !gpioRead(TEC3) ) {
-         delayWrite( &delay, 750 ); // Velocidad lenta
+         delayWrite( &delay, 200 ); // Velocidad lenta
       }
-      if( !gpioRead(TEC4) ) {       // Secuencia hacia derecha -->
-         sequence = 1;
+      if( !gpioRead(TEC4) ) {
+         sequence = 1;              // Secuencia hacia derecha -->
       }
 
       if( delayRead(&delay) ){
-         if ( !sequence ){
-            i--;
-         } else{
+         if ( sequence ){
             i++;
+         } else{
+            i--;
          }
       }
 
@@ -77,5 +77,3 @@ int main(void){
 
    return 0 ;
 }
-
-/*==================[end of file]============================================*/

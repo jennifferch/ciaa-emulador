@@ -15,8 +15,7 @@ int main(void){
    delay_t delay;  // Variable de Retardo no bloqueante
 
    // Inicializar Retardo no bloqueante con tiempo en milisegundos
-   // (500ms = 0,5s)
-   delayInit( &delay, 500 );
+   delayInit( &delay, 100 ); // Se bajo a 100 ms por limitaciones de velocidad
    
    bool_t valor = 0;
 

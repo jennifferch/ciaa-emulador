@@ -579,6 +579,7 @@ uint8_t uartRxRead( uartMap_t uart )
 void uartTxWrite( uartMap_t uart, const uint8_t value )
 {
    //Chip_UART_SendByte( lpcUarts[uart].uartAddr, value );
+   printf(value);
 }
 
 //-------------------------------------------------------------
@@ -729,8 +730,8 @@ void uartWriteByte( uartMap_t uart, const uint8_t value )
 void uartWriteString( uartMap_t uart, const char* str )
 {
    if (uart_init == uart){
-      printf("[%s]: %s\n", getUartName(uart), str);
-
+     // printf("[%s]: %s\n", getUartName(uart), str);
+      printf(str);
       while( *str != 0 ) {
          uartWriteByte( uart, (uint8_t)*str );
          str++;

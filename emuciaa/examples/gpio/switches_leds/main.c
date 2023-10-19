@@ -11,14 +11,15 @@
 int main(void){
 
    boardInit();
-
+ 
    gpioInit( GPIO0, GPIO_OUTPUT ); // Configurar pin GPIO0 como Salida
+   // En este pin se conecta un LED externo a la placa
 
    bool_t valor;  // Variable para almacenar el valor de tecla leido
 
    while(1) {
 
-      // Leer TEC1, invertir el resultado logico y guardar en valor
+      // Leer TEC1, invertir el resultado logico debido al pull-up y guardar valor
       valor = !gpioRead( TEC1 ); 
       gpioWrite( LEDB, valor ); // Escribir el pin de salida LEDB con valor
 
