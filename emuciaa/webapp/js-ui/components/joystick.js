@@ -89,6 +89,49 @@
             window.JSHal.gpio.write(self.dataPin.VRy, VRy/ 3.3 * 1023);
         }, 50);
 
+        el.querySelector('#border-svg').addEventListener('load', function() {
+            const svgObject = el.querySelector('#border-svg');
+            this.svgDoc = svgObject.contentDocument;
+
+            const svgTrash = this.svgDoc.getElementById('trash');
+            const self = this;
+            this.svgDoc.addEventListener('click', function(event) {
+                const clickX = event.clientX;
+                const clickY = event.clientY;
+
+                if (isPointInsideTrash(svgTrash, clickX, clickY)) {
+                    window.removeComponent(this);
+                    try {
+                        while ( self._el.firstChild) {
+                            self._el.removeChild(self._el.firstChild);
+                          }
+                    } catch (ex) {
+                        console.log(ex);
+                    } 
+                    var destroy = document.getElementById("DELETE_ID");
+                    while (destroy.classList.length > 0) {
+                        destroy.classList.remove(destroy.classList.item(0));
+                    }
+                    destroy.classList.add('destroy');
+                    destroy.classList.add('disabled');
+                }
+            });
+
+            function isPointInsideTrash(trashElement, clickX, clickY) {
+                const trashRect = trashElement.getBoundingClientRect();
+                if (
+                  clickX >= trashRect.left &&
+                  clickX <= trashRect.right &&
+                  clickY >= trashRect.top &&
+                  clickY <= trashRect.bottom
+                ) {
+                  return true;
+                } else {
+                  return false;
+                }
+            }
+        }.bind(this));
+
         el.querySelector('#analog_stick-svg').addEventListener('load', function() {
             const svgObject = el.querySelector('#analog_stick-svg');
             this.svgDoc = svgObject.contentDocument;
@@ -155,7 +198,7 @@
         destroy.classList.add('destroy');
         destroy.classList.add('enabled');
 
-        const borderSvgObject = this._el.querySelector('#border-svg');
+      /*  const borderSvgObject = this._el.querySelector('#border-svg');
         if (borderSvgObject && borderSvgObject.contentDocument && borderSvgObject.contentDocument.rootElement) {
             var rectElement = borderSvgObject.contentDocument.getElementById("rect790");
             rectElement.setAttribute('class', 'fil1Select');
@@ -164,7 +207,7 @@
         if (divElement.classList.contains('joystick')) {
             divElement.classList.remove('joystick');
             divElement.classList.add('joystickSelect');
-        }
+        }*/
 
         destroy.addEventListener('click', () => this.destroy(this));
     };

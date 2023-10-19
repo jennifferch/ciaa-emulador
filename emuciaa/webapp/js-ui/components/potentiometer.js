@@ -37,11 +37,10 @@
 
                 const clickX = event.clientX;
                 const clickY = event.clientY;
-
+                const svgTrash = self.svgDoc.getElementById('trash');
                 const poteRect = self.svgDoc.getElementById('pote-rect');
                 const poteRange = self.svgDoc.getElementById('pote-range');
                 const rectPoteBoundingBox = poteRect.getBoundingClientRect();
-
                 if (isPointInsideRect(clickX, clickY, rectPoteBoundingBox)) {              
                     const range = calculateRange(clickX, rectPoteBoundingBox, poteRange);
                     window.JSHal.gpio.write(self.dataPin.ADC, range/ 3.3 * 1023);
@@ -62,6 +61,23 @@
                     self.svgDoc.getElementById('R12').textContent = ': ' + (R12 / 1000).toFixed(1) + ' KΩ';
                     self.svgDoc.getElementById('R23').textContent = ': ' + (R23 / 1000).toFixed(1) + ' KΩ';
                     self.svgDoc.getElementById('txtSample').textContent = self.pinNameForPin(self.dataPin.ADC)+': ' +  window.JSHal.gpio.read(self.dataPin.ADC);                
+                }
+                
+                if (isPointInsideTrash(svgTrash, clickX, clickY)) {
+                    window.removeComponent(this);
+                    try {
+                        while ( self._el.firstChild) {
+                            self._el.removeChild(self._el.firstChild);
+                          }
+                    } catch (ex) {
+                        console.log(ex);
+                    } 
+                    var destroy = document.getElementById("DELETE_ID");
+                    while (destroy.classList.length > 0) {
+                        destroy.classList.remove(destroy.classList.item(0));
+                    }
+                    destroy.classList.add('destroy');
+                    destroy.classList.add('disabled');
                 }
             });
 
@@ -101,14 +117,14 @@
                 destroy.classList.add('destroy');
                 destroy.classList.add('enabled');
 
-                var rectElement = self.svgDoc.getElementById("rectElement");
+               /* var rectElement = self.svgDoc.getElementById("rectElement");
                 rectElement.setAttribute('class', 'fil1Select');
                 var polygonElement = self.svgDoc.getElementById("rectPolygonElement");
                 var currentClass = polygonElement.getAttribute('class');
                 if (!currentClass.includes('str0Select')) {
                   var updatedClass = currentClass.replace('str0', 'str0Select');
                   polygonElement.setAttribute('class', updatedClass);
-                }
+                }*/
                 destroy.addEventListener('click', function(param) {
                     window.removeComponent(this);
                     try {
@@ -125,6 +141,20 @@
                     destroy.classList.add('destroy');
                     destroy.classList.add('disabled');
                 });
+            }
+
+            function isPointInsideTrash(trashElement, clickX, clickY) {
+                const trashRect = trashElement.getBoundingClientRect();
+                if (
+                  clickX >= trashRect.left &&
+                  clickX <= trashRect.right &&
+                  clickY >= trashRect.top &&
+                  clickY <= trashRect.bottom
+                ) {
+                  return true;
+                } else {
+                  return false;
+                }
             }
     
         }.bind(this));

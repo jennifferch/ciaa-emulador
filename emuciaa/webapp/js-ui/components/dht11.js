@@ -108,6 +108,8 @@
                 const pathThermometerBoundingBox = pathThermometer.getBoundingClientRect();
                 const pathHumidityBoundingBox = pathHumidity.getBoundingClientRect();
 
+                const svgTrash = self.svgDoc.getElementById('trash');
+
                 if (isPointInsideCircle(clickX, clickY, circleManualBoundingBox)){
                     self.userOption = true;
                     circleManual.setAttribute("class", "fil19"); 
@@ -135,6 +137,23 @@
                         self.renderHumidity(readHumidity);
                         JSHal.dht11.update_humidity(self.pins.DATA, JSHal.gpioMap.GND, Math.round(readHumidity * 100)); 
                     }
+                }
+
+                if (isPointInsideTrash(svgTrash, clickX, clickY)) {
+                    window.removeComponent(this);
+                    try {
+                        while ( self.element.firstChild) {
+                            self.element.removeChild(self.element.firstChild);
+                          }
+                    } catch (ex) {
+                        console.log(ex);
+                    } 
+                    var destroy = document.getElementById("DELETE_ID");
+                    while (destroy.classList.length > 0) {
+                        destroy.classList.remove(destroy.classList.item(0));
+                    }
+                    destroy.classList.add('destroy');
+                    destroy.classList.add('disabled');
                 }
             });
 
@@ -201,14 +220,14 @@
                 destroy.classList.add('destroy');
                 destroy.classList.add('enabled');
 
-                var rectElement = self.svgDoc.getElementById("rectElement");
+                /*var rectElement = self.svgDoc.getElementById("rectElement");
                 rectElement.setAttribute('class', 'fil1Select');
                 var polygonElement = self.svgDoc.getElementById("rectPolygonElement");
                 var currentClass = polygonElement.getAttribute('class');
                 if (!currentClass.includes('str0Select')) {
                   var updatedClass = currentClass.replace('str0', 'str0Select');
                   polygonElement.setAttribute('class', updatedClass);
-                }
+                }*/
 
                 destroy.addEventListener('click', function(param) {
                     window.removeComponent(this);
@@ -226,6 +245,20 @@
                     destroy.classList.add('destroy');
                     destroy.classList.add('disabled');
                 });
+            }
+
+            function isPointInsideTrash(trashElement, clickX, clickY) {
+                const trashRect = trashElement.getBoundingClientRect();
+                if (
+                  clickX >= trashRect.left &&
+                  clickX <= trashRect.right &&
+                  clickY >= trashRect.top &&
+                  clickY <= trashRect.bottom
+                ) {
+                  return true;
+                } else {
+                  return false;
+                }
             }
 
         }.bind(this));

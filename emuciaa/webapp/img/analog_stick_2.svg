@@ -44,6 +44,33 @@
    inkscape:current-layer="svg1224" />
  <defs
    id="defs785">
+
+<!-- @EmuCIAA - Begin -->
+<style>
+  @font-face {
+	font-family: "Consolas";
+	src: url("../fonts/consolas.ttf");
+  }
+  @font-face {
+	font-family: "Arial";
+	src: url("../fonts/arial.ttf");
+  }
+  
+  .frame_unselected { fill:none; stroke:#A9ABAE; stroke-width:49.97; stroke-miterlimit:22.9256 }  
+  .title_bg_unselected { fill:#A9ABAE; stroke:#A9ABAE; stroke-width:49.97; stroke-miterlimit:22.9256 }
+
+  .frame_selected { fill:none; stroke:#0000FF; stroke-width:49.97; stroke-miterlimit:22.9256 }
+  .title_bg_selected { fill:#0000FF; stroke:#0000FF; stroke-width:49.97; stroke-miterlimit:22.9256 }
+
+  .trash_str0 {stroke:#FEFEFE;stroke-width:17.8;stroke-linecap:round;stroke-miterlimit:22.9256}
+  .trash_str1 {stroke:#FEFEFE;stroke-width:17.8;stroke-linecap:round;stroke-miterlimit:22.9256}
+  .trash_str2 {stroke:#FEFEFE;stroke-width:17.8;stroke-linecap:round;stroke-miterlimit:22.9256}
+  .trash_str3 {stroke:#FEFEFE;stroke-width:24.92;stroke-linecap:round;stroke-miterlimit:22.9256}
+  .trash_fil0 {fill:none}
+  .trash_fil1 {fill:#FEFEFE;fill-rule:nonzero}
+</style> 
+<!-- @EmuCIAA - End -->
+
   <font
    id="FontID1"
    horiz-adv-x="549"
