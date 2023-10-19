@@ -36,10 +36,13 @@
 
 #include "sapi_dht11.h"
 #include "../test/wrapper/sapi_dht11_wrapper.h"
+#include "sapi_delay.h"
 /*==================[c++]====================================================*/
 
 void dht11Init(int32_t gpio){
     dht11_init(gpio);
+    printf("Obteniendo datos de temperatura y humedad del servidor...\n\n");
+    delay(7000);//Error de arranque
 }
 
 bool_t dht11Read( float *phum, float *ptemp ){

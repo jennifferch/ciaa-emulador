@@ -16,7 +16,7 @@ bool_t dht11_read( float *phum, float *ptemp ){
     int humidity = EM_ASM_INT({
         return JSHal.dht11.read_humidity($0);
     }, 1);
-
+    
     *phum 	= ((float)humidity) / 100.0f;
     *ptemp 	= ((float)temp) / 100.0f;
     return TRUE;

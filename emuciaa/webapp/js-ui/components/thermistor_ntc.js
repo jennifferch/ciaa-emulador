@@ -177,6 +177,7 @@
         var topTemp = Math.min(100, Math.max(0, roundTemp));
         var normalizedTemp = (topTemp / 100) * 2200;
         var yT2 = 3800 - normalizedTemp;
+
         //update points
         pointsTemp[2] =  "1079.87," + yT2 + ".31"; 
         pointsTemp[3] =  "889.65," + yT2 + ".31"; 

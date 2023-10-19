@@ -28,6 +28,13 @@ window.JSHal.dht11 = (function() {
         return (values[key] || { humidity: 0 }).humidity;
     };
 
+    obj.data_valid = function() {
+        if (!(id in sensors)) return 0;
+        var key = sensors[id].gpio + '_' + sensors[id].gnd;
+
+        return (values[key] || { humidity: 0 }).humidity;
+    };
+
     obj.update_temperature = function(gpio, gnd, temp) {
         console.log( "update_temperature " + temp);
         var key = gpio + '_' + gnd;

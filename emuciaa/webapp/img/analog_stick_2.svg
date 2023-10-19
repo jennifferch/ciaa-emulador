@@ -2090,12 +2090,6 @@
   </radialGradient>
  
   
-  
- 
-   
-   
-   
-   
    
   </defs>
  <g
@@ -2987,12 +2981,10 @@
      <g
    transform="matrix(0.999994,0,-0.272815,1,-1463.16,6306.58)"
    id="g1168">
-      <text
-   id="pin_SW"
-   x="4331.25"
-   y="6756.8999"
-   class="fil5 fnt2"
-   style="font-weight:normal;font-size:338.64001465px;font-family:Consolas;fill:#373435">GPIO0</text>
+
+<!-- @EmuCIAA - Begin -->
+      <text id="pin_SW" x="4331.25" y="6756.8999" class="fil5 fnt2" style="font-weight:normal;font-size:338.64001465px;font-family:Consolas;fill:#373435">GPIO0</text>
+<!-- @EmuCIAA - End -->
 
      </g>
     </g>
@@ -3056,12 +3048,10 @@
     <g
    transform="matrix(0.999994,0,-0.272815,1,-1463.16,5108.66)"
    id="g1193">
-     <text
-   id="pin_ADCx"
-   x="4506.5698"
-   y="6756.8999"
-   class="fil5 fnt5"
-   style="font-weight:normal;font-size:338.64001465px;font-family:Consolas;fill:#373435">CH</text>
+
+<!-- @EmuCIAA - Begin -->
+     <text id="pin_ADCx" x="4506.5698" y="6756.8999" class="fil5 fnt5" style="font-weight:normal;font-size:338.64001465px;font-family:Consolas;fill:#373435">CH1</text>
+<!-- @EmuCIAA - End -->
 
      <text
    x="4857.23"
@@ -3089,12 +3079,10 @@
     <g
    transform="matrix(0.999994,0,-0.272815,1,-1463.16,5707.62)"
    id="g1206">
-     <text
-   id="pin_ADCy"
-   x="4506.5698"
-   y="6756.8999"
-   class="fil5 fnt5"
-   style="font-weight:normal;font-size:338.64001465px;font-family:Consolas;fill:#373435">CH</text>
+
+<!-- @EmuCIAA - Begin -->
+     <text id="pin_ADCy" x="4506.5698" y="6756.8999" class="fil5 fnt5" style="font-weight:normal;font-size:338.64001465px;font-family:Consolas;fill:#373435">CH</text>
+<!-- @EmuCIAA - End -->
 
      <text
    x="4681.8999"

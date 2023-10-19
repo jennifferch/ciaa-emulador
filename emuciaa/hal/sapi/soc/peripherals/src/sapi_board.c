@@ -43,6 +43,7 @@
 
 #include "sapi_interrupt.h"
 #include "tasks_api.h"
+#include "sapi_delay.h"
 /*==================[macros and definitions]=================================*/
 
 /*==================[internal data declaration]==============================*/
@@ -59,78 +60,17 @@
 
 /* Set up and initialize board hardware */
 void boardInit(void){
-   // Read clock settings and update SystemCoreClock variable
-   //SystemCoreClockUpdate();
-
-   //cyclesCounterInit( SystemCoreClock );
-
    // Inicializar el conteo de Ticks con resolucion de 1ms (si no se usa freeRTOS)
    #ifndef USE_FREERTOS
       tickInit( 1 );
    #endif
 
-   // Configure GPIO pins for each board
-   //#if BOARD==ciaa_nxp
-
-      // Inicializar GPIOs
-     // gpioInit( 0, GPIO_ENABLE );
-
-      // Configuracion de pines de entrada de la CIAA-NXP
-      /*gpioInit( DI0, GPIO_INPUT );
-      gpioInit( DI1, GPIO_INPUT );
-      gpioInit( DI2, GPIO_INPUT );
-      gpioInit( DI3, GPIO_INPUT );
-      gpioInit( DI4, GPIO_INPUT );
-      gpioInit( DI5, GPIO_INPUT );
-      gpioInit( DI6, GPIO_INPUT );
-      gpioInit( DI7, GPIO_INPUT );*/
-
-      // Configuracion de pines de salida de la CIAA-NXP
-      /*gpioInit( DO0, GPIO_OUTPUT );
-      gpioInit( DO1, GPIO_OUTPUT );
-      gpioInit( DO2, GPIO_OUTPUT );
-      gpioInit( DO3, GPIO_OUTPUT );
-      gpioInit( DO4, GPIO_OUTPUT );
-      gpioInit( DO5, GPIO_OUTPUT );
-      gpioInit( DO6, GPIO_OUTPUT );
-      gpioInit( DO7, GPIO_OUTPUT );*/
-
-      //#error CIAA-NXP
-
-   //#elif BOARD==edu_ciaa_nxp
-
-      // Inicializar GPIOs
-      //gpioInit( 0, GPIO_ENABLE );
-
-      // Configuracion de pines de entrada para Teclas de la EDU-CIAA-NXP
-      /*gpioInit( TEC1, GPIO_INPUT );
-      gpioInit( TEC2, GPIO_INPUT );
-      gpioInit( TEC3, GPIO_INPUT );
-      gpioInit( TEC4, GPIO_INPUT );*/
-
-      // Configuracion de pines de salida para Leds de la EDU-CIAA-NXP
-      /*gpioInit( LEDR, GPIO_OUTPUT );
-      gpioInit( LEDG, GPIO_OUTPUT );
-      gpioInit( LEDB, GPIO_OUTPUT );
-      gpioInit( LED1, GPIO_OUTPUT );
-      gpioInit( LED2, GPIO_OUTPUT );
-      gpioInit( LED3, GPIO_OUTPUT );*/
-
-      //#error EDU-CIAA-NXP
-
-   //#elif BOARD==ciaa_z3r0
-     // #error CIAA-Z3R0
-
-   //#elif BOARD==pico_ciaa
-     // #error PicoCIAA
-
-   //#else
-     // #error BOARD compile variable must be defined
-   //#endif
    interruptInit(TEC1);
    interruptInit(TEC2);
    interruptInit(TEC3);
    interruptInit(TEC4);
+
+   delay(100);//Error de arranque
 }
 
 /*==================[end of file]============================================*/

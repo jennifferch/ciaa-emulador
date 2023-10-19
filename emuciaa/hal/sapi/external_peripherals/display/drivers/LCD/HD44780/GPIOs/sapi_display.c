@@ -63,7 +63,6 @@ void displayBitmapWrite( uint8_t* bitmap )
 {
     if( displayType == DISPLAY_TYPE_GLCD_ST7920 && displayMode == DISPLAY_MODE_GRAPHIC){
         glcd_print_bitmap(bitmap);
-        delay(1); 
     }
 }
 

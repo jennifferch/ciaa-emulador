@@ -17,13 +17,16 @@
 
         var wrapperDivMain = document.createElement('div');
         wrapperDivMain.id ="divMain";
+        wrapperDivMain.style.width = "359px";
+        wrapperDivMain.style.height = "485px";
+        wrapperDivMain.style.padding = "0";
         wrapperDivMain.classList.add('joystick');
 
 
         var wrapperDivHtml = document.createElement('div');
         wrapperDivHtml.innerHTML =
             '<div><object id="border-svg" data="/img/border_stick.svg" type="image/svg+xml"></object></div>' +
-            '<div id="joyDiv" style="width:200px;height:200px;margin-bottom:10px;float:left;margin-left:auto;margin-right:auto;"></div>'+
+            '<div id="joyDiv" style="width:200px;height:200px;margin-bottom:10px;float:left;position:relative;margin-left:auto;margin-right:auto;"></div>'+
             '<div style="margin-top: 30px;">'+
             '<p class="fil5 fnt1" style="display: inline;">x: </p><p class="fil5 fnt1" style="display: inline;" id="joy3X"></p><br>'+
             '<p class="fil5 fnt1" style="display: inline;">y: </p><p class="fil5 fnt1" style="display: inline;" id="joy3Y"></p><br>'+
