@@ -32,7 +32,7 @@ int main( void )
 {
    boardInit();
 
-   while( true ) {
+   while(1) {
 
       gpioWrite( LUZ_ROJA, ON );
       delay( TIEMPO_EN_ROJO );

@@ -8,8 +8,8 @@
 
 #include "sapi.h"
 
-int main(void){
-
+int main( void )
+{
    boardInit();
 
    delay_t delay;  // Variable de Retardo no bloqueante

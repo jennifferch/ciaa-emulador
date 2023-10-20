@@ -8,8 +8,8 @@
 
 #include "sapi.h"
 
-int main(void){
-
+int main( void )
+{
    boardInit();
  
    gpioInit( GPIO0, GPIO_OUTPUT ); // Configurar pin GPIO0 como Salida
@@ -32,6 +32,8 @@ int main(void){
       valor = !gpioRead( TEC4 );
       gpioWrite( LED3, valor );
       gpioWrite( GPIO0, valor );
+      
+      delay(10); // Es necesario un minimo delay en el while(1) para que no se rompa el emulador
 
    }
 

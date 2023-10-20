@@ -8,7 +8,7 @@
 
 #include "sapi.h"
 
-int main(void)
+int main( void )
 {
    boardInit();
 
@@ -26,7 +26,7 @@ int main(void)
    rtcInit(); // Inicializar RTC 
    rtcWrite( &rtc );
 
-   while( true ) {
+   while(1) {
 
       // Leer fecha y hora
       rtcRead( &rtc ); // en la variable de estructura rtc te queda la 

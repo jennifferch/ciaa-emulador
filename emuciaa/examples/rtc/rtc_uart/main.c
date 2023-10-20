@@ -113,8 +113,8 @@ void showDateAndTime( rtc_t * rtc ){
    uartWriteString( UART_USB, "\r\n");
 }
 
-int main(void){
-
+int main( void ) 
+{
    boardInit();
    uartInit( UART_USB, 115200 ); // Inicializar UART_USB a 115200 baudios
 

@@ -18,22 +18,31 @@ typedef enum{
 void fsmButtonError( void );
 void fsmButtonInit( void );
 void fsmButtonUpdate( gpioMap_t tecla );
+
 void buttonPressed( void );
 void buttonReleased( void );
 
 fsmButtonState_t fsmButtonState;
 
-
-int main( void )
-{     
+int main(void)
+{        
+   // Inicializo la placa
    boardInit();
+   
+   // Inicializo temporizacion y MEF Boton
+   delay_t actualizarMefBoton;   
+   delayInit( &actualizarMefBoton, 40 );   
    fsmButtonInit();
-
+   
    while(1) {
-      fsmButtonUpdate(TEC1);
-      delay(1);
-   }
 
+      // Actualizo MEF Boton cada tiempo actualizarMefBoton
+      if( delayRead(&actualizarMefBoton) ){
+         fsmButtonUpdate(TEC1);
+      }
+
+	  delay(1); // Es necesario un minimo delay en el while(1) para que no se rompa el emulador
+   }
    return 0;
 }
 
@@ -87,7 +96,7 @@ void fsmButtonUpdate( gpioMap_t tecla )
 
    switch( fsmButtonState ){
 
-      case STATE_BUTTON_UP: 
+      case STATE_BUTTON_UP:
          // CHECK TRANSITION CONDITIONS
          if( !gpioRead(tecla) ){
             fsmButtonState = STATE_BUTTON_FALLING;
@@ -101,23 +110,20 @@ void fsmButtonUpdate( gpioMap_t tecla )
          }
       break;
 
-      case STATE_BUTTON_FALLING:      
+      case STATE_BUTTON_FALLING:
          // ENTRY
          if( flagFalling == FALSE ){
             flagFalling = TRUE;
             gpioWrite(LED1, ON);
-         }      
-         // CHECK TRANSITION CONDITIONS
-         if( contFalling >= 40 ){
-            if( !gpioRead(tecla) ){
-               fsmButtonState = STATE_BUTTON_DOWN;
-               buttonPressed();
-            } else{
-               fsmButtonState = STATE_BUTTON_UP;
-            }
-            contFalling = 0;
+            break;
          }
-         contFalling++;
+         // CHECK TRANSITION CONDITIONS
+         if( !gpioRead(tecla) ){
+            fsmButtonState = STATE_BUTTON_DOWN;
+            buttonPressed();
+         } else{
+            fsmButtonState = STATE_BUTTON_UP;
+         }
          // EXIT
          if( fsmButtonState != STATE_BUTTON_FALLING ){
             flagFalling = FALSE;
@@ -125,25 +131,20 @@ void fsmButtonUpdate( gpioMap_t tecla )
          }
       break;
 
-      case STATE_BUTTON_RISING:      
+      case STATE_BUTTON_RISING:
          // ENTRY
          if( flagRising == FALSE ){
             flagRising = TRUE;
             gpioWrite(LED2, ON);
-         }    
-         // CHECK TRANSITION CONDITIONS
-         
-         if( contRising >= 40 ){
-            if( gpioRead(tecla) ){
-               fsmButtonState = STATE_BUTTON_UP;
-               buttonReleased();
-            } else{
-               fsmButtonState = STATE_BUTTON_DOWN;
-            }
-            contRising = 0;
+            break;
          }
-         contRising++;
-         
+         // CHECK TRANSITION CONDITIONS
+         if( gpioRead(tecla) ){
+            fsmButtonState = STATE_BUTTON_UP;
+            buttonReleased();
+         } else{
+            fsmButtonState = STATE_BUTTON_DOWN;
+         }
          // EXIT
          if( fsmButtonState != STATE_BUTTON_RISING ){
             flagRising = FALSE;

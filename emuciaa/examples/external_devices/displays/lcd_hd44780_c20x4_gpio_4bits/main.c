@@ -11,19 +11,21 @@
 int main( void )
 {
    boardInit();
+
+   // Inicializo LCD basado en el controlador HD44780 con conexion por GPIOs en 4 bits
    displayInit( DISPLAY_TYPE_LCD_HD44780, DISPLAY_CONNECTION_GPIO_4BITS );
 
-   while( true ) {  
+   while(1) {
 
-      displayCharPositionWrite( 0, 1 );
-      displayStringWrite( "Hi EDU-CIAA-NXP" );
+      displayCharPositionWrite( 1, 1 ); // Posiciona el cursor 1 en x, 1 en y
+      displayStringWrite( "Hola EDU-CIAA-NXP" ); // Escribir String en pantalla
       delay(1000);
 
-      displayCharPositionWrite( 1, 2 );
-      displayStringWrite( "How are you?" );
+      displayCharPositionWrite( 4, 2 ); // Posiciona el cursor 4 en x, 2 en y
+      displayStringWrite( "Como estas?" );
       delay(1000);
 
-	  displayClear();
+	  displayClear(); // Limpiar pantalla
       delay(500);
    }
 

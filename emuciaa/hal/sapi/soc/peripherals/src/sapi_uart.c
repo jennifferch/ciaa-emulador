@@ -119,6 +119,9 @@ static const lpc4337ScuPin_t lpcUart485DirPin = {
 */
 uartMap_t uart_init;
 /*==================[internal functions declaration]=========================*/
+void uartPrintString( const char *cadena );
+
+void uartPrintChar( const char caracter );
 
 #ifdef SAPI_USE_INTERRUPTS
 static void uartProcessIRQ( uartMap_t uart );
@@ -721,22 +724,25 @@ bool_t uartReadByte( uartMap_t uart, uint8_t* receivedByte )
 void uartWriteByte( uartMap_t uart, const uint8_t value )
 {
    // Wait for space in FIFO (blocking)
-   while( uartTxReady( uart ) == FALSE );
+   //while( uartTxReady( uart ) == FALSE );
    // Send byte
-   uartTxWrite( uart, value );
+   //uartTxWrite( uart, value );
+
+   uartPrintChar(value);
 }
 
 // Blocking Send a string
 void uartWriteString( uartMap_t uart, const char* str )
 {
-   if (uart_init == uart){
+ //  if (uart_init == uart){
      // printf("[%s]: %s\n", getUartName(uart), str);
-      printf(str);
-      while( *str != 0 ) {
-         uartWriteByte( uart, (uint8_t)*str );
-         str++;
-      }
-   }
+   //   printf(str);
+   //   while( *str != 0 ) {
+   //      uartWriteByte( uart, (uint8_t)*str );
+   //      str++;
+   //   }
+  // }
+  uartPrintString(str);
 
 }
 
@@ -750,7 +756,29 @@ void uartWriteByteArray( uartMap_t uart,
    }
 }
 
+void uartPrintString( const char *cadena )
+{
+    char caracter = *cadena;
+    while ( caracter != '\0') {
+        uartPrintChar(caracter);
+        cadena++;
+        caracter = *cadena;
+    }
+}
 
+void uartPrintChar( const char caracter )
+{
+    if ( ( caracter < 32 || caracter == 127) && 
+         ( caracter != '\r') && ( caracter != '\n') && ( caracter != '\t')
+    ) {
+        // Caracter no imprimible, mostrar en formato hexadecimal
+        printf(" 0x%02X ", (unsigned char)(caracter));
+    } else {
+        if( caracter != '\r' ) {  // No imprime '\r'          
+          printf("%c", caracter); // Caracter imprimible
+        }
+    }
+}
 
 /*==================[ISR external functions definition]======================*/
 

@@ -13,7 +13,7 @@ int main( void )
    boardInit();
    uartInit( UART_USB, 115200 ); // Inicializar UART_USB a 115200 baudios
 
-   while( true ) {
+   while(1) {
       uartWriteByte( UART_USB, 'H' );  // Enviar un byte
       uartWriteString( UART_USB, "ola\r\n" ); // Enviar un string (funcion bloqueante)
 	  

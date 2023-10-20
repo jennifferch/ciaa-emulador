@@ -5,7 +5,9 @@
  Date: 2021/05/18
  Version: 1.0
 ============================================================================*/
+
 #include "sapi.h"
+
 // Bitmaps from
 // https://github.com/armBookCodeExamples/example_6-5/blob/master/modules/display/GLCD_fire_alarm.h
 uint8_t GLCD_fire_alarm[4][1024] = {
@@ -278,12 +280,16 @@ uint8_t GLCD_fire_alarm[4][1024] = {
 int main( void )
 {
    boardInit();
+
+   // Inicializo GLCD basado en el controlador ST7920 con conexion por GPIOs en 4 bits
    displayInit( DISPLAY_TYPE_GLCD_ST7920, DISPLAY_CONNECTION_GPIO_4BITS );
+
+   // En el GLCD es necesario establecer el mode, en este caso modo caracteres
    displayModeWrite( DISPLAY_MODE_GRAPHIC );
 
-   while( true ) {
+   while(1) {
 
-      displayBitmapWrite( GLCD_fire_alarm[0] );
+      displayBitmapWrite( GLCD_fire_alarm[0] ); // Escribir bitmap en pantalla
       delay(100);
 
       displayBitmapWrite( GLCD_fire_alarm[1] );

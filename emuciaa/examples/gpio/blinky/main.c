@@ -12,7 +12,7 @@ int main( void )
 {
    boardInit();  // Inicializar la placa
 
-   while( true ) {
+   while(1) {
 
       gpioWrite( LEDB, ON );   // Encender LED Azul de la placa
 

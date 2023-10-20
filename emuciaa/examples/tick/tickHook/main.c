@@ -1,77 +1,67 @@
-#include "sapi.h"         // <= sAPI header
+/*============================================================================
+ Copyright (c) 2016, Eric Pernia <ericpernia@gmail.com>
+ All rights reserved.
+ License: bsd-3-clause (see https://opensource.org/license/bsd-3-clause/)
+ Date: 2016/04/26
+ Version: 1.0
+============================================================================*/
 
-/*==================[macros and definitions]=================================*/
+#include "sapi.h"
 
-/*==================[internal data declaration]==============================*/
-
-/*==================[internal functions declaration]=========================*/
-
-/*==================[internal data definition]===============================*/
-
-/*==================[external data definition]===============================*/
-
-/*==================[internal functions definition]==========================*/
-
-/*==================[external functions definition]==========================*/
-
-/* FUNCION que se ejecuta cada vez que ocurre un Tick. */
-void myTickHook( void *ptr )
+// Funcion que se ejecuta cada vez que ocurre un Tick.
+void myTickCallback( void *ptr )
 {
-   static bool_t ledState = OFF;
-
-   gpioMap_t led = (gpioMap_t)ptr;
-
-   if( ledState ) {
-      ledState = OFF;
-   } else {
-      ledState = ON;
-   }
-   gpioWrite( led, ledState );
+   gpioMap_t led = (gpioMap_t)ptr; // Obtener el parametro
+   gpioToggle( led );
 }
 
-
-/* FUNCION PRINCIPAL, PUNTO DE ENTRADA AL PROGRAMA LUEGO DE RESET. */
-int main(void)
+int main( void )
 {
-   /* ------------- INICIALIZACIONES ------------- */
+   boardInit();
 
-   /* Inicializar la placa */
-   boardConfig();
+   // Inicializar el conteo de Ticks con resolucion de 50ms (se ejecuta
+   // periodicamente una interrupcion cada 50ms que incrementa un contador de
+   // Ticks obteniendose una base de tiempos).
+   tickInit( 50 );
 
-   /* Inicializar el conteo de Ticks con resolucion de 50ms (se ejecuta
-      periodicamente una interrupcion cada 50ms que incrementa un contador de
-      Ticks obteniendose una base de tiempos). */
-   tickConfig( 50 );
+   // Se agrega ademas un "Tick Callback" nombrado myTickCallback. 
+   // El tick callback es simplemente una funcion que se ejecutara 
+   // periodicamente con cada interrupcion de Tick.
+   // Tambien es nombrado tick hook porque "se engancha" del tick.
+   // El segundo parametro es el parametro que recibe la funcion myTickCallback
+   // al ejecutarse. En este ejemplo se utiliza para pasarle el led a destellar.
+   tickCallbackSet( myTickCallback, (void*)LEDR );
 
-   /* Se agrega ademas un "tick hook" nombrado myTickHook. El tick hook es
-      simplemente una funcion que se ejecutara peri�odicamente con cada
-      interrupcion de Tick, este nombre se refiere a una funcion "enganchada"
-      a una interrupcion.
-      El segundo parametro es el parametro que recibe la funcion myTickHook
-      al ejecutarse. En este ejemplo se utiliza para pasarle el led a titilar.
-   */
-   tickCallbackSet( myTickHook, (void*)LEDR );
    delay(1000);
-
-   /* ------------- REPETIR POR SIEMPRE ------------- */
+   gpioWrite( LEDR, OFF );
+ 
    while(1) {
-      tickCallbackSet( myTickHook, (void*)LEDG );
+
+      // Voy cambiando el led que destella
+	  tickCallbackSet( myTickCallback, (void*)LEDG );
       delay(1000);
-      tickCallbackSet( myTickHook, (void*)LEDB );
+	  gpioWrite( LEDG, OFF );
+
+      tickCallbackSet( myTickCallback, (void*)LEDB );
       delay(1000);
-      tickCallbackSet( myTickHook, (void*)LED1 );
+	  gpioWrite( LEDB, OFF );
+
+      tickCallbackSet( myTickCallback, (void*)LED1 );
       delay(1000);
-      tickCallbackSet( myTickHook, (void*)LED2 );
+	  gpioWrite( LED1, OFF );
+
+      tickCallbackSet( myTickCallback, (void*)LED2 );
       delay(1000);
-      tickCallbackSet( myTickHook, (void*)LED3 );
+	  gpioWrite( LED2, OFF );
+
+      tickCallbackSet( myTickCallback, (void*)LED3 );
       delay(1000);
-      tickCallbackSet( myTickHook, (void*)LEDR );
+	  gpioWrite( LED3, OFF );
+
+      tickCallbackSet( myTickCallback, (void*)LEDR );
       delay(1000);
+	  gpioWrite( LEDR, OFF );
    }
 
-   /* NO DEBE LLEGAR NUNCA AQUI, debido a que a este programa no es llamado
-      por ningun S.O. */
    return 0 ;
 }
-
-/*==================[end of file]============================================*/

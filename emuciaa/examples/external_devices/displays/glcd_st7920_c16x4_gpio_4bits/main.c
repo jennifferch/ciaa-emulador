@@ -11,20 +11,24 @@
 int main( void )
 {
    boardInit();
+
+   // Inicializo GLCD basado en el controlador ST7920 con conexion por GPIOs en 4 bits
    displayInit( DISPLAY_TYPE_GLCD_ST7920, DISPLAY_CONNECTION_GPIO_4BITS );
+
+   // En el GLCD es necesario establecer el mode, en este caso modo caracteres
    displayModeWrite( DISPLAY_MODE_CHAR );
 
-   while( true ) {  
+   while(1) {
 
-      displayCharPositionWrite( 0, 1 );
-      displayStringWrite( "Hi EDU-CIAA-NXP" );
+      displayCharPositionWrite( 2, 1 ); // Posiciona el cursor 2 en x, 1 en y
+      displayStringWrite( "EDU-CIAA-NXP" ); // Escribir String en pantalla
       delay(1000);
 
-      displayCharPositionWrite( 1, 2 );
-      displayStringWrite( "How are you?" );
+      displayCharPositionWrite( 2, 2 ); // Posiciona el cursor 2 en x, 2 en y
+      displayStringWrite( "Como estas?" );
       delay(1000);
 
-	  displayClear();
+	  displayClear(); // Limpiar pantalla
       delay(500);
    }
 

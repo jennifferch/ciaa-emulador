@@ -9,7 +9,7 @@
 #include "sapi.h"
 
 // Temperature icon
-const uint8_t tempChar[8] = {
+uint8_t tempChar[8] = {
    0b01110,
    0b01010,
    0b01010,
@@ -21,7 +21,7 @@ const uint8_t tempChar[8] = {
 };
 
 // Degree symbol
-const uint8_t degreeChar[8] = { 
+uint8_t degreeChar[8] = { 
    0b01110,
    0b01010,
    0b01110,
@@ -33,7 +33,7 @@ const uint8_t degreeChar[8] = {
 };
 
 // Humidity icon
-const uint8_t humChar[8] = { 
+uint8_t humChar[8] = { 
    0b00100,
    0b00100,
    0b01110,
@@ -45,7 +45,7 @@ const uint8_t humChar[8] = {
 };
 
 // Wind velocity icon
-const uint8_t windChar[8] = {
+uint8_t windChar[8] = {
    0b00111,
    0b11100,
    0b00000,
@@ -68,7 +68,7 @@ int main( void )
    boardInit();
    displayInit( DISPLAY_TYPE_LCD_HD44780, DISPLAY_CONNECTION_GPIO_4BITS );
    
-   displayCustomCharCreate( TEMP_CHAR, tempChar );
+   displayCustomCharCreate( TEMP_CHAR, tempChar ); // Crear caracter en indice TEMP_CHAR=0, con bitmap tempChar
    displayCustomCharCreate( DEGREE_CHAR, degreeChar );
    displayCustomCharCreate( HUM_CHAR, humChar );
    displayCustomCharCreate( WIND_CHAR, windChar );
@@ -77,7 +77,7 @@ int main( void )
    char humString[]  = "50";
    char windString[] = "10";
 
-   while( true ) {
+   while(1) {
 	  
       displayCharPositionWrite( 0, 10 );
       displayStringWrite( "Tmp" );

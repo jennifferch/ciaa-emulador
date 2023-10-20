@@ -1,18 +1,14 @@
-/*=============================================================================
- * Copyright (c) 2019, Eric Pernia <ericpernia@gmail.com>
- * All rights reserved.
- * License: bsd-3-clause (see LICENSE file)
- * Date: 2019/06/14
- * Version: 1.0.0
- *===========================================================================*/
-
-/*=====[Inclusions of function dependencies]=================================*/
+/*============================================================================
+ Copyright (c) 2019, Eric Pernia <ericpernia@gmail.com>
+ All rights reserved.
+ License: bsd-3-clause (see https://opensource.org/license/bsd-3-clause/)
+ Date: 2019/06/14
+ Version: 1.0
+============================================================================*/
 
 #include "sapi.h"
 
-/*=====[Definition macros of private constants]==============================*/
-
-#define BUTTON_LOGIC BUTTON_ONE_IS_UP
+#define BUTTON_LOGIC  BUTTON_ONE_IS_UP
 
 #if BOARD==edu_ciaa_nxp
    #define BUTTON0 TEC1
@@ -22,8 +18,6 @@
 #else
    #error You must select a valid board!
 #endif
-
-/*=====[Definitions of public functions]=====================================*/
 
 // Callbacks for Button 0 events
 
@@ -40,12 +34,8 @@ void myButton1HoldPressedCallback(void* param)
    printf("Boton 0 presionado durante mas de 3 segundos\r\n");
 }
 
-/*=====[Main function, program entry point after power on or reset]==========*/
-
 int main( void )
 {
-   // ----- Setup -----------------------------------
-
    boardInit();
 
    // Temporization
@@ -113,7 +103,7 @@ int main( void )
              );
 
    // ----- Repeat for ever -------------------------
-   while(true) {
+   while(1) {
 
       // Refrehs button FSMs every 50 ms
       if( delayRead(&refreshButton) ) {
@@ -158,12 +148,9 @@ int main( void )
             buttonEventHandled( &myButton3 );
          }
       }
-      // Es necesario agregar un delay, sino, el navegador se bloquea.
-      delay(1);
+
+      delay(1); // Es necesario agregar un delay, sino, el navegador se bloquea.
    }
 
-   // YOU NEVER REACH HERE, because this program runs directly or on a
-   // microcontroller and is not called by any Operating System, as in the 
-   // case of a PC program.
    return 0;
 }
