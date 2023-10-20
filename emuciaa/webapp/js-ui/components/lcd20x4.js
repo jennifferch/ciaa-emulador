@@ -157,11 +157,11 @@
       Lcd20x4.prototype.on_update_char_position = function(charPositionX, charPositionY ) {
           var err = false; 
           if ( charPositionX < 0 || charPositionX > CHARS_PER_LINE - 1) {
-            console.err( "ERROR: En displayCharPositionWrite(" + charPositionX + ", " + charPositionY + "); charPositionX puede tener valores de 0 a " + (CHARS_PER_LINE-1) );
+            console.log( "ERROR: En displayCharPositionWrite(" + charPositionX + ", " + charPositionY + "); charPositionX puede tener valores de 0 a " + (CHARS_PER_LINE-1) );
             err = true; 
           }
           if ( charPositionY < 0 || charPositionY > LINES - 1) {
-            console.err( "ERROR: En displayCharPositionWrite(" + charPositionX + ", " + charPositionY + "); charPositionY puede tener valores de 0 a " + (LINES-1) );    
+            console.log( "ERROR: En displayCharPositionWrite(" + charPositionX + ", " + charPositionY + "); charPositionY puede tener valores de 0 a " + (LINES-1) );    
             err = true; 
           }  
           if ( !err ) {
