@@ -21,7 +21,8 @@ const SCREEN_PX_Y = Object.freeze(64);      // Definir la cantidad de pixeles de
         this._on_update_char_display = this.on_update_char_display.bind(this);
         this._on_update_graphic_display = this._on_update_graphic_display.bind(this);
         this._on_display_clear = this._on_display_clear.bind(this);
-    }
+        this._on_update_char_position = this.on_update_char_position.bind(this);
+      }
 
     Glcd128x64.prototype = Object.create(exports.BaseComponent.prototype);
 
@@ -29,6 +30,7 @@ const SCREEN_PX_Y = Object.freeze(64);      // Definir la cantidad de pixeles de
         window.JSHal.display.on('glcd_update_char_display', this._on_update_char_display);
         window.JSHal.display.on('update_graphic_display', this._on_update_graphic_display);
         window.JSHal.display.on('display_clear_glcd', this._on_display_clear);
+        window.JSHal.display.on('glcd_update_char_position', this._on_update_char_position);
 
         var el = this._el = document.createElement('div');  
         el.classList.add('component');
@@ -180,13 +182,12 @@ const SCREEN_PX_Y = Object.freeze(64);      // Definir la cantidad de pixeles de
       } 
     };
 
-    Glcd128x64.prototype.on_update_char_display = function(x, y, buffer) {
-        this.displayCharPositionWrite(x, y);
+    Glcd128x64.prototype.on_update_char_display = function(buffer) {
         const str = this.convertToCharacter(buffer);
         this.displayStringWrite(str);
     };
 
-    Glcd128x64.prototype.displayCharPositionWrite = function(charPositionX, charPositionY ) {
+    Glcd128x64.prototype.on_update_char_position = function(charPositionX, charPositionY ) {
         var err = false; 
         if ( charPositionX < 0 || charPositionX > CHARS_PER_LINE - 1) {
           console.err( "ERROR: En displayCharPositionWrite(" + charPositionX + ", " + charPositionY + "); charPositionX puede tener valores de 0 a " + (CHARS_PER_LINE-1) );

@@ -97,7 +97,7 @@ int main( void )
       displayStringWrite( "%" );
 
       displayCharPositionWrite( 40, 20 );
-      displayStringWrite( vieString );
+      displayStringWrite( windString );
       displayStringWrite( "km/h" );
 
       delay(3000);

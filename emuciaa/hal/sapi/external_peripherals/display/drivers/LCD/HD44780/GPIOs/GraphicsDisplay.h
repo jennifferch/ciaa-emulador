@@ -71,6 +71,8 @@ extern "C" {
 
     void initTextDisplay(const char *name);
     void character(int x, int y, int c) ;
+    void locateGlcd(int x, int y);
+    void locateLcd(int x, int y);
     void locate(int x, int y);
     void foreground(uint16_t colour);
     void background(uint16_t colour);

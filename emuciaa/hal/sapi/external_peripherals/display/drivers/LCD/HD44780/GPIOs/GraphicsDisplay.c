@@ -58,12 +58,12 @@ void glcd_print_bitmap(uint8_t* bitmap)
 
 void copy_char_to_glcd(void)
 {
-   char_to_glcd(char_x, char_y, buffer16x4);
+   char_to_glcd( buffer16x4);
 }
 
 void copy_char_to_lcd(void)
 {
-   char_to_lcd(char_x, char_y, buffer20x4);
+   char_to_lcd( buffer20x4);
 }
 
 void glcd_clear(void)
@@ -391,6 +391,20 @@ void locate(int x, int y)
 {
     char_x = x;
     char_y = y;
+}
+
+void locateGlcd(int x, int y)
+{
+    char_x = x;
+    char_y = y;
+    position_to_glcd(char_x, char_y);
+}
+
+void locateLcd(int x, int y)
+{
+    char_x = x;
+    char_y = y;
+    position_to_lcd(char_x, char_y);
 }
 
 int _getc() {

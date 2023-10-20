@@ -25,18 +25,32 @@ void lcd_copy_to_lcd(gpioMap_t _mosi, gpioMap_t _miso, gpioMap_t _sck, unsigned 
     }, _mosi, _miso, _sck, buffer);
 }
 
-void char_to_glcd(int x, int y, unsigned char * buffer)
+void position_to_glcd(int x, int y)
 {
     EM_ASM_({
-        window.JSHal.display.glcd_update_char_display($0, $1, new Uint8Array(Module.HEAPU8.buffer, $2, 64));
-    }, x, y, buffer);
+        window.JSHal.display.glcd_update_char_position($0, $1);
+    }, x, y);
 }
 
-void char_to_lcd(int x, int y, unsigned char * buffer)
+void position_to_lcd(int x, int y)
 {
     EM_ASM_({
-        window.JSHal.display.lcd_update_char_display($0, $1, new Uint8Array(Module.HEAPU8.buffer, $2, 80));
-    }, x, y, buffer);
+        window.JSHal.display.lcd_update_char_position($0, $1);
+    }, x, y);
+}
+
+void char_to_glcd( unsigned char * buffer)
+{
+    EM_ASM_({
+        window.JSHal.display.glcd_update_char_display(new Uint8Array(Module.HEAPU8.buffer, $0, 64));
+    }, buffer);
+}
+
+void char_to_lcd( unsigned char * buffer)
+{
+    EM_ASM_({
+        window.JSHal.display.lcd_update_char_display(new Uint8Array(Module.HEAPU8.buffer, $0, 80));
+    },buffer);
 }
 
 void bitmap_to_glcd( uint8_t* bitmap)

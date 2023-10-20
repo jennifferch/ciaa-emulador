@@ -11,12 +11,20 @@ window.JSHal.display = (function() {
         obj.emit('update_display', mosi, miso, sck, buffer);
     };
 
-    obj.glcd_update_char_display = function(x, y, buffer) {
-        obj.emit('glcd_update_char_display', x, y, buffer);
+    obj.glcd_update_char_position = function(x, y) {
+        obj.emit('glcd_update_char_position', x, y);
     };
 
-    obj.lcd_update_char_display = function(x, y, buffer) {
-        obj.emit('lcd_update_char_display', x, y, buffer);
+    obj.lcd_update_char_position = function(x, y) {
+        obj.emit('lcd_update_char_position', x, y);
+    };
+
+    obj.glcd_update_char_display = function(buffer) {
+        obj.emit('glcd_update_char_display', buffer);
+    };
+
+    obj.lcd_update_char_display = function(buffer) {
+        obj.emit('lcd_update_char_display', buffer);
     };
 
     obj.update_graphic_display = function( bitmap) {

@@ -14,25 +14,48 @@
       color: #333333; 
     }
 
-    a {
-      display: inline-block; 
-      margin-bottom: 20px;
-      font-size: 18px;
-      text-decoration: none;
-      color: #007BFF; 
-      transition: color 0.3s ease-in-out; 
+    .byJenny {
+      font-style: italic;
+	  padding: 0px;
+      margin-top: -10px;
     }
 
-    a:hover {
-      color: #222222; 
-      cursor: pointer; 
+    .button {
+      display: inline-block; 
+      font-size: 18px;
+      text-decoration: none;
+      padding: 10px 20px;
+      color: white;
+      background-color: #007BFF;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: color 0.3s ease-in-out; 
+      transition: background-color 0.3s ease-in-out; 
     }
+    .button:hover {
+      color: #EEE;
+      background-color: #0000FF;
+      cursor: pointer;
+      transition: color 0.3s ease-in-out; 
+      transition: background-color 0.3s ease-in-out; 
+    }
+    .button:active {
+      color: #EEE;
+      background-color: #000;
+      cursor: pointer;
+      transition: color 0.3s ease-in-out; 
+      transition: background-color 0.3s ease-in-out; 
+    }
+	
   </style>
 </head>
 <body>
+  <img src="Logo_EmuCIAA.png" width="120px" alt="Logo EmuCIAA" />
+  <p class="byJenny">por Jenny Chavez</p>
   <h1>Bienvenido a EmuCIAA</h1>
-
-  <p><a href="http://134.209.168.175:7700" target="_blank">Ingresar a EmuCIAA</a></p>
-  <p><a href="http://134.209.168.175:7829" target="_blank">Ingresar a Arm Mbed OS Simulator</a></p>
+  <br/>
+  <p><a class="button" href="http://134.209.168.175:7700" target="_blank">Ingresar a EmuCIAA</a></p>
+  <p><a class="button" href="http://134.209.168.175:7829" target="_blank">Ingresar a Arm Mbed OS Simulator</a></p>
 </body>
 </html>

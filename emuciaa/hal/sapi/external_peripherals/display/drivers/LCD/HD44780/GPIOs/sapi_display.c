@@ -23,7 +23,11 @@ void displayInit( displayType_t type, displayConnection_t connection )
  
 void displayCharPositionWrite( uint8_t charPositionX, uint8_t charPositionY ) 
 {
-    locate(charPositionX, charPositionY);
+    if( displayType == DISPLAY_TYPE_GLCD_ST7920){
+       locateGlcd(charPositionX, charPositionY);
+    }else{
+       locateLcd(charPositionX, charPositionY);
+    }
 }
 
 void displayStringWrite( const char * str ) 
