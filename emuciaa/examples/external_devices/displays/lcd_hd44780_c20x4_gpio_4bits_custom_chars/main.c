@@ -9,7 +9,7 @@
 #include "sapi.h"
 
 // Temperature icon
-uint8_t tempChar[8] = {
+uint8_t tempIconChar[8] = {
    0b01110,
    0b01010,
    0b01010,
@@ -21,7 +21,7 @@ uint8_t tempChar[8] = {
 };
 
 // Degree symbol
-uint8_t degreeChar[8] = { 
+uint8_t degreeSymbolChar[8] = { 
    0b01110,
    0b01010,
    0b01110,
@@ -33,7 +33,7 @@ uint8_t degreeChar[8] = {
 };
 
 // Humidity icon
-uint8_t humChar[8] = { 
+uint8_t humIconChar[8] = { 
    0b00100,
    0b00100,
    0b01110,
@@ -45,7 +45,7 @@ uint8_t humChar[8] = {
 };
 
 // Wind velocity icon
-uint8_t windChar[8] = {
+uint8_t windIconChar[8] = {
    0b00111,
    0b11100,
    0b00000,
@@ -57,10 +57,10 @@ uint8_t windChar[8] = {
 };
 
 enum{
-   TEMP_CHAR   = 0,
-   DEGREE_CHAR = 1,
-   HUM_CHAR    = 2,
-   WIND_CHAR   = 3,
+   TEMP_ICON_CHAR     = 0,
+   DEGREE_SYMBOL_CHAR = 1,
+   HUM_ICON_CHAR      = 2,
+   WIND_ICON_CHAR     = 3,
 };
 
 int main( void )
@@ -68,10 +68,10 @@ int main( void )
    boardInit();
    displayInit( DISPLAY_TYPE_LCD_HD44780, DISPLAY_CONNECTION_GPIO_4BITS );
    
-   displayCustomCharCreate( TEMP_CHAR, tempChar ); // Crear caracter en indice TEMP_CHAR=0, con bitmap tempChar
-   displayCustomCharCreate( DEGREE_CHAR, degreeChar );
-   displayCustomCharCreate( HUM_CHAR, humChar );
-   displayCustomCharCreate( WIND_CHAR, windChar );
+   displayCustomCharCreate( TEMP_ICON_CHAR, tempIconChar ); // Crear caracter en indice TEMP_CHAR=0, con bitmap tempChar
+   displayCustomCharCreate( DEGREE_SYMBOL_CHAR, degreeSymbolChar );
+   displayCustomCharCreate( HUM_ICON_CHAR, humIconChar );
+   displayCustomCharCreate( WIND_ICON_CHAR, windIconChar );
 
    char tempString[] = "25";
    char humString[]  = "50";
@@ -79,24 +79,28 @@ int main( void )
 
    while(1) {
 	  
-      displayCharPositionWrite( 0, 10 );
-      displayStringWrite( "Tmp" );
-      displayCustomCharWrite( TEMP_CHAR );
-      displayStringWrite( " Hum" );
-      displayCustomCharWrite( HUM_CHAR );
-      displayStringWrite( " Vie" );
-      displayCustomCharWrite( WIND_CHAR );
+      displayCharPositionWrite( 3, 1 );
 
-      displayCharPositionWrite( 0, 20 );
+      displayStringWrite( "Tmp" );
+      displayCustomCharWrite( TEMP_ICON_CHAR );
+
+      displayStringWrite( " Hum" );
+      displayCustomCharWrite( HUM_ICON_CHAR );
+
+      displayStringWrite( " Vie" );
+      displayCustomCharWrite( WIND_ICON_CHAR );
+
+      displayCharPositionWrite( 3, 2 );
+
       displayStringWrite( tempString );
-      displayCustomCharWrite( DEGREE_CHAR );
+      displayCustomCharWrite( DEGREE_SYMBOL_CHAR );
       displayStringWrite( "C" );
 
-      displayCharPositionWrite( 20, 20 );
+      displayCharPositionWrite( 8, 2 );
       displayStringWrite( humString );
       displayStringWrite( "%" );
 
-      displayCharPositionWrite( 40, 20 );
+      displayCharPositionWrite( 13, 2 );
       displayStringWrite( windString );
       displayStringWrite( "km/h" );
 
@@ -108,3 +112,12 @@ int main( void )
 
    return 0;
 }
+
+// ----------------------
+// "                    "
+// "   Tmp* Hum* Vie*   "
+// "   25*C 50%  10km/h "
+// "                    "
+// ----------------------
+
+// * means custom char
