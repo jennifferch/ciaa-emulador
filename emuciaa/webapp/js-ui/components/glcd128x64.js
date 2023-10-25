@@ -269,7 +269,7 @@ const SCREEN_PX_Y = Object.freeze(64);      // Definir la cantidad de pixeles de
     if (svgObject && svgObject.contentDocument && svgObject.contentDocument.rootElement) {
       this.svgDoc = svgObject.contentDocument;
       for (let i = 0; i < LINES; i++) {
-        for (let e = 0; e < CHARS_PER_LINE; e++) {
+        for (let e = 0; e < CHARS_PER_LINE; e++) {              
               var textId = `glcd_pixel_l${i}_c${e}`;
               var textSvg = this.svgDoc.getElementById(textId);
               if (textSvg) {
@@ -277,9 +277,18 @@ const SCREEN_PX_Y = Object.freeze(64);      // Definir la cantidad de pixeles de
               }
         }
       }
-    }else {
-      console.log("svg null");
-    } 
+
+      for( let y=0; y<=63; y++ ) {
+        for( let x=0; x<=127; x++ ) {
+            var rectId = `glcd_pixel_x${x}_y${y}`;
+            var rect = this.svgDoc.getElementById(rectId);
+            if (rect) {
+                rect.setAttribute('class', 'pixel_off');
+            }
+
+          }
+        }
+      }
   };
 
   exports.Glcd128x64 = Glcd128x64;
