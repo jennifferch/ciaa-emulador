@@ -85,6 +85,6 @@ void displayCustomCharCreate( uint8_t charIdx, uint8_t* bitmap ) // guarda un ma
 }
 void displayCustomCharWrite( uint8_t charIdx ) // Imprime el caracter personalizado 
 {
-
+   displayStringWrite( " " );
 }
 //=====[#include guards - end]=================================================
