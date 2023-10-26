@@ -24,4 +24,4 @@
 
 ### Acerca del emulador
 
-- [Arquitectura](documentation/architecture.md).
+- [Arquitectura](emuciaa/documentation/architecture.md).

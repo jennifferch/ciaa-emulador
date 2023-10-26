@@ -36,7 +36,7 @@
 
 #include "sapi_dht11.h"
 #include "../test/wrapper/sapi_dht11_wrapper.h"
-#include "sapi_delay.h"
+#include <stdio.h>
 /*==================[c++]====================================================*/
 
 void dht11Init(int32_t gpio){
