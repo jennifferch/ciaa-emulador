@@ -45,6 +45,7 @@
 #include <check.h>
 
 #include "dht11_api_mock.h"
+#include "sapi_delay_mock.h"
 #include "sapi_dht11.h"
 
 

@@ -36,8 +36,10 @@
 
 #ifdef TEST_BUILD
 #include "../test/mock/dht11_api_mock.h"
+#include "../test/mock/sapi_delay_mock.h"
 #else
 #include "dht11_api.h"
+#include "sapi_delay.h"
 #endif
 
 #endif // _SAPI_DHT11_WRAPPER_H_

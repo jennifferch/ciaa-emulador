@@ -36,7 +36,6 @@
 #ifndef _SAPI_DHT11_H_
 #define _SAPI_DHT11_H_
 
-#include "sapi_datatypes.h"
 #include "sapi_peripheral_map.h"
 
 /*==================[c]====================================================*/
