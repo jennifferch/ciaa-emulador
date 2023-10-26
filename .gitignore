@@ -64,7 +64,7 @@ out/
 emuciaa/node_modules/
 
 # C user program compilation output folders
-#emuciaa/outUser/
+emuciaa/outUser/
 
 # C lib compilation output files
 emuciaa/hal/cfiles.cache
