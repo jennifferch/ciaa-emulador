@@ -183,7 +183,7 @@
             }
              result += trimmedLine;
           }
-          return result.trimEnd(); 
+          return result; //result.trimEnd(); 
       };
   
       Lcd20x4.prototype.displayStringWrite = function(str) {
