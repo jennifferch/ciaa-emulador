@@ -1,3 +1,6 @@
+[![Build Status](https://app.travis-ci.com/jennifferch/ciaa-emulador.svg?branch=main)](https://app.travis-ci.com/github/jennifferch/ciaa-emulador) (Travis CI status)
+
+
 ## Emulador para la placa EDU-CIAA-NXP
 
 ### Prerequisites
