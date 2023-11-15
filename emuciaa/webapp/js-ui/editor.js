@@ -5,6 +5,10 @@ editor.getSession().setMode("ace/mode/c_cpp");
 var simulatorFrame = document.querySelector('#viewer iframe');
 var compilationFailed = document.querySelector('#compilation-failed');
 
+var spPrev = document.querySelector('#select-project');
+var selectedOptionPrev = spPrev.options[spPrev.selectedIndex];
+var demoPrev = selectedOptionPrev.getAttribute('name');
+
 if (document.location.hash) {
     if (document.location.hash.indexOf('#user') === 0) {
         var script = document.location.hash.substr(1);
@@ -74,34 +78,37 @@ document.querySelector('#select-project').onclick = function() {
     var sp = document.querySelector('#select-project');
     var selectedOption = sp.options[sp.selectedIndex]
     var demo = selectedOption.getAttribute('name');
-    var optgroup = selectedOption.closest('optgroup');
-    var optgroupLabel = (optgroup.getAttribute('label')).replace(/&nbsp;/g, '')
-                                                        .trim()                                
-                                                        .toLowerCase()                  
-                                                        .replace(/[\/\s]/g, '_'); 
-    switch (optgroupLabel) {
-        case 'adc':
-            var route =  'adc_dac/' + optgroupLabel;
-            optgroupLabel = route;
-          break;
-        case 'rtos_seos_pont':
-            var route =  'rtos_cooperative/' + 'seos_pont_2014';
-            optgroupLabel = route;
-          break;
-        case 'sensors':
-            var route =  'external_devices/' +  'temperture_humidity_sensor';
-            optgroupLabel = route;
-          break;
-        case 'displays':
-            var route =  'external_devices/' + optgroupLabel;
-            optgroupLabel = route;
-          break;
-        default:
-          console.log("Opción ya reconocida");
-          break;
-      }
+    if (demo !== demoPrev) {
+        demoPrev = demo;
+        var optgroup = selectedOption.closest('optgroup');
+        var optgroupLabel = (optgroup.getAttribute('label')).replace(/&nbsp;/g, '')
+                                                            .trim()                                
+                                                            .toLowerCase()                  
+                                                            .replace(/[\/\s]/g, '_'); 
+        switch (optgroupLabel) {
+            case 'adc':
+                var route =  'adc_dac/' + optgroupLabel;
+                optgroupLabel = route;
+            break;
+            case 'rtos_seos_pont':
+                var route =  'rtos_cooperative/' + 'seos_pont_2014';
+                optgroupLabel = route;
+            break;
+            case 'sensors':
+                var route =  'external_devices/' +  'temperture_humidity_sensor';
+                optgroupLabel = route;
+            break;
+            case 'displays':
+                var route =  'external_devices/' + optgroupLabel;
+                optgroupLabel = route;
+            break;
+            default:
+            console.log("Opción ya reconocida");
+            break;
+        }
 
-    load_example(demo, optgroupLabel);
+        load_example(demo, optgroupLabel);
+    }
 };
 
 document.querySelector('#load-new').onclick = function() {
